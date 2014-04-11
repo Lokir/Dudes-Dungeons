@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 49e3bded9066b9749a8decafbaf29501
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - SMTex: {fileID: 2800000, guid: 8d717965e241b6e449e5f1dfde3a4448, type: 3}
+  - chestTex: {fileID: 2800000, guid: 7127933771c8d9e4baaeeefe0186b4b6, type: 3}
+  - rightLeg: {fileID: 2800000, guid: d13839cb222e49c4297661d4f17867cb, type: 3}
+  - leftLeg: {fileID: 2800000, guid: 2493fbf44381bb94d8e28c3bbad80f87, type: 3}
+  - rightArm: {fileID: 2800000, guid: 2bedcfda71ad7824089ba84e0490e946, type: 3}
+  - leftArm: {fileID: 2800000, guid: d2c2600627e77f844bc62a87c65033b4, type: 3}
+  - helmet: {fileID: 2800000, guid: 951ada75e4ed12d4db81d1755fb76550, type: 3}
+  - helmet2: {instanceID: 0}
+  - Body1: {fileID: 400000, guid: e6c2013226a9f1a43a938b9a71f89e36, type: 2}
+  - Body2: {fileID: 400010, guid: 7310c4dd19c4db543ac21104f0839391, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
