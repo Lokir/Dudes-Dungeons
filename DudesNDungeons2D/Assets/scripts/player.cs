@@ -5,11 +5,11 @@ public class player : MonoBehaviour
 {
     public int pHp, pInte, pDex, pStr, pCharge, pDamage = 0; //current player stats
 	public int sHp, sInte, sDex, sStr, sCharge; // raw stats
-	public int HPCap;
-	bool canJump;
-	public bool left;
+	public int HPCap; // HP max
+	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
+	public bool left; // moving left.
 
-	public Body currBody = new Body();
+	public Body currBody = new Body(); // this body is the current body that we can load other bodies into.
 	// Use this for initialization
 	void Start () 
 	{
@@ -23,6 +23,7 @@ public class player : MonoBehaviour
 		pDamage = ((int)((pStr/100)*30))+1;
 		canJump = true;
 
+		// default Currbody Values.
 		currBody.name = "Default";
 		currBody.gHp = 90;
 		currBody.gInte = 10;
@@ -35,42 +36,42 @@ public class player : MonoBehaviour
 
 	}
 	// Update is called once per frame
-	public bool loadGear = true;
+	public bool loadGear = true; // if this is true then we load the gear.
 	void Update () 
 	{
-		if(transform.position.y < -3.6f)
+		if(transform.position.y < -3.6f) // again this system will be remade.
 		{
 			canJump = true;
 		}
-		if(loadGear == true)
+		if(loadGear == true)// load gear.
 		{
-			pHp = sHp + currBody.gHp;
+			pHp = sHp + currBody.gHp; // sHP is stat HP and gHP is Gear HP.
 			pInte = sInte + currBody.gInte;
 			pDex = sDex + currBody.gDex;
 			pStr = sStr + currBody.gStr;
 			pCharge = sCharge + currBody.gCharge;
-			pDamage = currBody.gDamage +((int)((pStr/100)*30));
+			pDamage = currBody.gDamage +((int)((pStr/100)*30)); // temporary system for calculating damage... Dam+ 30% of strength.
 			HPCap = sHp + currBody.gHp;
-			loadGear = false;
+			loadGear = false; // set to false so we don't continously load gear when it is unnecessary.
 		}
-		if(Input.GetKey(KeyCode.A))
+		if(Input.GetKey(KeyCode.A)) // if key A move left.
 		{
 			transform.position -= new Vector3(0.2f,0,0);
-			GetComponent<AnimHandler>().leftBool = true;
+			GetComponent<AnimHandler>().leftBool = true; // allow run of animation left.
 			left = true;
 		}
-		if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
+		if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) // if no movement in any direction, initiate idle.
 		{
 			GetComponent<AnimHandler>().idleBool = true;
 			left = false;
 		}
 
-		if(Input.GetKey(KeyCode.D))
+		if(Input.GetKey(KeyCode.D)) // move right.
 		{
 			transform.position += new Vector3(0.2f,0,0);
 			GetComponent<AnimHandler>().rightBool = true;
 		}
-		if(Input.GetKeyDown(KeyCode.W) && canJump == true)
+		if(Input.GetKeyDown(KeyCode.W) && canJump == true) // system to be remade (jump again)
 		{
 			rigidbody2D.AddForce(new Vector2 (0,450));
 			canJump = false;

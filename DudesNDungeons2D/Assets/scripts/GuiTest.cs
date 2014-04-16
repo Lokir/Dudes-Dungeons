@@ -1,66 +1,66 @@
 using UnityEngine;
 using System.Collections;
 
-public class GuiTest : MonoBehaviour 
+public class GuiTest : MonoBehaviour // This system handles the Interactive User Interface part
 {
 	Rect backpack = new Rect(20, 20, 350, 450); // create the window box for the backpack.
 	Rect equippedGear = new Rect(990, 20, 354, 440); // this is the box for the equipped box
-	Rect healthPot = new Rect(10,535,110,60);
+	Rect healthPot = new Rect(10,535,110,60); // create a box for the healthPot
 
 	GameObject PlayStat;
-	GameObject Gear;
 
 	int potionAmount = 7; // temporary potion counter.
-	string potAmountString = "";
+	string potAmountString = ""; // amount of potions in string.
 
-	public string stringHP = "HP: ";
+	public string stringHP = "HP: "; // these will display the player Stats in text boxes on screen.
 	public string stringStr = "Str: ";
 	public string stringDex = "Dex: ";
 	public string stringInt = "Int: ";
 	public string stringCharge = "Charge: ";
 	public string stringDam = "Damage: ";	
 	
-	public Texture Body1;
+	public Texture Body1; // These textures allow for visual confirmation of what body type the player is selecting.
 	public Texture Body2;
 	public Texture Body3;
 	public Texture Body4;
 
-	public Texture backpackSkin;
+	public Texture backpackSkin; // this is currently irrelevant.
 	public Texture potion;
 
-	public Texture mageTex;
+	public Texture mageTex; // these textures are ability textures.
 	public Texture bruteTex;
 	public Texture sneakyTex;
-	public Texture abilityTexture;
+	public Texture abilityTexture; // this one is the one continously loaded
 	public Texture defaultTex;
 
-	public Sprite playerSkin1;
+	public Sprite playerSkin1; // these are the visible sprites for when changing the body.
 	public Sprite playerSkin2;
 	public Sprite playerSkin3;
 	public Sprite playerSkin4;
 
-	Texture equippedBody1; // these are empty intances that will be swapped in and out to change equipment.
+	Texture equippedBody; // this is the empty intance that will be swapped in and out to change equipment.
 
 	bool visiGUI; // Boolean that allows for the Gui to be visible/active or not.
-					// Use this for initialization
-	void Start () 
+
+	void Start () // Use this for initialization
 	{
-		PlayStat = GameObject.FindGameObjectWithTag("Player");
-		Gear = GameObject.FindGameObjectWithTag("Player");
+		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
 
 	}
 	// Update is called once per frame
 	void Update () 
 	{
-		stringHP = "HP: "+PlayStat.GetComponent<player>().pHp;
+		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
+
+		stringHP = "HP: "+PlayStat.GetComponent<player>().pHp; // update displayed stats with current stats.
 		stringStr = "Str: "+PlayStat.GetComponent<player>().pStr;
 		stringDex = "Dex: "+PlayStat.GetComponent<player>().pDex;
 		stringInt = "Int: "+PlayStat.GetComponent<player>().pInte;
 		stringCharge = "Charge: "+PlayStat.GetComponent<player>().pCharge;
 		stringDam = "Damage: "+PlayStat.GetComponent<player>().pDamage;	
 
-		if(Input.GetKeyUp(KeyCode.I)) 					
+		if(Input.GetKeyUp(KeyCode.I)) 	// if I is pressed inverse the boolean controlling it, meaning if bool false become true and reverse.				
 		{
 			visiGUI = !visiGUI;
 		}
@@ -69,70 +69,70 @@ public class GuiTest : MonoBehaviour
 	{
 		if(visiGUI == true) //if true, run code, revealing the GUI.
 		{	// rect = GUI.Window(ID , Rect, RunFunction, applyTexture);
-			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); 
-			equippedGear = GUI.Window(1,equippedGear,doEquip, equippedBody1);
+			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin);  //load GUI window for Backpack
+			equippedGear = GUI.Window(1,equippedGear,doEquip, equippedBody); // load GUI window for the equipped body.
 
-			stringStr = GUI.TextField(new Rect(580, 90, 200, 20), stringStr, 25);
+			stringStr = GUI.TextField(new Rect(580, 90, 200, 20), stringStr, 25); // load player stats
 			stringDex = GUI.TextField(new Rect(580, 50, 200, 20), stringDex, 25);
 			stringInt = GUI.TextField(new Rect(580, 70, 200, 20), stringInt, 25);
 			stringDam = GUI.TextField(new Rect(580, 110, 200, 20), stringDam, 25);
 		}
-		stringHP = GUI.TextField(new Rect(580, 10, 200, 20), stringHP, 25);
+		stringHP = GUI.TextField(new Rect(580, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
 		stringCharge = GUI.TextField(new Rect(580, 30, 200, 20), stringCharge, 25);
 		healthPot = GUI.Window (2,healthPot, doHealth, potAmountString);
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
-	void DoBackPack(int windowID) 
+	void DoBackPack(int windowID) // this function handles backpack buttons
 	{
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
-		if (GUI.Button(new Rect(10, 10, 165, 215),Body1))
+		if (GUI.Button(new Rect(10, 10, 165, 215),Body1)) // button for loading Body 1 (default)
 		{
-			equippedBody1 = Body1; // swap buttons item into the equipped item.
-			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin1;
-			PlayStat.GetComponent<player>().currBody = Gear.GetComponent<GearHandler>().Bodies[0]; // default
-			PlayStat.GetComponent<player>().loadGear = true;
-			abilityTexture = defaultTex;
+			equippedBody = Body1; // swap button's body into the equipped body. 
+			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin1; // render the equipped body sprite.
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[0]; // load default stats into currBody.
+			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
+			abilityTexture = defaultTex; // load the relevant ability texture.
 
 		}
-		if (GUI.Button(new Rect(175, 10, 165, 215),Body2))
+		if (GUI.Button(new Rect(175, 10, 165, 215),Body2)) // same as first.
 		{
-			equippedBody1 = Body2; // swap buttons item into the equipped item.
+			equippedBody = Body2; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin2;
-			PlayStat.GetComponent<player>().currBody = Gear.GetComponent<GearHandler>().Bodies[1]; // brute
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[1]; // brute
 			PlayStat.GetComponent<player>().loadGear = true;
 			abilityTexture = bruteTex;
 		}
-		if (GUI.Button(new Rect(10, 225, 165, 215),Body3))
+		if (GUI.Button(new Rect(10, 225, 165, 215),Body3)) // same as first.
 		{
-			equippedBody1 = Body3; // swap buttons item into the equipped item.
+			equippedBody = Body3; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin3;
-			PlayStat.GetComponent<player>().currBody = Gear.GetComponent<GearHandler>().Bodies[2]; // sneaky
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[2]; // sneaky
 			PlayStat.GetComponent<player>().loadGear = true;
 			abilityTexture = sneakyTex;
 		}
-		if (GUI.Button(new Rect(175, 225, 165, 215),Body4))
+		if (GUI.Button(new Rect(175, 225, 165, 215),Body4)) // same as first.
 		{
-			equippedBody1 = Body4; // swap buttons item into the equipped item.
+			equippedBody = Body4; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin4;
-			PlayStat.GetComponent<player>().currBody = Gear.GetComponent<GearHandler>().Bodies[3]; //mage
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			abilityTexture = mageTex;
 		}
 
 	}
-	void doEquip(int windowID)
+	void doEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
 	{
 	}
-	void doHealth(int windowID)
+	void doHealth(int windowID) // this handles the potion GUI
 	{
 		if(GUI.Button (new Rect(10,10,40,40),potion) || Input.GetKeyDown(KeyCode.Q) && PlayStat.GetComponent<player>().pHp+50 <= PlayStat.GetComponent<player>().HPCap)
-		{
-			PlayStat.GetComponent<player>().pHp += 50;
-			potionAmount--;
+		{ // if button is pressed, or Q is the input. & player health + 50 does not go above max life.
+			PlayStat.GetComponent<player>().pHp += 50; // add 50 life.
+			potionAmount--; // deduct one potion.
 		}
-		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))
-		{
-			PlayStat.GetComponent<player>().pCharge += 10;
+		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E)) 
+		{ // if button is pressed or E is input
+			PlayStat.GetComponent<player>().pCharge += 10; // add 10 charge
 		}
 	}
 }

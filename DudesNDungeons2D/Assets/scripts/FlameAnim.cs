@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class FlameAnim : MonoBehaviour {
 
-	GameObject PlayStat;
+	GameObject player;
 
 	public Sprite fCone1;
 	public Sprite fCone2;
@@ -15,16 +15,16 @@ public class FlameAnim : MonoBehaviour {
 	public Sprite RfCone2;
 	public Sprite RfCone3;
 	public Sprite RfCone4;
-	public Sprite RfCone5;
-	public Sprite none;
+	public Sprite RfCone5; // these sprites load the images needed for the animation.
+	public Sprite none; // if not active make sure it is not visible.
 
-	public List<Sprite> ConeFire = new List<Sprite>();
+	public List<Sprite> ConeFire = new List<Sprite>(); // lists to contain the animations,
 	public List<Sprite> RConeFire = new List<Sprite>();
 	// Use this for initialization
 	void Start () {
-		PlayStat = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag("Player"); // find player.
 
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < 4; i++) // load in segments of the animation using all these SMALL for loops, only once.
 			ConeFire.Add (fCone1);
 		for(int i = 0; i < 4; i++)
 			ConeFire.Add (fCone2);
@@ -47,36 +47,36 @@ public class FlameAnim : MonoBehaviour {
 			RConeFire.Add (RfCone5);
 	}
 	// Update is called once per frame
-	int C = 0;
+	int C = 0; // C is used to control the animations.
 
 	void Update () 
 	{
-		if(PlayStat.GetComponent<player>().currBody.mageAbil == true)
+		if(player.GetComponent<player>().currBody.mageAbil == true) // if player is wearing a mage body (only one who can use this abil)
 		{
-			if(PlayStat.GetComponent<player>().left == true)
+			if(player.GetComponent<player>().left == true) // if player moving left
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x-2,PlayStat.transform.position.y,0);
+				transform.position = new Vector3(player.transform.position.x-2,player.transform.position.y,0); // move the animation left.
 			}
 			else 
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x+2,PlayStat.transform.position.y,0);
+				transform.position = new Vector3(player.transform.position.x+2,player.transform.position.y,0); // else move the animation right
 			}
 
-			if(Input.GetKeyUp (KeyCode.R))
+			if(Input.GetKeyUp (KeyCode.R)) // if no longer active make render into nothing and set C to 0.
 			{
 				GetComponent<SpriteRenderer>().sprite = none;
 				C = 0;
 			}
 
-			if(Input.GetKey (KeyCode.R))
+			if(Input.GetKey (KeyCode.R)) // if active, render animation.
 			{
-				if(PlayStat.GetComponent<player>().left == true)
+				if(player.GetComponent<player>().left == true) // if left, render inverse images in sequence.
 					GetComponent<SpriteRenderer>().sprite = RConeFire[C];
-				else
+				else // else render standard images.
 					GetComponent<SpriteRenderer>().sprite = ConeFire[C];
-					if(C >= 19)
+					if(C >= 19) // make sure list parameters aren't broken.
 						C=0;
-				C++;
+				C++; // advance one step.
 			}
 		}
 	}
