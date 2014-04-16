@@ -56,7 +56,7 @@ public class player : MonoBehaviour
 		}
 		if(Input.GetKey(KeyCode.A)) // if key A move left.
 		{
-			transform.position -= new Vector3(0.2f,0,0);
+			transform.position -= new Vector3(0.05f,0,0);
 			GetComponent<AnimHandler>().leftBool = true; // allow run of animation left.
 			left = true;
 		}
@@ -68,12 +68,12 @@ public class player : MonoBehaviour
 
 		if(Input.GetKey(KeyCode.D)) // move right.
 		{
-			transform.position += new Vector3(0.2f,0,0);
+			transform.position += new Vector3(0.05f,0,0);
 			GetComponent<AnimHandler>().rightBool = true;
 		}
 		if(Input.GetKeyDown(KeyCode.W) && canJump == true) // system to be remade (jump again)
 		{
-			rigidbody2D.AddForce(new Vector2 (0,450));
+			rigidbody2D.AddForce(new Vector2 (0,200));
 			canJump = false;
 		}
 	}

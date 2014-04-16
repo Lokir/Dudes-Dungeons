@@ -8,7 +8,7 @@ public class FollowPlayerAI : MonoBehaviour
 	Transform fPlayer;
 	Vector3 ePosition;
 	float eDistance;
-	float eSpeed = 0.05f;
+	float eSpeed = 0.04f;
 	
 	// Use this for initialization
 	void Start () 
@@ -24,12 +24,12 @@ public class FollowPlayerAI : MonoBehaviour
 		enemyAI();
 	}
 	void enemyAI(){
-		if(eDistance <= 10 && eDistance >= 1.5f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
+		if(eDistance <= 2 && eDistance >= 0.6f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
 												 //and stop if he comes to close to the player
 		{
 			enemyAIFollow();
 		}
-		else if(eDistance <= 1.5f) //If the enemy is close to the player he will call the attack function
+		else if(eDistance <= 0.3f) //If the enemy is close to the player he will call the attack function
 		{
 			enemyAIAttack();
 		}
