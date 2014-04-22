@@ -4,14 +4,9 @@ using System.Collections;
 public class GuiTest : MonoBehaviour // This system handles the Interactive User Interface part
 {
 	Rect backpack = new Rect(20, 20, 350, 450); // create the window box for the backpack.
-<<<<<<< HEAD
 	Rect equippedGear = new Rect(990, 20, 177, 220); // this is the box for the equipped box
 	Rect healthPot = new Rect(10,535,110,60);
 	Rect abilityArea = new Rect (990, 240, 177,220);
-=======
-	Rect equippedGear = new Rect(990, 20, 354, 440); // this is the box for the equipped box
-	Rect healthPot = new Rect(10,535,110,60); // create a box for the healthPot
->>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
 
 	GameObject PlayStat;
 
@@ -36,14 +31,12 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture mageTex; // these textures are ability textures.
 	public Texture bruteTex;
 	public Texture sneakyTex;
-<<<<<<< HEAD
-	public Texture abilityTexture;
+
+	public Texture abilityTexture; // this one is the one continously loaded
 	public Texture abilityTexture1;
 	public Texture abilityTexture2;
 	public Texture abilityTexture3;
-=======
-	public Texture abilityTexture; // this one is the one continously loaded
->>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
+
 	public Texture defaultTex;
 
 	public Sprite playerSkin1; // these are the visible sprites for when changing the body.
@@ -82,14 +75,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	{
 		if(visiGUI == true) //if true, run code, revealing the GUI.
 		{	// rect = GUI.Window(ID , Rect, RunFunction, applyTexture);
-<<<<<<< HEAD
-			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); 
-			equippedGear = GUI.Window(1,equippedGear,doEquip, equippedBody1);
-			abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
-=======
-			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin);  //load GUI window for Backpack
+			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); //load GUI window for Backpack
 			equippedGear = GUI.Window(1,equippedGear,doEquip, equippedBody); // load GUI window for the equipped body.
->>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
+			abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
 
 			stringStr = GUI.TextField(new Rect(580, 90, 200, 20), stringStr, 25); // load player stats
 			stringDex = GUI.TextField(new Rect(580, 50, 200, 20), stringDex, 25);
@@ -149,16 +137,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().pHp += 50; // add 50 life.
 			potionAmount--; // deduct one potion.
 		}
-<<<<<<< HEAD
 		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))
 		{
 			PlayStat.GetComponent<player>().currBody.ability();
 			PlayStat.GetComponent<player>().pCharge += 10;
-=======
-		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E)) 
-		{ // if button is pressed or E is input
-			PlayStat.GetComponent<player>().pCharge += 10; // add 10 charge
->>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
 		}
 
 	}

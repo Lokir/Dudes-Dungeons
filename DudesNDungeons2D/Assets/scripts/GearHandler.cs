@@ -2,20 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
-public class Body
-{	
-	//intended to be instantiated when loading into lists in some sort of main class, to make the actual bodypart objects.
-	public int gHp, gInte, gDex, gStr, gCharge;
-	public string name;
-	public bool mageAbil;
-=======
 public class Body // defines body as a class.
 {
 	public int gHp, gInte, gDex, gStr, gCharge; // BodyStats
 	public string name; // Label the body.
 	public bool mageAbil; // define ability.
->>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
 	public bool bruteAbil;
 	public bool sneakyAbil;
 	public int gDamage; // Body Bonus Damage
