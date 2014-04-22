@@ -3,16 +3,24 @@ guid: 49e3bded9066b9749a8decafbaf29501
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - SMTex: {fileID: 2800000, guid: 8d717965e241b6e449e5f1dfde3a4448, type: 3}
-  - chestTex: {fileID: 2800000, guid: 7127933771c8d9e4baaeeefe0186b4b6, type: 3}
-  - rightLeg: {fileID: 2800000, guid: d13839cb222e49c4297661d4f17867cb, type: 3}
-  - leftLeg: {fileID: 2800000, guid: 2493fbf44381bb94d8e28c3bbad80f87, type: 3}
-  - rightArm: {fileID: 2800000, guid: 2bedcfda71ad7824089ba84e0490e946, type: 3}
-  - leftArm: {fileID: 2800000, guid: d2c2600627e77f844bc62a87c65033b4, type: 3}
-  - helmet: {fileID: 2800000, guid: 951ada75e4ed12d4db81d1755fb76550, type: 3}
-  - helmet2: {instanceID: 0}
-  - Body1: {fileID: 400000, guid: e6c2013226a9f1a43a938b9a71f89e36, type: 2}
-  - Body2: {fileID: 400010, guid: 7310c4dd19c4db543ac21104f0839391, type: 2}
+  - Body1: {fileID: 2800000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
+  - Body2: {fileID: 2800000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
+  - Body3: {fileID: 2800000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
+  - Body4: {fileID: 2800000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
+  - backpackSkin: {instanceID: 0}
+  - potion: {fileID: 2800000, guid: 5e6fff3838777e743b1b2d9ed6fbd89c, type: 3}
+  - mageTex: {fileID: 2800000, guid: 2bcfb66c1e72bae4fa64689f033f22ec, type: 3}
+  - bruteTex: {fileID: 2800000, guid: 0fcb64399a66eb14d8ccf97878a331fe, type: 3}
+  - sneakyTex: {fileID: 2800000, guid: 9a0edb206e5fc9e499f49e2b313130e5, type: 3}
+  - abilityTexture: {instanceID: 0}
+  - abilityTexture1: {instanceID: 0}
+  - abilityTexture2: {instanceID: 0}
+  - abilityTexture3: {instanceID: 0}
+  - defaultTex: {fileID: 2800000, guid: d2385d4e4a0a285449a221dd8434d661, type: 3}
+  - playerSkin1: {fileID: 21300000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
+  - playerSkin2: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
+  - playerSkin3: {fileID: 21300000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
+  - playerSkin4: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

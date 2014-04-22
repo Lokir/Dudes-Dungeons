@@ -2,7 +2,18 @@ fileFormatVersion: 2
 guid: 5fd33585895421c41a412fd92e01a6ab
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fCone1: {fileID: 21300000, guid: fb22b3dfbd9f4474ebd7f068501d0985, type: 3}
+  - fCone2: {fileID: 21300000, guid: 7f35650e3d7285b44bccbd2716b5cc5b, type: 3}
+  - fCone3: {fileID: 21300000, guid: 9ccc4660ab331bc4383bacdb389e7ed1, type: 3}
+  - fCone4: {fileID: 21300000, guid: 3362dd5016edf7645af12347966352a6, type: 3}
+  - fCone5: {fileID: 21300000, guid: f1799ccdd32f98f42943b07ad6f31791, type: 3}
+  - RfCone1: {fileID: 21300000, guid: 4e60ecb9b72a0ff46bf912bec1ad6650, type: 3}
+  - RfCone2: {fileID: 21300000, guid: 6b08d876f4613244d809c70e1c010a16, type: 3}
+  - RfCone3: {fileID: 21300000, guid: 9a3e4bad701d60b4c9f9c6961cd49e6d, type: 3}
+  - RfCone4: {fileID: 21300000, guid: 50004ebef2787504a8840139ae705873, type: 3}
+  - RfCone5: {fileID: 21300000, guid: ba8e54b7e90a8dc41937f8f8660a1229, type: 3}
+  - none: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

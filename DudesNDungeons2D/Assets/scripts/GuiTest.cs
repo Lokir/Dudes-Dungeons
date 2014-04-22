@@ -4,8 +4,9 @@ using System.Collections;
 public class GuiTest : MonoBehaviour 
 {
 	Rect backpack = new Rect(20, 20, 350, 450); // create the window box for the backpack.
-	Rect equippedGear = new Rect(990, 20, 354, 440); // this is the box for the equipped box
+	Rect equippedGear = new Rect(990, 20, 177, 220); // this is the box for the equipped box
 	Rect healthPot = new Rect(10,535,110,60);
+	Rect abilityArea = new Rect (990, 240, 177,220);
 
 	GameObject PlayStat;
 	GameObject Gear;
@@ -32,6 +33,9 @@ public class GuiTest : MonoBehaviour
 	public Texture bruteTex;
 	public Texture sneakyTex;
 	public Texture abilityTexture;
+	public Texture abilityTexture1;
+	public Texture abilityTexture2;
+	public Texture abilityTexture3;
 	public Texture defaultTex;
 
 	public Sprite playerSkin1;
@@ -71,6 +75,7 @@ public class GuiTest : MonoBehaviour
 		{	// rect = GUI.Window(ID , Rect, RunFunction, applyTexture);
 			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); 
 			equippedGear = GUI.Window(1,equippedGear,doEquip, equippedBody1);
+			abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
 
 			stringStr = GUI.TextField(new Rect(580, 90, 200, 20), stringStr, 25);
 			stringDex = GUI.TextField(new Rect(580, 50, 200, 20), stringDex, 25);
@@ -132,7 +137,30 @@ public class GuiTest : MonoBehaviour
 		}
 		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))
 		{
+			PlayStat.GetComponent<player>().currBody.ability();
 			PlayStat.GetComponent<player>().pCharge += 10;
+		}
+
+	}
+	void doAbility(int windowID)
+	{
+		if(GUI.Button (new Rect(10,10,159,59),abilityTexture1))
+		{
+			abilityTexture1 = abilityTexture;
+			PlayStat.GetComponent<player>().pCharge += 10;
+			Debug.Log ("PlayerAbil1");
+		}
+		if(GUI.Button (new Rect(10,79,159,59),abilityTexture2))
+		{
+			abilityTexture2 = abilityTexture;
+			PlayStat.GetComponent<player>().pCharge += 10;
+			Debug.Log ("PlayerAbil2");
+		}
+		if(GUI.Button (new Rect(10,148,159,59),abilityTexture3))
+		{
+			abilityTexture3 = abilityTexture;
+			PlayStat.GetComponent<player>().pCharge += 10;
+			Debug.Log ("PlayerAbil3");
 		}
 	}
 }

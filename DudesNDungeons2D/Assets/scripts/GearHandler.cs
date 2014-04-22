@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Body
-{
-	
+{	
 	//intended to be instantiated when loading into lists in some sort of main class, to make the actual bodypart objects.
 	public int gHp, gInte, gDex, gStr, gCharge;
 	public string name;
@@ -14,17 +13,17 @@ public class Body
 	public int gDamage;
 	public Sprite skin;
 
-	void Ability()//not finished!
+	public void ability()//not finished! Call this function when you want to activate abilities.
 	{
-		if(bruteAbil == true)
+		if(bruteAbil == true) // program the brute ability in here...
 		{
 			Debug.Log ("Brute Ability Activated");
 		}
-		else if(sneakyAbil == true)
+		else if(sneakyAbil == true) // program the sneaky ability in here...
 		{
 			Debug.Log ("Sneaky Ability Activated");
 		}
-		else if(mageAbil == true)
+		else if(mageAbil == true) // program the mage ability in here...
 		{
 			Debug.Log ("Mage Ability Activated");
 		}
@@ -33,7 +32,6 @@ public class Body
 			Debug.Log("No Ability Assigned");
 		}
 	}
-
 }
 
 public class GearHandler : MonoBehaviour

@@ -2,7 +2,28 @@ fileFormatVersion: 2
 guid: 0e270aad536335242ad3d97b4971a272
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SCone1: {fileID: 21300000, guid: 9e6142cfc75a6e44194e9189cd34b63d, type: 3}
+  - SCone2: {fileID: 21300000, guid: 189724b64f642f842bbc7421a39011d4, type: 3}
+  - SCone3: {fileID: 21300000, guid: c1da2f7fd6241634cb256a83df6b7304, type: 3}
+  - SCone4: {fileID: 21300000, guid: 4e945dfc9f606244886de16b7f5812dc, type: 3}
+  - SCone5: {fileID: 21300000, guid: 3b76b0a9878b77246818c9d701b0605e, type: 3}
+  - SCone6: {fileID: 21300000, guid: a5f2378dbcfcf4445b35d4a16ba9d722, type: 3}
+  - SCone7: {fileID: 21300000, guid: 90e2532eef0689043b28a15752081e69, type: 3}
+  - SCone8: {fileID: 21300000, guid: 61e9f8b4c3269c34d86e89ca081cfdfc, type: 3}
+  - SCone9: {fileID: 21300000, guid: 875a11184f4fe6343a75b65132534bf3, type: 3}
+  - SCone10: {fileID: 21300000, guid: ba2d5a649ef473741bf5ed6a68b85b35, type: 3}
+  - RSCone1: {fileID: 21300000, guid: f17b5431a184cef44bdb3ae03363b23b, type: 3}
+  - RSCone2: {fileID: 21300000, guid: 90f7b26151c16484389c6abf9c19c482, type: 3}
+  - RSCone3: {fileID: 21300000, guid: 310513d8f84bdab49a2bff63252374e6, type: 3}
+  - RSCone4: {fileID: 21300000, guid: d0357bffc09ae3d4ea958a94a46068d1, type: 3}
+  - RSCone5: {fileID: 21300000, guid: 77c123c1fad9299478291749422eb1f2, type: 3}
+  - RSCone6: {fileID: 21300000, guid: 52a2f54c128645b4e957f4459a13394b, type: 3}
+  - RSCone7: {fileID: 21300000, guid: 81195db542caa4545a0b27a2c95c8acb, type: 3}
+  - RSCone8: {fileID: 21300000, guid: 3aec7a1bbde2ee8438856fde33b4e3a7, type: 3}
+  - RSCone9: {fileID: 21300000, guid: aa026799db1b51b40a2f9382ab108dab, type: 3}
+  - RSCone10: {fileID: 21300000, guid: bc71142aa8b01c34c82c6ab63b715fa0, type: 3}
+  - none: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
