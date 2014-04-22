@@ -2,16 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
+<<<<<<< HEAD
 public class Body
 {	
 	//intended to be instantiated when loading into lists in some sort of main class, to make the actual bodypart objects.
 	public int gHp, gInte, gDex, gStr, gCharge;
 	public string name;
 	public bool mageAbil;
+=======
+public class Body // defines body as a class.
+{
+	public int gHp, gInte, gDex, gStr, gCharge; // BodyStats
+	public string name; // Label the body.
+	public bool mageAbil; // define ability.
+>>>>>>> 721607bcbb5b6e4e1b84fe179690b0758afec5ff
 	public bool bruteAbil;
 	public bool sneakyAbil;
-	public int gDamage;
-	public Sprite skin;
+	public int gDamage; // Body Bonus Damage
 
 	public void ability()//not finished! Call this function when you want to activate abilities.
 	{
@@ -37,11 +44,12 @@ public class Body
 public class GearHandler : MonoBehaviour
 {
 
-    public List<Body> Bodies = new List<Body>();
+    public List<Body> Bodies = new List<Body>(); // make a list of bodies to be collected and loaded everywhere in code (this will contain all bodies implemented in the game.)
 
 	// Use this for initialization
 	void Start () 
 	{
+		//Define some bodies.
         Body bruteBody = new Body();
 		bruteBody.name = "Brute";
 		bruteBody.gHp = 100;
@@ -86,6 +94,7 @@ public class GearHandler : MonoBehaviour
 		defBody.sneakyAbil = false;
 		defBody.bruteAbil = false;
 
+		// Add bodies into the list.
 		Bodies.Add (defBody);
 		Bodies.Add (bruteBody);
 		Bodies.Add (sneakyBody);

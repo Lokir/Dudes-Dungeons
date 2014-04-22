@@ -6,7 +6,7 @@ public class Stab : MonoBehaviour {
 	
 	GameObject PlayStat;
 	
-	public Sprite SCone1;
+	public Sprite SCone1; // Stab animation
 	public Sprite SCone2;
 	public Sprite SCone3;
 	public Sprite SCone4;
@@ -17,7 +17,7 @@ public class Stab : MonoBehaviour {
 	public Sprite SCone9;
 	public Sprite SCone10;
 
-	public Sprite RSCone1;
+	public Sprite RSCone1; // reverse Stab Animation.
 	public Sprite RSCone2;
 	public Sprite RSCone3;
 	public Sprite RSCone4;
@@ -28,17 +28,17 @@ public class Stab : MonoBehaviour {
 	public Sprite RSCone9;
 	public Sprite RSCone10;
 
-	public Sprite none;
+	public Sprite none; // no image.
 	
-	public bool left;
+	public bool left; // moving left.
 	
-	public List<Sprite> ConeStab = new List<Sprite>();
-	public List<Sprite> RConeStab = new List<Sprite>();
+	public List<Sprite> ConeStab = new List<Sprite>(); // lists to load all the images.
+	public List<Sprite> RConeStab = new List<Sprite>(); // list to load all inversed images.
 	// Use this for initialization
 	void Start () {
-		PlayStat = GameObject.FindGameObjectWithTag("Player");
+		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < 4; i++) // load in needed data. for loops only run once.
 		{
 			ConeStab.Add (SCone1);
 			RConeStab.Add (RSCone1);
@@ -92,35 +92,35 @@ public class Stab : MonoBehaviour {
 			
 	}
 	// Update is called once per frame
-	int C = 0;
+	int C = 0; // variable to determine position in list.
 	
 	void Update () 
 	{
-		if(PlayStat.GetComponent<player>().currBody.sneakyAbil == true)
+		if(PlayStat.GetComponent<player>().currBody.sneakyAbil == true) // if sneaky Body is equipped (only one who can use this abil)
 		{
-			if(PlayStat.GetComponent<player>().left == true)
+			if(PlayStat.GetComponent<player>().left == true) // if moving left
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x-2,PlayStat.transform.position.y,0);
+				transform.position = new Vector3(PlayStat.transform.position.x-2,PlayStat.transform.position.y,0); // move left.
 			}
 			else 
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x+2,PlayStat.transform.position.y,0);
+				transform.position = new Vector3(PlayStat.transform.position.x+2,PlayStat.transform.position.y,0); // else move right.
 			}
 			
-			if(Input.GetKeyUp (KeyCode.R))
+			if(Input.GetKeyUp (KeyCode.R)) // if inactive load no image.
 			{
 				GetComponent<SpriteRenderer>().sprite = none;
-				C = 0;
+				C = 0; // reset animation.
 			}
 			
-			if(Input.GetKey (KeyCode.R))
+			if(Input.GetKey (KeyCode.R)) // if active load animation.
 			{
-				if(PlayStat.GetComponent<player>().left == true)
+				if(PlayStat.GetComponent<player>().left == true) // moving left laod inverse.
 					GetComponent<SpriteRenderer>().sprite = RConeStab[C];
 				else
-					GetComponent<SpriteRenderer>().sprite = ConeStab[C];
-				if(C >= 19)
-					C=0;
+					GetComponent<SpriteRenderer>().sprite = ConeStab[C]; // moving right, load standard.
+				if(C >= 19) // make sure list parameters are not broken.
+					C=0; // reset C
 				C++;
 			}
 		}
