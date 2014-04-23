@@ -48,6 +48,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
 
+
 	}
 	// Update is called once per frame
 	void Update () 
