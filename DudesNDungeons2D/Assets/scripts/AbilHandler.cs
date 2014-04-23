@@ -41,7 +41,7 @@ public class AbilHandler : MonoBehaviour
 	public void teleport()
 	{
 		mousePos = Input.mousePosition;
-		wantedPos = Camera.main.ScreenToWorldPoint (new Vector3 (mousePos.x, mousePos.y, 0));
+		wantedPos = Camera.main.ScreenToWorldPoint (new Vector3 (mousePos.x, mousePos.y, 3.54f));
 		transform.position = wantedPos;
 		canTeleport = false;
 		StartCoroutine("teleportCooldown");

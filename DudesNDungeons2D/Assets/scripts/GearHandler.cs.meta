@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 1de35c3bd8b242e4baa5da07d9fe5eda
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - brute: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
+  - sneaky: {fileID: 21300000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
+  - mage: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
+  - myDefault: {fileID: 21300000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
