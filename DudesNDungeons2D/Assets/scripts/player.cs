@@ -8,6 +8,7 @@ public class player : MonoBehaviour
 	public int HPCap; // HP max
 	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
 	public bool left; // moving left.
+	public float dodge, crit, skillBon;
 
 	public Body currBody = new Body(); // this body is the current body that we can load other bodies into.
 	// Use this for initialization
@@ -15,24 +16,15 @@ public class player : MonoBehaviour
 	{
 		// default stat Values
 		pHp = sHp = 30;
-		pInte = sInte = 5;
-		pDex = sDex = 5;
-		pStr = sStr = 5;
-		pCharge = sCharge = 20;
+		pInte = sInte = 10;
+		pDex = sDex = 10;
+		pStr = sStr = 10;
+		pCharge = sCharge = 100;
 		HPCap = pHp;
-		pDamage = ((int)((pStr/100)*30))+1;
+		pDamage = 0;
 		canJump = true;
 
 		// default Currbody Values.
-		currBody.name = "Default";
-		currBody.gHp = 90;
-		currBody.gInte = 10;
-		currBody.gDex = 10;
-		currBody.gStr = 10;
-		currBody.gDamage = currBody.gStr + 5;
-		currBody.mageAbil = false;
-		currBody.sneakyAbil = false;
-		currBody.bruteAbil = false;
 
 	}
 	// Update is called once per frame
@@ -50,9 +42,17 @@ public class player : MonoBehaviour
 			pDex = sDex + currBody.gDex;
 			pStr = sStr + currBody.gStr;
 			pCharge = sCharge + currBody.gCharge;
-			pDamage = currBody.gDamage +((int)((pStr/100)*30)); // temporary system for calculating damage... Dam+ 30% of strength.
+			pDamage = currBody.gDamage; // temporary system for calculating damage... Dam+ 30% of strength.
 			HPCap = sHp + currBody.gHp;
 			loadGear = false; // set to false so we don't continously load gear when it is unnecessary.
+
+			dodge = (float)pDex;
+			crit = (float)(pDex/2);
+			skillBon = (float)(pInte/2);
+			pCharge += ((int)(pInte/3))+1;
+			pDamage += ((int)(pStr*0.33))+1;
+			pHp += ((int)(pStr*0.2))+1;
+			HPCap = pHp;
 		}
 		if(Input.GetKey(KeyCode.A)) // if key A move left.
 		{
