@@ -10,33 +10,17 @@ public class Body // defines body as a class.
 	public bool bruteAbil;
 	public bool sneakyAbil;
 	public int gDamage; // Body Bonus Damage
-
-	public void ability()//not finished! Call this function when you want to activate abilities.
-	{
-		if(bruteAbil == true) // program the brute ability in here...
-		{
-			Debug.Log ("Brute Ability Activated");
-		}
-		else if(sneakyAbil == true) // program the sneaky ability in here...
-		{
-			Debug.Log ("Sneaky Ability Activated");
-		}
-		else if(mageAbil == true) // program the mage ability in here...
-		{
-			Debug.Log ("Mage Ability Activated");
-		}
-		else
-		{
-			Debug.Log("No Ability Assigned");
-		}
-	}
+	public Sprite skin;
 }
 
 public class GearHandler : MonoBehaviour
 {
 
     public List<Body> Bodies = new List<Body>(); // make a list of bodies to be collected and loaded everywhere in code (this will contain all bodies implemented in the game.)
-
+	public Sprite brute;
+	public Sprite sneaky;
+	public Sprite mage;
+	public Sprite myDefault;
 	// Use this for initialization
 	void Start () 
 	{
@@ -51,6 +35,7 @@ public class GearHandler : MonoBehaviour
 		bruteBody.bruteAbil = true;
 		bruteBody.sneakyAbil = false;
 		bruteBody.mageAbil = false;
+		bruteBody.skin = brute;
 
         Body sneakyBody = new Body();
 		sneakyBody.name = "sneaky";
@@ -62,6 +47,7 @@ public class GearHandler : MonoBehaviour
         sneakyBody.sneakyAbil = true;
 		sneakyBody.bruteAbil = false;
 		sneakyBody.mageAbil = false;
+		sneakyBody.skin = sneaky;
 
         Body mageBody = new Body();
 		mageBody.name = "Magus";
@@ -73,6 +59,7 @@ public class GearHandler : MonoBehaviour
         mageBody.mageAbil = true;
 		mageBody.sneakyAbil = false;
 		mageBody.bruteAbil = false;
+		mageBody.skin = mage;
 
 		Body defBody = new Body();
 		defBody.name = "Default";
@@ -84,6 +71,7 @@ public class GearHandler : MonoBehaviour
 		defBody.mageAbil = false;
 		defBody.sneakyAbil = false;
 		defBody.bruteAbil = false;
+		defBody.skin = myDefault;
 
 		// Add bodies into the list.
 		Bodies.Add (defBody);

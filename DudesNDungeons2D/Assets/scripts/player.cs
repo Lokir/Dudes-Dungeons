@@ -77,4 +77,5 @@ public class player : MonoBehaviour
 			canJump = false;
 		}
 	}
+
 }

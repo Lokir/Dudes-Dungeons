@@ -39,11 +39,6 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	public Texture defaultTex;
 
-	public Sprite playerSkin1; // these are the visible sprites for when changing the body.
-	public Sprite playerSkin2;
-	public Sprite playerSkin3;
-	public Sprite playerSkin4;
-
 	Texture equippedBody; // this is the empty intance that will be swapped in and out to change equipment.
 
 	bool visiGUI; // Boolean that allows for the Gui to be visible/active or not.
@@ -94,35 +89,35 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(new Rect(10, 10, 165, 215),Body1)) // button for loading Body 1 (default)
 		{
-			equippedBody = Body1; // swap button's body into the equipped body. 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin1; // render the equipped body sprite.
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[0]; // load default stats into currBody.
 			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
+			equippedBody = Body1; // swap button's body into the equipped body. 
+			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
 			abilityTexture = defaultTex; // load the relevant ability texture.
 
 		}
 		if (GUI.Button(new Rect(175, 10, 165, 215),Body2)) // same as first.
 		{
-			equippedBody = Body2; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin2;
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[1]; // brute
 			PlayStat.GetComponent<player>().loadGear = true;
+			equippedBody = Body2;
+			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = bruteTex;
 		}
 		if (GUI.Button(new Rect(10, 225, 165, 215),Body3)) // same as first.
 		{
-			equippedBody = Body3; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin3;
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[2]; // sneaky
 			PlayStat.GetComponent<player>().loadGear = true;
+			equippedBody = Body3;
+			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = sneakyTex;
 		}
 		if (GUI.Button(new Rect(175, 225, 165, 215),Body4)) // same as first.
 		{
-			equippedBody = Body4; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = playerSkin4;
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Bodies[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
+			equippedBody = Body4; 
+			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
 
@@ -139,7 +134,6 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))
 		{
-			PlayStat.GetComponent<player>().currBody.ability();
 			PlayStat.GetComponent<player>().pCharge += 10;
 		}
 
