@@ -29,14 +29,14 @@ public class AbilHandler : MonoBehaviour
 	void Update () 
 	{
 
-		if(Input.GetMouseButtonDown(0) && canTeleport == true)
+		/*if(Input.GetMouseButtonDown(0) && canTeleport == true)
 		{
 			teleport ();
 		}
 		if(Input.GetMouseButtonDown (1) && canRage == true)
 		{
 			rage ();
-		}
+		}*/
 	}
 	public void teleport()
 	{

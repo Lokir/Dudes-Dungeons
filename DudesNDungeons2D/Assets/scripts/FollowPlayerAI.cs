@@ -24,7 +24,7 @@ public class FollowPlayerAI : MonoBehaviour
 		enemyAI();
 	}
 	void enemyAI(){
-		if(eDistance <= 2 && eDistance >= 0.6f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
+		if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
 												 //and stop if he comes to close to the player
 		{
 			enemyAIFollow();
@@ -49,7 +49,7 @@ public class FollowPlayerAI : MonoBehaviour
 	}
 	void enemyAIAttack()
 	{
-		Debug.Log ("ATTACK!");
+		//Debug.Log ("ATTACK!");
 	}
 	void returnToStart()
 	{

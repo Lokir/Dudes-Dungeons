@@ -3,6 +3,8 @@ guid: e7baae500aef1b340857932fb9c9cd42
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
+  - attack1: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
+  - attack2: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
   - walk1: {fileID: 21300000, guid: 21b0a26c7c5c19445b3a389892bec1c5, type: 3}
   - walk2: {fileID: 21300000, guid: 65b9ae1734865fe469873003a34c2b1e, type: 3}
   - walk1R: {fileID: 21300000, guid: 28e7ffce49d60bc4cab0d594207afff5, type: 3}
