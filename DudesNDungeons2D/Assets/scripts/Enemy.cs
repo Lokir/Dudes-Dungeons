@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public int eHp, eInte, eDex, eStr, eDamage = 0; //current player stats
+	public int eHp, eInte, eDex, eStr, eDamage = 0; //current enemy stats
 	public int HPCap; // HP max
 	public bool eLeft; // moving left.
 	public float dodge, crit;
@@ -24,8 +24,6 @@ public class Enemy : MonoBehaviour {
 
 		// default Currbody Values.
 		gear = GameObject.FindGameObjectWithTag("Player");
-
-
 	}
 	// Update is called once per frame
 	public bool loadEGear = false; // if this is true then we load the gear.
