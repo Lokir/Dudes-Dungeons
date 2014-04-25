@@ -80,15 +80,15 @@ public class AnimHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		for(int i = 0; i<6; i++)
+		for(int i = 0; i<7; i++)
 		{
-			defAtkList.Add(walk1);
+			defAtkList.Add(bruteWalk1);
 		}
-		for(int i = 0; i<8; i++)
+		for(int i = 0; i<7; i++)
 		{
 			defAtkList.Add(defAttack1);
 		}
-		for(int i = 0; i<6; i++)
+		for(int i = 0; i<7; i++)
 		{
 			defAtkList.Add(defAttack2);
 		}
@@ -97,7 +97,7 @@ public class AnimHandler : MonoBehaviour {
 			defAtkList.Add(defAttack3);
 		}
 		defAtkList.Add(idle);
-		defAtkList.Add(idle);
+		//defAtkList.Add(idle);
 
 		for(int i = 0; i < 6; i++) // Load in 8 of each sprite to correspondent lists
 		{
