@@ -23,6 +23,15 @@ public class AnimHandler : MonoBehaviour {
 	public List<Sprite> defAtkList = new List<Sprite>();
 	public List<Sprite> defAtkListR = new List<Sprite>();
 
+	public List<Sprite> bruteAtkList = new List<Sprite>();
+	public List<Sprite> bruteAtkListR = new List<Sprite>();
+
+	public List<Sprite> sneakyAtkList = new List<Sprite>();
+	public List<Sprite> sneakyAtkListR = new List<Sprite>();
+
+	public List<Sprite> mageAtkList = new List<Sprite>();
+	public List<Sprite> mageAtkListR = new List<Sprite>();
+
 	public bool rightBool; // These bools help define what animation to start.
 	public bool leftBool;
 	public bool attackBool;
@@ -30,7 +39,27 @@ public class AnimHandler : MonoBehaviour {
 
 	public Sprite defAttack1;
 	public Sprite defAttack2;
-	public Sprite defAttack3;
+	public Sprite defAttack1R;
+	public Sprite defAttack2R;
+
+	public Sprite bruteAttack1;
+	public Sprite bruteAttack2;
+	public Sprite bruteAttack3;
+	public Sprite bruteAttack1R;
+	public Sprite bruteAttack2R;
+	public Sprite bruteAttack3R;
+
+	public Sprite sneakyAttack1;
+	public Sprite sneakyAttack2;
+	public Sprite sneakyAttack1R;
+	public Sprite sneakyAttack2R;
+
+	public Sprite mageAttack1;
+	public Sprite mageAttack2;
+	public Sprite mageAttack3;
+	public Sprite mageAttack1R;
+	public Sprite mageAttack2R;
+	public Sprite mageAttack3R;
 
 	public Sprite walk1; // Default Animations
 	public Sprite walk2;
@@ -83,10 +112,14 @@ public class AnimHandler : MonoBehaviour {
 		leftBool = false;
 		attackBool = false;
 
-
+		//Default attack animation to the right
 		for(int i = 0; i<7; i++)
 		{
-			defAtkList.Add(bruteWalk1);
+			defAtkList.Add(defAttack1);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			defAtkList.Add(defAttack2);
 		}
 		for(int i = 0; i<7; i++)
 		{
@@ -96,11 +129,124 @@ public class AnimHandler : MonoBehaviour {
 		{
 			defAtkList.Add(defAttack2);
 		}
-		for(int i = 0; i<8; i++)
-		{
-			defAtkList.Add(defAttack3);
-		}
 		defAtkList.Add (walk1);
+		defAtkList.Add (walk1);
+
+		//Default attack animation to the left
+		for(int i = 0; i<7; i++)
+		{
+			defAtkListR.Add(defAttack1R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			defAtkListR.Add(defAttack2R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			defAtkListR.Add(defAttack1R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			defAtkListR.Add(defAttack2R);
+		}
+		defAtkListR.Add (walk1);
+		defAtkListR.Add (walk1);
+
+		//Brute attack animation to the right
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkList.Add (bruteAttack1);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkList.Add (bruteAttack2);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkList.Add (bruteAttack3);
+		}
+
+		//Brute attack animation to the left
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkListR.Add (bruteAttack1R);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkListR.Add (bruteAttack2R);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			bruteAtkListR.Add (bruteAttack3R);
+		}
+
+		//Sneaky attack animation to the right - double stab
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkList.Add (sneakyAttack1);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkList.Add (sneakyAttack2);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkList.Add (sneakyAttack1);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkList.Add (sneakyAttack2);
+		}
+		sneakyAtkList.Add (sneakyWalk1);
+		sneakyAtkList.Add (sneakyWalk1);
+
+		//Sneaky attack animation to the left - double stab
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkListR.Add (sneakyAttack1R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkListR.Add (sneakyAttack2R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkListR.Add (sneakyAttack1R);
+		}
+		for(int i = 0; i<7; i++)
+		{
+			sneakyAtkListR.Add (sneakyAttack2R);
+		}
+		sneakyAtkListR.Add (sneakyWalk1R);
+		sneakyAtkListR.Add (sneakyWalk1R);
+
+		//Mage attack animation to the right
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkList.Add (mageAttack1);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkList.Add (mageAttack2);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkList.Add (mageAttack3);
+		}
+
+		//Mage attack animation to the left
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkListR.Add (mageAttack1R);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkListR.Add (mageAttack2R);
+		}
+		for(int i = 0; i<10; i++)
+		{
+			mageAtkListR.Add (mageAttack3R);
+		}
 
 		for(int i = 0; i < 6; i++) // Load in 8 of each sprite to correspondent lists
 		{
@@ -184,16 +330,31 @@ public class AnimHandler : MonoBehaviour {
 		{
 			if(leftAttackBool == true)
 			{
+				//Attack to the left animations for the specific body
 				if(GetComponent<player>().currBody.name == "Default")
 				{
 					Debug.Log ("Attacking Left");
-					//GetComponent<SpriteRenderer>().sprite = defAtkListR[q];
+					GetComponent<SpriteRenderer>().sprite = defAtkListR[q];
 				}
+				if(GetComponent<player>().currBody.name == "Brute")
+					GetComponent<SpriteRenderer>().sprite = bruteAtkListR[q];
+				if(GetComponent<player>().currBody.name == "Sneaky")
+					GetComponent<SpriteRenderer>().sprite = sneakyAtkListR[q];
+				if(GetComponent<player>().currBody.name == "Magus")
+					GetComponent<SpriteRenderer>().sprite = mageAtkListR[q];
+
 			}
 			if(leftAttackBool == false)
 			{
+				//Attack to the right animations for the specific body
 				if(GetComponent<player>().currBody.name == "Default")
 					GetComponent<SpriteRenderer>().sprite = defAtkList[q];
+				if(GetComponent<player>().currBody.name == "Brute")
+					GetComponent<SpriteRenderer>().sprite = bruteAtkList[q];
+				if(GetComponent<player>().currBody.name == "Sneaky")
+					GetComponent<SpriteRenderer>().sprite = sneakyAtkList[q];
+				if(GetComponent<player>().currBody.name == "Magus")
+					GetComponent<SpriteRenderer>().sprite = mageAtkList[q];
 			}
 		}
 		if(rightBool == true && attackBool != true) // if true look for current body var in player.cs and run the appropriate animation.
