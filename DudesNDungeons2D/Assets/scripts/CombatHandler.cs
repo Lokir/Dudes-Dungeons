@@ -61,7 +61,10 @@ public class CombatHandler : MonoBehaviour {
 		Debug.Log ("Enemy HP in function: "+eToAttack.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
 		eToAttack.GetComponent<Enemy>().eCurrBody.name = "Strudel";
 		if(eToAttack.GetComponent<Enemy>().eHp <= 0)
+		{
+			player.GetComponent<LootHandler>().lootBody(eToAttack);
 			Destroy (eToAttack);
+		}
 	}
 	IEnumerator attackCooldown()
 	{

@@ -17,6 +17,7 @@ public class GearHandler : MonoBehaviour
 {
 
     public List<Body> Bodies = new List<Body>(); // make a list of bodies to be collected and loaded everywhere in code (this will contain all bodies implemented in the game.)
+	public List<Body> Backpack = new List<Body>();
 	public Sprite brute;
 	public Sprite sneaky;
 	public Sprite mage;
@@ -90,5 +91,6 @@ public class GearHandler : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
 	}
 }
