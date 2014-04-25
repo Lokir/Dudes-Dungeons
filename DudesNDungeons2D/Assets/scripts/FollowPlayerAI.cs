@@ -3,7 +3,6 @@ using System.Collections;
 
 public class FollowPlayerAI : MonoBehaviour 
 {
-	//Lalala
 	//Variables for the enemy detecting the player
 	Transform fPlayer;
 	Vector3 ePosition;
@@ -42,10 +41,12 @@ public class FollowPlayerAI : MonoBehaviour
 	void enemyAIFollow()
 	{
 		if(fPlayer.position.x < transform.position.x) //these two if-statements are to see if the player is either on one site or the other
-			transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction
+			transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction - left
+		//walking();
 
 		else if(fPlayer.position.x > transform.position.x)
-			transform.position += new Vector3(eSpeed, 0, 0);
+			transform.position += new Vector3(eSpeed, 0, 0); //right
+		//walking();
 	}
 	void enemyAIAttack()
 	{
@@ -58,5 +59,16 @@ public class FollowPlayerAI : MonoBehaviour
 
 		else if(transform.position.x > ePosition.x)
 			transform.position += new Vector3(-eSpeed, 0, 0);
+	}
+	void walking()
+	{
+		int q = fPlayer.GetComponent<AnimHandler>().q;
+		if(GetComponent<Enemy>().currBody.name == "Default" && 
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteList[q];
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteListR[q];
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyList[q];
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyListR[q];
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageList[q];
+		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[q];
 	}
 }

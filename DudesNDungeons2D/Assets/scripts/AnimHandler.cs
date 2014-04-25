@@ -332,14 +332,14 @@ public class AnimHandler : MonoBehaviour {
 			{
 				//Attack to the left animations for the specific body
 				if(GetComponent<player>().currBody.name == "Default")
-				{
-					Debug.Log ("Attacking Left");
 					GetComponent<SpriteRenderer>().sprite = defAtkListR[q];
-				}
+
 				if(GetComponent<player>().currBody.name == "Brute")
 					GetComponent<SpriteRenderer>().sprite = bruteAtkListR[q];
+
 				if(GetComponent<player>().currBody.name == "Sneaky")
 					GetComponent<SpriteRenderer>().sprite = sneakyAtkListR[q];
+
 				if(GetComponent<player>().currBody.name == "Magus")
 					GetComponent<SpriteRenderer>().sprite = mageAtkListR[q];
 
@@ -437,5 +437,8 @@ public class AnimHandler : MonoBehaviour {
 			}
 		}
 	}
+	void walking(GameObject character)
+	{
 
+	}
 }
