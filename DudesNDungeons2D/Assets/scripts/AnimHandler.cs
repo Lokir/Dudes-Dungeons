@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -349,10 +349,13 @@ public class AnimHandler : MonoBehaviour {
 				//Attack to the right animations for the specific body
 				if(GetComponent<player>().currBody.name == "Default")
 					GetComponent<SpriteRenderer>().sprite = defAtkList[q];
+
 				if(GetComponent<player>().currBody.name == "Brute")
 					GetComponent<SpriteRenderer>().sprite = bruteAtkList[q];
+
 				if(GetComponent<player>().currBody.name == "Sneaky")
 					GetComponent<SpriteRenderer>().sprite = sneakyAtkList[q];
+
 				if(GetComponent<player>().currBody.name == "Magus")
 					GetComponent<SpriteRenderer>().sprite = mageAtkList[q];
 			}
@@ -436,9 +439,5 @@ public class AnimHandler : MonoBehaviour {
 					GetComponent<SpriteRenderer>().sprite = mageWalk1;
 			}
 		}
-	}
-	void walking(GameObject character)
-	{
-
 	}
 }
