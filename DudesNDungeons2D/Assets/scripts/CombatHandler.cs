@@ -10,7 +10,7 @@ public class CombatHandler : MonoBehaviour {
 	GameObject player;
 	GameObject eToAttack = null;
 	bool canAttack;
-	float attackSpeed = 1.0f;
+	float attackSpeed = 0.5f;
 
 	// Use this for initialization
 	void Start () 
@@ -54,9 +54,6 @@ public class CombatHandler : MonoBehaviour {
 		}
 
 	}
-
-
-
 	void playerAttack(GameObject eToAttack)
 	{
 		//iniate Attack Animation.
