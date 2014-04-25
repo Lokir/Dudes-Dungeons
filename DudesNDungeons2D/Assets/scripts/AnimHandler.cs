@@ -95,7 +95,7 @@ public class AnimHandler : MonoBehaviour {
 		}
 		defAtkList.Add(idle);
 
-		for(int i = 0; i < 8; i++) // Load in 8 of each sprite to correspondent lists
+		for(int i = 0; i < 6; i++) // Load in 8 of each sprite to correspondent lists
 		{
 			defList.Add (walk1);
 			defListR.Add (walk1R);
@@ -110,7 +110,7 @@ public class AnimHandler : MonoBehaviour {
 			mageListR.Add (mageWalk1R);
 
 		}
-		for(int i = 0; i < 8; i++) // Same as above, this gives us a two part animation movement.
+		for(int i = 0; i < 6; i++) // Same as above, this gives us a two part animation movement.
 		{
 			defList.Add (walk2);
 			defListR.Add (walk2R);
@@ -124,7 +124,7 @@ public class AnimHandler : MonoBehaviour {
 			mageList.Add (mageWalk2);
 			mageListR.Add (mageWalk2R);
 		}
-		for(int i = 0; i < 8; i++) // Same as above, this gives us a two part animation movement.
+		for(int i = 0; i < 6; i++) // Same as above, this gives us a two part animation movement.
 		{
 			defList.Add (walk3);
 			defListR.Add (walk3R);
@@ -138,7 +138,7 @@ public class AnimHandler : MonoBehaviour {
 			mageList.Add (mageWalk3);
 			mageListR.Add (mageWalk3R);
 		}
-		for(int i = 0; i < 8; i++) // Same as above, this gives us a two part animation movement.
+		for(int i = 0; i < 6; i++) // Same as above, this gives us a two part animation movement.
 		{
 			defList.Add (walk4);
 			defListR.Add (walk4R);
@@ -152,7 +152,7 @@ public class AnimHandler : MonoBehaviour {
 			mageList.Add (mageWalk4);
 			mageListR.Add (mageWalk4R);
 		}
-		for(int i = 0; i < 8; i++) // Same as above, this gives us a two part animation movement.
+		for(int i = 0; i < 6; i++) // Same as above, this gives us a two part animation movement.
 		{
 			defList.Add (walk5);
 			defListR.Add (walk5R);
@@ -232,7 +232,7 @@ public class AnimHandler : MonoBehaviour {
 				GetComponent<SpriteRenderer>().sprite = mageIdle;
 			idleBool = false;
 		}
-		if(q >= 15) // make sure the q doesn't go out of list parameters.
+		if(q >= 29) // make sure the q doesn't go out of list parameters.
 		{
 			attackBool = false;
 			q = 0;

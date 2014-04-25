@@ -51,22 +51,13 @@ public class Enemy : MonoBehaviour {
 
 			if(eCurrBody.name != "Default")
 			{
-				randG = Random.Range (0,100);
-				randStr = Random.Range (0, 11);
-				randDex = Random.Range (0, 11);
-				randInt = Random.Range (0, 11);
-				if(randG <= 49)
-				{
-					eInte += randInt;
-					eStr += randStr;
-					eDex+= randDex;
-				}
-				if(randG >= 50) 
-				{
-					eInte -= randInt;
-					eStr -= randStr;
-					eDex -= randDex;
-				}
+				randStr = Random.Range (-11, 11);
+				randDex = Random.Range (-11, 11);
+				randInt = Random.Range (-11, 11);
+
+				eInte += randInt;
+				eStr += randStr;
+				eDex+= randDex;
 			}
 			Debug.Log (eCurrBody.name);
 			Debug.Log ("Int "+eInte+" Str "+eStr+" Dex "+eDex);

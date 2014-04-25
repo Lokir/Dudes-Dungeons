@@ -12,7 +12,7 @@ public class CamScript : MonoBehaviour {
 	void Update () {
 		Vector3 center = new Vector3(0,0,-3.548449f); // center on his position, set Z so it is encompassing player and gameworld.
 		center += Player.transform.position; // update center with new position of player.
-		center.y = -1.0f; // center y so camera is stationary.
+		center.y = -3.16f; // center y so camera is stationary.
 		transform.position = Vector3.Lerp(transform.position, center, 0.2f); // make the camera lerp to give a smooth movement feeling.
 	}
 }
