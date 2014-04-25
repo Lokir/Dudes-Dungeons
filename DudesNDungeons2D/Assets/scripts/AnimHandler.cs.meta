@@ -3,27 +3,52 @@ guid: e7baae500aef1b340857932fb9c9cd42
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - attack1: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
-  - attack2: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
+  - defAttack1: {fileID: 21300000, guid: dd4b71a2e3e8fec4d835aef4e7a5ceea, type: 3}
+  - defAttack2: {fileID: 21300000, guid: 316b09c887a32f34ea644643dfdc4799, type: 3}
+  - defAttack3: {fileID: 21300000, guid: 525d50f4638bcf04cb6bb8952ebdd885, type: 3}
   - walk1: {fileID: 21300000, guid: 21b0a26c7c5c19445b3a389892bec1c5, type: 3}
   - walk2: {fileID: 21300000, guid: 65b9ae1734865fe469873003a34c2b1e, type: 3}
+  - walk3: {fileID: 21300000, guid: bfe4c3f192acab049bef1e8c75b0f6ab, type: 3}
+  - walk4: {fileID: 21300000, guid: b012d4cb02a355a41ae72e3f98856649, type: 3}
+  - walk5: {fileID: 21300000, guid: 73015b110e410ad4c957e4c9b24ca217, type: 3}
   - walk1R: {fileID: 21300000, guid: 28e7ffce49d60bc4cab0d594207afff5, type: 3}
   - walk2R: {fileID: 21300000, guid: 288c12edc49cf5448941a4e948d19096, type: 3}
+  - walk3R: {fileID: 21300000, guid: cfa594a4cb9f0b348a2a0dff00e6dad0, type: 3}
+  - walk4R: {fileID: 21300000, guid: 23ac8e80188aa8f458314d607f80f727, type: 3}
+  - walk5R: {fileID: 21300000, guid: 73015b110e410ad4c957e4c9b24ca217, type: 3}
   - idle: {fileID: 21300000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
   - bruteWalk1: {fileID: 21300000, guid: 04eac57944f5adf4ab3d4304c98611a0, type: 3}
   - bruteWalk2: {fileID: 21300000, guid: 016ccc255bb047a44bfe31b9ca2ec5f5, type: 3}
+  - bruteWalk3: {fileID: 21300000, guid: 37a7b1cff1fd4c745a9238c67630a6da, type: 3}
+  - bruteWalk4: {fileID: 21300000, guid: 6b37a7db6e22c864382a97ca67f55165, type: 3}
+  - bruteWalk5: {fileID: 21300000, guid: 9e52a53530aa93045a45e53ed39dd98d, type: 3}
   - bruteWalk1R: {fileID: 21300000, guid: b83d4c5abe1c313428fafcd48e7f67d2, type: 3}
   - bruteWalk2R: {fileID: 21300000, guid: b6a7c1afeda0005409b8602bed178278, type: 3}
+  - bruteWalk3R: {fileID: 21300000, guid: 505c8b1066bd9a6498a9f6677056487d, type: 3}
+  - bruteWalk4R: {fileID: 21300000, guid: 2677bfecd8bf57c44af73969cad590d3, type: 3}
+  - bruteWalk5R: {fileID: 21300000, guid: 1d11d9ab7f69b854ab3d4f6eff1431e3, type: 3}
   - bruteIdle: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
   - sneakyWalk1: {fileID: 21300000, guid: 00f0a2b36a28af547b1d62eccb06378d, type: 3}
   - sneakyWalk2: {fileID: 21300000, guid: 221dd30d9a599b24e9a956f20a1c9aeb, type: 3}
+  - sneakyWalk3: {fileID: 21300000, guid: 2c41811f0eea2e5449a7a69055d4d18d, type: 3}
+  - sneakyWalk4: {fileID: 21300000, guid: 099217cb9dcd977439bc56dd4b1c54f2, type: 3}
+  - sneakyWalk5: {fileID: 21300000, guid: 8b82e05b480887b4fb28c330b5b9451b, type: 3}
   - sneakyWalk1R: {fileID: 21300000, guid: 3566a079ad3574b4db0b148bd5abac2d, type: 3}
   - sneakyWalk2R: {fileID: 21300000, guid: c1ae0a1910fd4414cbe44d7fdbf64b5c, type: 3}
+  - sneakyWalk3R: {fileID: 21300000, guid: d685df1ce9c35644d8cb2046d42f4c78, type: 3}
+  - sneakyWalk4R: {fileID: 21300000, guid: 1e6a04678bb387b41a97195f00b99e83, type: 3}
+  - sneakyWalk5R: {fileID: 21300000, guid: 064471096f002384a81c06e02630b995, type: 3}
   - sneakyIdle: {fileID: 21300000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
   - mageWalk1: {fileID: 21300000, guid: d6a6bb30891dffe49a73b8ef6811901e, type: 3}
   - mageWalk2: {fileID: 21300000, guid: 48a8dbd400d4eb74bad18b37a9deb892, type: 3}
+  - mageWalk3: {fileID: 21300000, guid: ecfd141e851ae8d47bc49b4d7b11a28c, type: 3}
+  - mageWalk4: {fileID: 21300000, guid: b51687a715cc13d4e8432c765df6cc7c, type: 3}
+  - mageWalk5: {fileID: 21300000, guid: c46bb2939f20d0448b879475a39ff161, type: 3}
   - mageWalk1R: {fileID: 21300000, guid: 8d6ed19b36ad82444a7b8c14b7ea7093, type: 3}
   - mageWalk2R: {fileID: 21300000, guid: cf2c8e3f3ceb8644193c21ca9c7f72f6, type: 3}
+  - mageWalk3R: {fileID: 21300000, guid: 7cd3bdf84311d764a98d3b346f2fe9f7, type: 3}
+  - mageWalk4R: {fileID: 21300000, guid: 89558a4f7bd963646bf7d4eedd2bf1df, type: 3}
+  - mageWalk5R: {fileID: 21300000, guid: 4d735aa9468043941b85db0fe1c7a31c, type: 3}
   - mageIdle: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

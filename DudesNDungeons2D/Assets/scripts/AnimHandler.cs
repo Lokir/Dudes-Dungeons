@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class AnimHandler : MonoBehaviour {
 
+	Vector3 mousePos;
+	Vector3 wantedPos;
+
 	//The lists allow us to continously update target spriteRenderer, and create animations with code.
 	public List<Sprite> defList = new List<Sprite>();
 	public List<Sprite> defListR = new List<Sprite>();
@@ -18,10 +21,10 @@ public class AnimHandler : MonoBehaviour {
 	public List<Sprite> mageListR = new List<Sprite>();
 
 	public List<Sprite> defAtkList = new List<Sprite>();
+	public List<Sprite> defAtkListR = new List<Sprite>();
 
 	public bool rightBool; // These bools help define what animation to start.
 	public bool leftBool;
-	public bool idleBool;
 	public bool attackBool;
 	public bool leftAttackBool;
 
@@ -39,7 +42,6 @@ public class AnimHandler : MonoBehaviour {
 	public Sprite walk3R;
 	public Sprite walk4R;
 	public Sprite walk5R;
-	public Sprite idle;
 
 	public Sprite bruteWalk1; // BruteType Animations
 	public Sprite bruteWalk2;
@@ -51,7 +53,6 @@ public class AnimHandler : MonoBehaviour {
 	public Sprite bruteWalk3R;
 	public Sprite bruteWalk4R;
 	public Sprite bruteWalk5R;
-	public Sprite bruteIdle;
 
 	public Sprite sneakyWalk1; // Sneaky/Rogue type Animations.
 	public Sprite sneakyWalk2;
@@ -63,7 +64,6 @@ public class AnimHandler : MonoBehaviour {
 	public Sprite sneakyWalk3R;
 	public Sprite sneakyWalk4R;
 	public Sprite sneakyWalk5R;
-	public Sprite sneakyIdle;
 
 	public Sprite mageWalk1; // Mage type Animations.
 	public Sprite mageWalk2;
@@ -75,11 +75,15 @@ public class AnimHandler : MonoBehaviour {
 	public Sprite mageWalk3R;
 	public Sprite mageWalk4R;
 	public Sprite mageWalk5R;
-	public Sprite mageIdle;
 
 	// Use this for initialization
 	void Start () 
 	{
+		rightBool = false; // These bools help define what animation to start.
+		leftBool = false;
+		attackBool = false;
+
+
 		for(int i = 0; i<7; i++)
 		{
 			defAtkList.Add(bruteWalk1);
@@ -96,8 +100,7 @@ public class AnimHandler : MonoBehaviour {
 		{
 			defAtkList.Add(defAttack3);
 		}
-		defAtkList.Add(idle);
-		//defAtkList.Add(idle);
+		defAtkList.Add (walk1);
 
 		for(int i = 0; i < 6; i++) // Load in 8 of each sprite to correspondent lists
 		{
@@ -176,14 +179,18 @@ public class AnimHandler : MonoBehaviour {
 	public int q = 0; // q is where in the list we are now, and allows for the animations to be initiated based on the buttons detected in player.cs
 	void Update () 
 	{
+		faceDirection();
 		if(attackBool == true)
 		{
-			if(leftAttackBool == false)
+			if(leftAttackBool == true)
 			{
 				if(GetComponent<player>().currBody.name == "Default")
-					GetComponent<SpriteRenderer>().sprite = defAtkList[q];
+				{
+					Debug.Log ("Attacking Left");
+					//GetComponent<SpriteRenderer>().sprite = defAtkListR[q];
+				}
 			}
-			if(leftAttackBool == true)
+			if(leftAttackBool == false)
 			{
 				if(GetComponent<player>().currBody.name == "Default")
 					GetComponent<SpriteRenderer>().sprite = defAtkList[q];
@@ -221,27 +228,53 @@ public class AnimHandler : MonoBehaviour {
 
 			leftBool = false;
 		}
-		if(idleBool == true && attackBool != true) // load the idle sprite (1 image as per 16/4-2014)
-		{
-			if(GetComponent<player>().currBody.name == "Default")
-				GetComponent<SpriteRenderer>().sprite = idle;
-			
-			if(GetComponent<player>().currBody.name == "Brute")
-				GetComponent<SpriteRenderer>().sprite = bruteIdle;
-			
-			if(GetComponent<player>().currBody.name == "Sneaky")
-				GetComponent<SpriteRenderer>().sprite = sneakyIdle;
-			
-			if(GetComponent<player>().currBody.name == "Magus")
-				GetComponent<SpriteRenderer>().sprite = mageIdle;
-			idleBool = false;
-		}
 		if(q >= 29) // make sure the q doesn't go out of list parameters.
 		{
 			attackBool = false;
 			q = 0;
 		}
 		q++; // increment to next step.
+	}
+	void faceDirection()
+	{
+		mousePos = Input.mousePosition;
+		wantedPos = Camera.main.ScreenToWorldPoint (new Vector3 (mousePos.x, mousePos.y, 3.54f));
+		if(transform.position.x > wantedPos.x)
+		{
+			leftAttackBool = true;
+			if(!Input.GetKeyDown (KeyCode.A) || !Input.GetKeyDown (KeyCode.D)) 
+			{
+				if(GetComponent<player>().currBody.name == "Default")
+					GetComponent<SpriteRenderer>().sprite = walk1R;
+				
+				if(GetComponent<player>().currBody.name == "Brute")
+					GetComponent<SpriteRenderer>().sprite = bruteWalk1R;
+				
+				if(GetComponent<player>().currBody.name == "Sneaky")
+					GetComponent<SpriteRenderer>().sprite = sneakyWalk1R;
+				
+				if(GetComponent<player>().currBody.name == "Magus")
+					GetComponent<SpriteRenderer>().sprite = mageWalk1R;
+			}
+		}
+		else
+		{
+			leftAttackBool = false;
+			if(!Input.GetKeyDown (KeyCode.A) || !Input.GetKeyDown (KeyCode.D)) 
+			{
+				if(GetComponent<player>().currBody.name == "Default")
+					GetComponent<SpriteRenderer>().sprite = walk1;
+				
+				if(GetComponent<player>().currBody.name == "Brute")
+					GetComponent<SpriteRenderer>().sprite = bruteWalk1;
+				
+				if(GetComponent<player>().currBody.name == "Sneaky")
+					GetComponent<SpriteRenderer>().sprite = sneakyWalk1;
+				
+				if(GetComponent<player>().currBody.name == "Magus")
+					GetComponent<SpriteRenderer>().sprite = mageWalk1;
+			}
+		}
 	}
 
 }

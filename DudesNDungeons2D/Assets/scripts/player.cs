@@ -60,11 +60,6 @@ public class player : MonoBehaviour
 			GetComponent<AnimHandler>().leftBool = true; // allow run of animation left.
 			left = true;
 		}
-		if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) // if no movement in any direction, initiate idle.
-		{
-			GetComponent<AnimHandler>().idleBool = true;
-			left = false;
-		}
 
 		if(Input.GetKey(KeyCode.D)) // move right.
 		{
