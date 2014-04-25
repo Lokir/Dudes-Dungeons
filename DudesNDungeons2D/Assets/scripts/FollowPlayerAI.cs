@@ -8,6 +8,8 @@ public class FollowPlayerAI : MonoBehaviour
 	Vector3 ePosition;
 	float eDistance;
 	float eSpeed = 0.04f;
+	bool followingL = false;
+	bool followingR = false;
 	
 	// Use this for initialization
 	void Start () 
@@ -41,12 +43,19 @@ public class FollowPlayerAI : MonoBehaviour
 	void enemyAIFollow()
 	{
 		if(fPlayer.position.x < transform.position.x) //these two if-statements are to see if the player is either on one site or the other
-			transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction - left
-		//walking();
+		{	transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction - left
+			walking();
+			followingL = true;
+			followingR = false;
+		}
 
 		else if(fPlayer.position.x > transform.position.x)
+		{
 			transform.position += new Vector3(eSpeed, 0, 0); //right
-		//walking();
+			walking();
+			followingR = true;
+			followingL = false;
+		}
 	}
 	void enemyAIAttack()
 	{
@@ -55,20 +64,41 @@ public class FollowPlayerAI : MonoBehaviour
 	void returnToStart()
 	{
 		if(transform.position.x < ePosition.x)//if the enemy cannot see the player and is not at his origin he will return to his origin
+		{
 			transform.position += new Vector3(eSpeed, 0, 0);
+			followingL = false;
+			followingR = true;
+		}
 
 		else if(transform.position.x > ePosition.x)
+		{
 			transform.position += new Vector3(-eSpeed, 0, 0);
+			followingR = false;
+			followingL = true;
+		}
 	}
 	void walking()
 	{
 		int q = fPlayer.GetComponent<AnimHandler>().q;
-		if(GetComponent<Enemy>().currBody.name == "Default" && 
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteList[q];
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteListR[q];
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyList[q];
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyListR[q];
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageList[q];
-		GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[q];
+
+		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == true && followingL == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defList[q];
+		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingL == true && followingR == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defListR[q];
+
+		if(GetComponent<Enemy>().eCurrBody.name == "Brute" && followingR == true && followingL == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteList[q];
+		if(GetComponent<Enemy>().eCurrBody.name == "Brute" && followingL == true && followingR == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteListR[q];
+
+		if(GetComponent<Enemy>().eCurrBody.name == "Sneaky" && followingR == true && followingL == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyList[q];
+		if(GetComponent<Enemy>().eCurrBody.name == "Sneaky" && followingL == true && followingR == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyListR[q];
+
+		if(GetComponent<Enemy>().eCurrBody.name == "Magus" && followingR == true && followingL == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageList[q];
+		if(GetComponent<Enemy>().eCurrBody.name == "Magus" && followingL == true && followingR == false)
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[q];
 	}
 }
