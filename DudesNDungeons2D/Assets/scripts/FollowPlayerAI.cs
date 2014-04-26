@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FollowPlayerAI : MonoBehaviour 
 {
@@ -7,13 +8,14 @@ public class FollowPlayerAI : MonoBehaviour
 	bool eLeftAttackBool;
 	//Variables for the enemy detecting the player
 	Transform fPlayer;
-	Vector3 ePosition;
-	float eDistance;
+	public Vector3 ePosition;
+	public float eDistance;
 	float eSpeed = 0.04f;
-	bool followingL = false;
-	bool followingR = false;
-	bool eCanAttack = true;
+	public bool followingL = false;
+	public bool followingR = false;
+	public bool eCanAttack = true;
 	float eAttackSpeed = 0.9f;
+	public bool eCanFollow = true;
 	
 	// Use this for initialization
 	void Start () 
@@ -37,7 +39,7 @@ public class FollowPlayerAI : MonoBehaviour
 	}
 	void enemyAI(){
 		if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
-												 //and stop if he comes to close to the player
+												//and stop if he comes to close to the player
 		{
 			enemyAIFollow();
 		}
@@ -48,33 +50,38 @@ public class FollowPlayerAI : MonoBehaviour
 		else // return to origin
 		{
 			if(transform.position != ePosition)
-			returnToStart ();
+				returnToStart ();
+			else
+				standardSprite();
 		}
 	}
 	void enemyAIFollow()
 	{
-		if(fPlayer.position.x < transform.position.x) //these two if-statements are to see if the player is either on one site or the other
-		{	transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction - left
-			walking();
-			eLeftAttackBool = true;
-			followingL = true;
-			followingR = false;
-		}
-
-		else if(fPlayer.position.x > transform.position.x)
+		if(eCanFollow == true)
 		{
-			transform.position += new Vector3(eSpeed, 0, 0); //right
-			walking();
-			eLeftAttackBool = false;
-			followingR = true;
-			followingL = false;
+			if(fPlayer.position.x < transform.position.x) 		 //these two if-statements are to see if the player is either on one site or the other
+			{	
+				transform.position += new Vector3(-eSpeed, 0, 0);//and the enemy has to move in that direction - left
+				walking();
+				eLeftAttackBool = true;
+				followingL = true;
+				followingR = false;
+			}
+
+			else if(fPlayer.position.x > transform.position.x)
+			{
+				transform.position += new Vector3(eSpeed, 0, 0); //right
+				walking();
+				eLeftAttackBool = false;
+				followingR = true;
+				followingL = false;
+			}
 		}
 	}
 	void enemyAIAttack()
 	{
 		if(eCanAttack == true)
 		{
-
 			eCanAttack = false;
 			eAttackBool = true;
 			fPlayer.GetComponent<AnimHandler>().q = 0;
@@ -102,6 +109,11 @@ public class FollowPlayerAI : MonoBehaviour
 			walking();
 			followingL = false; 
 			followingR = true; //because it has to go right to get back
+			if(transform.position.x >= ePosition.x - 0.15f && transform.position.x <= ePosition.x - 0.01f)
+			{
+				transform.position = ePosition;
+				standardSprite();
+			}
 		}
 
 		else if(transform.position.x > ePosition.x)
@@ -110,11 +122,16 @@ public class FollowPlayerAI : MonoBehaviour
 			walking();
 			followingR = false; 
 			followingL = true; //because it has to go left to get back
+			if(transform.position.x >= ePosition.x + 0.01f && transform.position.x <= ePosition.x + 0.15f)
+			{
+				transform.position = ePosition;
+				standardSprite();
+			}
+
 		}
 	}
 	void walking()
 	{
-
 		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == true)
 			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defList[q];
 		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == false)
@@ -168,5 +185,20 @@ public class FollowPlayerAI : MonoBehaviour
 			if(GetComponent<Enemy>().eCurrBody.name == "Magus")
 				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkList[q];
 		}
+	}
+	void standardSprite()
+	{
+		eAttackBool = false;
+		if(GetComponent<Enemy>().eCurrBody.name == "Default")
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().walk1R;
+		
+		if(GetComponent<Enemy>().eCurrBody.name == "Brute")
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteWalk1R;
+		
+		if(GetComponent<Enemy>().eCurrBody.name == "Sneaky")
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyWalk1R;
+		
+		if(GetComponent<Enemy>().eCurrBody.name == "Magus")
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageWalk1R;
 	}
 }
