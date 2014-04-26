@@ -24,7 +24,7 @@ public class FollowPlayerAI : MonoBehaviour
 		ePosition = transform.position; //saves the position of the object this script is attached to
 	}
 	// Update is called once per frame
-	int q = 0;
+	public int eq = 0;
 	void Update () 
 	{
 		if(eAttackBool)
@@ -33,9 +33,9 @@ public class FollowPlayerAI : MonoBehaviour
 		eDistance = Vector3.Distance(transform.position, fPlayer.position); //This is the distance between the player and the enemy, it currently
 																			//isn't looking for any specific distance
 		enemyAI();
-		if(q >=29)
-			q = 0;
-		q++;
+		if(eq >=29)
+			eq = 0;
+		eq++;
 	}
 	void enemyAI(){
 		if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
@@ -86,7 +86,7 @@ public class FollowPlayerAI : MonoBehaviour
 			eAttackBool = true;
 			if(!fPlayer.GetComponent<player>().invulnerable)
 				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eCurrBody.gDamage;
-
+			Debug.Log ("Damage");
 			StartCoroutine("eAttackCooldown");
 		}
 
@@ -99,13 +99,13 @@ public class FollowPlayerAI : MonoBehaviour
 	{
 		yield return new WaitForSeconds(eAttackSpeed);
 		eCanAttack = true;
-		Debug.Log("Enemy attack");
 		StopCoroutine ("eAttackCooldown");
 	}
 	void returnToStart()
 	{
 		if(transform.position.x < ePosition.x)//if the enemy cannot see the player and is not at his origin he will return to his origin
 		{
+			eCanAttack = true;
 			transform.position += new Vector3(eSpeed, 0, 0);
 			walking();
 			followingL = false; 
@@ -134,24 +134,24 @@ public class FollowPlayerAI : MonoBehaviour
 	void walking()
 	{
 		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == true)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defList[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defList[eq];
 		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == false)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defListR[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defListR[eq];
 
 		if(GetComponent<Enemy>().eCurrBody.name == "Brute" && followingR == true)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteList[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteList[eq];
 		if(GetComponent<Enemy>().eCurrBody.name == "Brute" && followingR == false)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteListR[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteListR[eq];
 
 		if(GetComponent<Enemy>().eCurrBody.name == "Sneaky" && followingR == true)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyList[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyList[eq];
 		if(GetComponent<Enemy>().eCurrBody.name == "Sneaky" && followingR == false)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyListR[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyListR[eq];
 
 		if(GetComponent<Enemy>().eCurrBody.name == "Magus" && followingR == true)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageList[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageList[eq];
 		if(GetComponent<Enemy>().eCurrBody.name == "Magus" && followingR == false)
-			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[q];
+			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[eq];
 	}
 	void fighting()
 	{
@@ -159,32 +159,31 @@ public class FollowPlayerAI : MonoBehaviour
 		{
 			//Attack to the left animations for the specific body
 			if(GetComponent<Enemy>().eCurrBody.name == "Default")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defAtkListR[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defAtkListR[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Brute")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteAtkListR[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteAtkListR[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Sneaky")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyAtkListR[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyAtkListR[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Magus")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkListR[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkListR[eq];
 		}
 		if(eLeftAttackBool == false)
 		{
-			int q = fPlayer.GetComponent<AnimHandler>().q;
 			//Attack to the right animations for the specific body
 			if(GetComponent<Enemy>().eCurrBody.name == "Default")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defAtkList[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defAtkList[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Brute")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteAtkList[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().bruteAtkList[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Sneaky")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyAtkList[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().sneakyAtkList[eq];
 			
 			if(GetComponent<Enemy>().eCurrBody.name == "Magus")
-				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkList[q];
+				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkList[eq];
 		}
 	}
 	void standardSprite()

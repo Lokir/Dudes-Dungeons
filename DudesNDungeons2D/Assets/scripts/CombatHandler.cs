@@ -58,8 +58,7 @@ public class CombatHandler : MonoBehaviour {
 	{
 		//iniate Attack Animation.
 		eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
-		Debug.Log ("Enemy HP in function: "+eToAttack.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
-		eToAttack.GetComponent<Enemy>().eCurrBody.name = "Strudel";
+		//Debug.Log ("Enemy HP in function: "+eToAttack.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
 		if(eToAttack.GetComponent<Enemy>().eHp <= 0)
 		{
 			player.GetComponent<LootHandler>().lootBody(eToAttack);

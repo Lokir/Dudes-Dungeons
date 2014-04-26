@@ -247,8 +247,15 @@ public class AnimHandler : MonoBehaviour {
 	}
 	// Update is called once per frame
 	public int q = 0; // q is where in the list we are now, and allows for the animations to be initiated based on the buttons detected in player.cs
+	int Hjk = 0;
 	void Update () 
 	{
+		if(Input.GetKeyDown (KeyCode.B))
+		{
+			GetComponent<SpriteRenderer>().sprite = defAtkListR[Hjk];
+			Hjk++;
+		}
+
 		faceDirection(); // make sure the player is facing the direction of the mouse on screen.
 
 		if(attackBool == true) // you can attack start the attack animation

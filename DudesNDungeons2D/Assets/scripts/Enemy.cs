@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour {
 
 		// default Currbody Values.
 		gear = GameObject.FindGameObjectWithTag("Player");
+
+		enemyRandomizer();
+		GetComponent<SpriteRenderer>().sprite = eCurrBody.skin;
 	}
 	// Update is called once per frame
 	public bool loadEGear = false; // if this is true then we load the gear.
@@ -60,11 +63,6 @@ public class Enemy : MonoBehaviour {
 			Debug.Log (eCurrBody.name);
 			Debug.Log ("Int "+eInte+" Str "+eStr+" Dex "+eDex);
 
-		}
-		if(buildEnemy == true)
-		{
-			enemyRandomizer();
-			buildEnemy = false;
 		}
 
 	}
