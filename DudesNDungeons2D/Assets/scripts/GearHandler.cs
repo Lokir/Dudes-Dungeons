@@ -10,15 +10,15 @@ public class Body // defines body as a class.
 	public bool bruteAbil;
 	public bool sneakyAbil;
 	public int gDamage; // Body Bonus Damage
-	public Sprite skin;
+	public Sprite skin; // skin for the player once body has been selected.
 }
 
 public class GearHandler : MonoBehaviour
 {
 
     public List<Body> Bodies = new List<Body>(); // make a list of bodies to be collected and loaded everywhere in code (this will contain all bodies implemented in the game.)
-	public List<Body> Backpack = new List<Body>();
-	public Sprite brute;
+	public List<Body> Backpack = new List<Body>(); // all loot goes in here and loads from here.
+	public Sprite brute; // allows for quick load later in the GUI.
 	public Sprite sneaky;
 	public Sprite mage;
 	public Sprite myDefault;
@@ -28,69 +28,42 @@ public class GearHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Player = GameObject.FindGameObjectWithTag("Player");
+		Player = GameObject.FindGameObjectWithTag("Player"); // find the player data.
 		//Define some bodies.
+
+		Body defBody = new Body(); // generate new instance of class body
         Body bruteBody = new Body();
-		bruteBody.name = "Brute";
-		bruteBody.gHp = 150;
-		bruteBody.gInte = 20;
-		bruteBody.gDex = 10;
-		bruteBody.gStr = 30;
-		bruteBody.gDamage = 20;
-		bruteBody.bruteAbil = true;
-		bruteBody.sneakyAbil = false;
-		bruteBody.mageAbil = false;
-		bruteBody.skin = brute;
+		Body sneakyBody = new Body();
+		Body mageBody = new Body();
+		
+		makeBody(defBody, "Default", 100, 20,20,20, 10, false, false, false, myDefault); // fill these bodies with data.
+		makeBody(bruteBody, "Brute", 150, 20,10,30, 20, false, false, true, brute);
+		makeBody(sneakyBody, "Sneaky", 100, 10,30,20, 10, false, true, false, sneaky);
+		makeBody(mageBody, "Magus", 75, 30,20,10, 15, true, false, false, mage);
 
-        Body sneakyBody = new Body();
-		sneakyBody.name = "Sneaky";
-        sneakyBody.gHp = 100;
-        sneakyBody.gInte = 10;
-        sneakyBody.gDex = 30;
-        sneakyBody.gStr = 20;
-        sneakyBody.gDamage = 10;
-        sneakyBody.sneakyAbil = true;
-		sneakyBody.bruteAbil = false;
-		sneakyBody.mageAbil = false;
-		sneakyBody.skin = sneaky;
-
-        Body mageBody = new Body();
-		mageBody.name = "Magus";
-        mageBody.gHp = 75;
-        mageBody.gInte = 30;
-        mageBody.gDex = 20;
-        mageBody.gStr = 10;
-        mageBody.gDamage = 15;
-        mageBody.mageAbil = true;
-		mageBody.sneakyAbil = false;
-		mageBody.bruteAbil = false;
-		mageBody.skin = mage;
-
-		Body defBody = new Body();
-		defBody.name = "Default";
-		defBody.gHp = 100;
-		defBody.gInte = 20;
-		defBody.gDex = 20;
-		defBody.gStr = 20;
-		defBody.gDamage = 10;
-		defBody.mageAbil = false;
-		defBody.sneakyAbil = false;
-		defBody.bruteAbil = false;
-		defBody.skin = myDefault;
 
 		// Add bodies into the list.
-		Bodies.Add (defBody);
-		Bodies.Add (bruteBody);
-		Bodies.Add (sneakyBody);
-		Bodies.Add (mageBody);
-
-		Player.GetComponent<player>().currBody = GetComponent<GearHandler>().Bodies[0];
-		Player.GetComponent<player>().loadGear = true;
+		Player.GetComponent<player>().currBody = GetComponent<GearHandler>().Bodies[0]; // make sure that current body is a default body..
+		Player.GetComponent<player>().loadGear = true; // load gear into player..
 
 	}
 	// Update is called once per frame
 	void Update () 
 	{
 
+	}
+	void makeBody(Body bodyToMold, string name, int HP, int inte, int dex, int str, int damage, bool mageAbil, bool sneakyAbil, bool bruteAbil, Sprite skin) // fill bodies with data.
+	{
+		bodyToMold.name = name;
+		bodyToMold.gHp = HP;
+		bodyToMold.gInte = inte;
+		bodyToMold.gDex = dex;
+		bodyToMold.gStr = str;
+		bodyToMold.gDamage = damage;
+		bodyToMold.mageAbil = mageAbil;
+		bodyToMold.sneakyAbil = sneakyAbil;
+		bodyToMold.bruteAbil = bruteAbil;
+		bodyToMold.skin = skin;
+		Bodies.Add (bodyToMold);
 	}
 }
