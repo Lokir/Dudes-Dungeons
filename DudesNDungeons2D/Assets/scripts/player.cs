@@ -5,6 +5,7 @@ public class player : MonoBehaviour
 {
     public int pHp, pInte, pDex, pStr, pCharge, pDamage = 0; //current player stats
 	public int sHp, sInte, sDex, sStr, sCharge; // raw stats
+	public bool invulnerable = false;
 	public int HPCap; // HP max
 	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
 	public bool left; // moving left.

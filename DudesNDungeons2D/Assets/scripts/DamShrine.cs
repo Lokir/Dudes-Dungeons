@@ -11,6 +11,7 @@ public class DamShrine : MonoBehaviour {
 	public Sprite DaemonAura;
 	GameObject player;
 	float buffDuration = 20.0f;
+	float Distance;
 
 
 
@@ -22,8 +23,8 @@ public class DamShrine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		if(Input.GetKeyDown(KeyCode.E) && !DaemonDust.GetComponent<DaemonAura>().activateAura)
+		Distance = Vector3.Distance(transform.position, player.transform.position);
+		if(Input.GetKeyDown(KeyCode.E) && !DaemonDust.GetComponent<DaemonAura>().activateAura && Distance <= 1.0f)
 		   buffPlayer();
 	}
 	void buffPlayer()
