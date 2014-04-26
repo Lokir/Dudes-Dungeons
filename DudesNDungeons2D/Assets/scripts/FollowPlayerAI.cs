@@ -16,6 +16,7 @@ public class FollowPlayerAI : MonoBehaviour
 	public bool eCanAttack = true;
 	float eAttackSpeed = 0.9f;
 	public bool eCanFollow = true;
+	public bool isStunned = false;
 	
 	// Use this for initialization
 	void Start () 
@@ -27,7 +28,7 @@ public class FollowPlayerAI : MonoBehaviour
 	public int eq = 0;
 	void Update () 
 	{
-		if(eAttackBool)
+		if(eAttackBool && !isStunned)
 			fighting();
 
 		eDistance = Vector3.Distance(transform.position, fPlayer.position); //This is the distance between the player and the enemy, it currently
@@ -38,21 +39,24 @@ public class FollowPlayerAI : MonoBehaviour
 		eq++;
 	}
 	void enemyAI(){
-		if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
-												//and stop if he comes to close to the player
+		if(!isStunned)
 		{
-			enemyAIFollow();
-		}
-		else if(eDistance <= 0.3f) //If the enemy is close to the player he will call the attack function
-		{
-			enemyAIAttack();
-		}
-		else // return to origin
-		{
-			if(transform.position != ePosition)
-				returnToStart ();
-			else
-				standardSprite();
+			if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
+													//and stop if he comes to close to the player
+			{
+					enemyAIFollow();
+			}
+			else if(eDistance <= 0.3f) //If the enemy is close to the player he will call the attack function
+			{
+					enemyAIAttack();
+			}
+			else // return to origin
+			{
+				if(transform.position != ePosition)
+					returnToStart ();
+				else
+					standardSprite();
+			}
 		}
 	}
 	void enemyAIFollow()
