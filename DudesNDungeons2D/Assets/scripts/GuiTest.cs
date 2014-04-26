@@ -10,7 +10,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	GameObject PlayStat;
 
-	int potionAmount = 7; // temporary potion counter.
+	public int potionAmount = 3; // temporary potion counter.
 	string potAmountString = ""; // amount of potions in string.
 
 	public string stringHP = "HP: "; // these will display the player Stats in text boxes on screen.
@@ -35,7 +35,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture defaultTex;
 	public Texture button1;
 	public Texture button2;
-
+	public Texture button3;
+	public Texture button4;
+	public Texture button5;
+	public Texture button6;
 
 	public Texture abilityTexture; // this one is the one continously loaded
 	public Texture abilityTexture1;
@@ -51,6 +54,11 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void Start () // Use this for initialization
 	{
 		button1 = defaultTex;
+		button2 = defaultTex;
+		button3 = defaultTex;
+		button4 = defaultTex;
+		button5 = defaultTex;
+		button6 = defaultTex;
 		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
 	}
@@ -59,6 +67,16 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	{
 		if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 			button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+		if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+			button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
+		if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+			button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
+		if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+			button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
+		if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+			button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
+		if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+			button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
 
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
@@ -104,43 +122,43 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			abilityTexture = defaultTex; // load the relevant ability texture.
 
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/),Body2)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button2)) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[1]; // brute
 			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = Body2;
+			equippedBody = button2;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = bruteTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/),Body3)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[2]; // sneaky
 			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = Body3;
+			equippedBody = button3;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = sneakyTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/),Body4)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button4)) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = Body4; 
+			equippedBody = button4; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/),Body4)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button5)) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = Body4; 
+			equippedBody = button5; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/),Body4)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button6)) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = Body4; 
+			equippedBody = button6; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
@@ -150,9 +168,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	}
 	void doHealth(int windowID) // this handles the potion GUI
 	{
-		if(GUI.Button (new Rect(10,10,40,40),potion) || Input.GetKeyDown(KeyCode.Q) && PlayStat.GetComponent<player>().pHp+50 <= PlayStat.GetComponent<player>().HPCap)
+		if(GUI.Button (new Rect(10,10,40,40),potion) || Input.GetKeyDown(KeyCode.Q) && potionAmount > 0)
 		{ // if button is pressed, or Q is the input. & player health + 50 does not go above max life.
-			PlayStat.GetComponent<player>().pHp += 50; // add 50 life.
+			PlayStat.GetComponent<player>().pHp = PlayStat.GetComponent<player>().HPCap; // add 50 life.
 			potionAmount--; // deduct one potion.
 		}
 		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))

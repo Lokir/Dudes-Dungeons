@@ -9,6 +9,7 @@ public class CombatHandler : MonoBehaviour {
 	GameObject[] enemies;
 	GameObject player;
 	GameObject eToAttack = null;
+	public Transform death;
 	bool canAttack;
 	float attackSpeed = 0.5f;
 
@@ -64,9 +65,11 @@ public class CombatHandler : MonoBehaviour {
 			player.GetComponent<LootHandler>().lootBody(eToAttack);
 			eToAttack.GetComponent<FollowPlayerAI>().standardSprite();
 			eToAttack.rigidbody2D.fixedAngle = false;
-			eToAttack.rigidbody2D.AddForce(new Vector2 (10,5));
+			eToAttack.rigidbody2D.AddForce(new Vector2 (10,10));
 			eToAttack.GetComponent<FollowPlayerAI>().eCanAttack = false;
 			eToAttack.GetComponent<FollowPlayerAI>().eCanFollow = false;
+			Instantiate (death, new Vector3(eToAttack.transform.position.x,eToAttack.transform.position.y,eToAttack.transform.position.z-1), Quaternion.identity);
+			Destroy (eToAttack);
 		}
 	}
 	IEnumerator attackCooldown()

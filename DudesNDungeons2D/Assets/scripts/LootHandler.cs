@@ -5,12 +5,14 @@ using System.Collections.Generic;
 public class LootHandler : MonoBehaviour {
 	
 	public Body lootedBody = new Body();
+	GameObject camFound;
 
 	int lootChance = 0;
+	int potionChance = 0;
 
 	// Use this for initialization
 	void Start () {
-
+		camFound = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	
 	// Update is called once per frame
@@ -20,6 +22,8 @@ public class LootHandler : MonoBehaviour {
 	public void lootBody(GameObject enemyDeadBody)
 	{
 		lootChance = Random.Range(0, 101); //gives a random number from 0-100
+		potionChance = Random.Range(0, 101); //gives a random number from 0-100
+
 		
 		lootedBody = enemyDeadBody.GetComponent<Enemy>().eCurrBody;
 		
@@ -44,6 +48,16 @@ public class LootHandler : MonoBehaviour {
 		else
 		{
 			Debug.Log ("Burn Body");
+		}
+
+		if(potionChance <= 25)
+		{
+			Debug.Log("Yay, potion");
+			camFound.GetComponent<GuiTest>().potionAmount++;
+		}
+		else
+		{
+			Debug.Log ("Damn, no potion");
 		}
 	}
 }
