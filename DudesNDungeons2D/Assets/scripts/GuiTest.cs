@@ -6,7 +6,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect backpack = new Rect(Screen.width/200, Screen.height/100, 350, 450); // create the window box for the backpack.
 	Rect equippedGear = new Rect(Screen.width-200, Screen.height/100, 177, 220); // this is the box for the equipped box
 	Rect healthPot = new Rect(Screen.width/200, Screen.height-70,110,60);
-	Rect abilityArea = new Rect (Screen.width-200, Screen.height/2-200, 177,220);
+	Rect abilityArea = new Rect (Screen.width-200, Screen.height/3, 177,220);
 
 	GameObject PlayStat;
 
