@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GuiTest : MonoBehaviour // This system handles the Interactive User Interface part
 {
-	Rect backpack = new Rect(Screen.width*(1/, 20, 350, 450); // create the window box for the backpack.
-	Rect equippedGear = new Rect(990, 20, 177, 220); // this is the box for the equipped box
-	Rect healthPot = new Rect(10,535,110,60);
-	Rect abilityArea = new Rect (990, 240, 177,220);
+	Rect backpack = new Rect(Screen.width/200, Screen.height/100, 350, 450); // create the window box for the backpack.
+	Rect equippedGear = new Rect(Screen.width-200, Screen.height/100, 177, 220); // this is the box for the equipped box
+	Rect healthPot = new Rect(Screen.width/200, Screen.height-70,110,60);
+	Rect abilityArea = new Rect (Screen.width-200, Screen.height/3.8f, 177,220);
 
 	GameObject PlayStat;
 
@@ -73,13 +73,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			equippedGear = GUI.Window(1, equippedGear,doEquip, equippedBody); // load GUI window for the equipped body.
 			abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
 
-			stringStr = GUI.TextField(new Rect(580, 90, 200, 20), stringStr, 25); // load player stats
-			stringDex = GUI.TextField(new Rect(580, 50, 200, 20), stringDex, 25);
-			stringInt = GUI.TextField(new Rect(580, 70, 200, 20), stringInt, 25);
-			stringDam = GUI.TextField(new Rect(580, 110, 200, 20), stringDam, 25);
+			stringStr = GUI.TextField(new Rect((Screen.width/2)-100, 90, 200, 20), stringStr, 25); // load player stats
+			stringDex = GUI.TextField(new Rect((Screen.width/2)-100, 50, 200, 20), stringDex, 25);
+			stringInt = GUI.TextField(new Rect((Screen.width/2)-100, 70, 200, 20), stringInt, 25);
+			stringDam = GUI.TextField(new Rect((Screen.width/2)-100, 110, 200, 20), stringDam, 25);
 		}
-		stringHP = GUI.TextField(new Rect(580, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
-		stringCharge = GUI.TextField(new Rect(580, 30, 200, 20), stringCharge, 25);
+		stringHP = GUI.TextField(new Rect((Screen.width/2)-100, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
+		stringCharge = GUI.TextField(new Rect((Screen.width/2)-100, 30, 200, 20), stringCharge, 25);
 		healthPot = GUI.Window (2,healthPot, doHealth, potAmountString);
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
