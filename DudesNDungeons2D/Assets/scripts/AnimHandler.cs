@@ -125,8 +125,8 @@ public class AnimHandler : MonoBehaviour {
 		addSpritesToList(defAtkListR, defAttack2R, 7);
 		addSpritesToList(defAtkListR, defAttack1R, 7);
 		addSpritesToList(defAtkListR, defAttack2R, 7);
-		defAtkList.Add (walk1R);
-		defAtkList.Add (walk1R);
+		defAtkListR.Add (walk1R);
+		defAtkListR.Add (walk1R);
 
 
 
@@ -147,16 +147,16 @@ public class AnimHandler : MonoBehaviour {
 		addSpritesToList(sneakyAtkList, sneakyAttack2, 7);
 		addSpritesToList(sneakyAtkList, sneakyAttack1, 7);
 		addSpritesToList(sneakyAtkList, sneakyAttack2, 7);
-		defAtkList.Add (sneakyWalk1);
-		defAtkList.Add (sneakyWalk1);
+		sneakyAtkList.Add (sneakyWalk1);
+		sneakyAtkList.Add (sneakyWalk1);
 
 		//Sneaky attack animation to the left - double stab
 		addSpritesToList(sneakyAtkListR, sneakyAttack1R, 7);
 		addSpritesToList(sneakyAtkListR, sneakyAttack2R, 7);
 		addSpritesToList(sneakyAtkListR, sneakyAttack1R, 7);
 		addSpritesToList(sneakyAtkListR, sneakyAttack2R, 7);
-		defAtkList.Add (sneakyWalk1R);
-		defAtkList.Add (sneakyWalk1R);
+		sneakyAtkListR.Add (sneakyWalk1R);
+		sneakyAtkListR.Add (sneakyWalk1R);
 
 
 
