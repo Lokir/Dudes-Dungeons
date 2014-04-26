@@ -63,7 +63,8 @@ public class CombatHandler : MonoBehaviour {
 		if(eToAttack.GetComponent<Enemy>().eHp <= 0)
 		{
 			player.GetComponent<LootHandler>().lootBody(eToAttack);
-			eToAttack.rigidbody2D.AddForce(new Vector2 (10,0));
+			eToAttack.rigidbody2D.fixedAngle = false;
+			eToAttack.rigidbody2D.AddForce(new Vector2 (10,5));
 			eToAttack.GetComponent<FollowPlayerAI>().eCanAttack = false;
 			eToAttack.GetComponent<FollowPlayerAI>().eCanFollow = false;
 		}

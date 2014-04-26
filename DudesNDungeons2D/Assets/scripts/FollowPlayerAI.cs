@@ -84,7 +84,6 @@ public class FollowPlayerAI : MonoBehaviour
 		{
 			eCanAttack = false;
 			eAttackBool = true;
-			fPlayer.GetComponent<AnimHandler>().q = 0;
 			if(!fPlayer.GetComponent<player>().invulnerable)
 				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eCurrBody.gDamage;
 
