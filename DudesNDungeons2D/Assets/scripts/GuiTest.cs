@@ -32,12 +32,17 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture bruteTex;
 	public Texture sneakyTex;
 
+	public Texture defaultTex;
+	public Texture button1;
+	public Texture button2;
+
+
 	public Texture abilityTexture; // this one is the one continously loaded
 	public Texture abilityTexture1;
 	public Texture abilityTexture2;
 	public Texture abilityTexture3;
 
-	public Texture defaultTex;
+
 
 	Texture equippedBody; // this is the empty intance that will be swapped in and out to change equipment.
 
@@ -45,12 +50,16 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	void Start () // Use this for initialization
 	{
+		button1 = defaultTex;
 		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
 	}
 	// Update is called once per frame
 	void Update () 
 	{
+		if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
+			button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
 		stringHP = "HP: "+PlayStat.GetComponent<player>().pHp; // update displayed stats with current stats.
@@ -86,7 +95,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void DoBackPack(int windowID) // this function handles backpack buttons
 	{
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), Body1)) // button for loading Body 1 (default)
+		if (GUI.Button(new Rect(Screen.width/150, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button1)) // button for loading Body 1 (default)
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
 			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.

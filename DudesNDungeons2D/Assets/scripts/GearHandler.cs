@@ -11,6 +11,7 @@ public class Body // defines body as a class.
 	public bool sneakyAbil;
 	public int gDamage; // Body Bonus Damage
 	public Sprite skin; // skin for the player once body has been selected.
+	public Texture skinTex;
 }
 
 public class GearHandler : MonoBehaviour
@@ -23,11 +24,24 @@ public class GearHandler : MonoBehaviour
 	public Sprite mage;
 	public Sprite myDefault;
 
+	public Texture bruteTex;
+	public Texture sneakyTex;
+	public Texture mageTex;
+	public Texture myDefaultTex;
+
+
 	GameObject Player;
 
 	// Use this for initialization
 	void Start () 
 	{
+		Backpack.Add (null);
+		Backpack.Add (null);
+		Backpack.Add (null);
+		Backpack.Add (null);
+		Backpack.Add (null);
+		Backpack.Add (null);
+
 		Player = GameObject.FindGameObjectWithTag("Player"); // find the player data.
 		//Define some bodies.
 
@@ -36,10 +50,12 @@ public class GearHandler : MonoBehaviour
 		Body sneakyBody = new Body();
 		Body mageBody = new Body();
 		
-		makeBody(defBody, "Default", 100, 20,20,20, 10, false, false, false, myDefault); // fill these bodies with data.
-		makeBody(bruteBody, "Brute", 150, 20,10,30, 20, false, false, true, brute);
-		makeBody(sneakyBody, "Sneaky", 100, 10,30,20, 10, false, true, false, sneaky);
-		makeBody(mageBody, "Magus", 75, 30,20,10, 15, true, false, false, mage);
+		makeBody(defBody, "Default", 100, 20,20,20, 10, false, false, false, myDefault, myDefaultTex); // fill these bodies with data.
+		makeBody(bruteBody, "Brute", 150, 20,10,30, 20, false, false, true, brute, bruteTex);
+		makeBody(sneakyBody, "Sneaky", 100, 10,30,20, 10, false, true, false, sneaky, sneakyTex);
+		makeBody(mageBody, "Magus", 75, 30,20,10, 15, true, false, false, mage, mageTex);
+
+
 
 
 		// Add bodies into the list.
@@ -52,7 +68,7 @@ public class GearHandler : MonoBehaviour
 	{
 
 	}
-	void makeBody(Body bodyToMold, string name, int HP, int inte, int dex, int str, int damage, bool mageAbil, bool sneakyAbil, bool bruteAbil, Sprite skin) // fill bodies with data.
+	void makeBody(Body bodyToMold, string name, int HP, int inte, int dex, int str, int damage, bool mageAbil, bool sneakyAbil, bool bruteAbil, Sprite skin, Texture skinTex) // fill bodies with data.
 	{
 		bodyToMold.name = name;
 		bodyToMold.gHp = HP;
@@ -64,6 +80,7 @@ public class GearHandler : MonoBehaviour
 		bodyToMold.sneakyAbil = sneakyAbil;
 		bodyToMold.bruteAbil = bruteAbil;
 		bodyToMold.skin = skin;
+		bodyToMold.skinTex = skinTex;
 		Bodies.Add (bodyToMold);
 	}
 }

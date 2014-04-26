@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class FollowPlayerAI : MonoBehaviour 
 {
-	bool eAttackBool;
+	public bool eAttackBool;
 	bool eLeftAttackBool;
 	//Variables for the enemy detecting the player
 	Transform fPlayer;
@@ -99,6 +99,7 @@ public class FollowPlayerAI : MonoBehaviour
 	{
 		yield return new WaitForSeconds(eAttackSpeed);
 		eCanAttack = true;
+		eAttackBool = false;
 		StopCoroutine ("eAttackCooldown");
 	}
 	void returnToStart()
@@ -186,7 +187,7 @@ public class FollowPlayerAI : MonoBehaviour
 				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkList[eq];
 		}
 	}
-	void standardSprite()
+	public void standardSprite()
 	{
 		eAttackBool = false;
 		if(GetComponent<Enemy>().eCurrBody.name == "Default")

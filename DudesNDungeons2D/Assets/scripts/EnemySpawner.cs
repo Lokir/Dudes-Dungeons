@@ -71,8 +71,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 	void animationLoad(Sprite txtr)
 	{
-		for(int i = 0; i < 8
-		    ; i++)
+		for(int i = 0; i < 8; i++)
 			animList.Add (txtr);
 	}
 	void spawning(){
