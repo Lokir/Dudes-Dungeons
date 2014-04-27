@@ -127,7 +127,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			stringDex = GUI.TextField(new Rect((Screen.width/2)-100, 50, 200, 20), stringDex, 25);
 			stringInt = GUI.TextField(new Rect((Screen.width/2)-100, 70, 200, 20), stringInt, 25);
 			stringDam = GUI.TextField(new Rect((Screen.width/2)-100, 110, 200, 20), stringDam, 25);
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 		}
+		else 
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 		stringHP = GUI.TextField(new Rect((Screen.width/2)-100, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
 		stringCharge = GUI.TextField(new Rect((Screen.width/2)-100, 30, 200, 20), stringCharge, 25);
 		healthPot = GUI.Window (2, healthPot, doHealth, potAmountString);
@@ -140,6 +143,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
 			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
 			DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 			//Render shop gui
 		}
 

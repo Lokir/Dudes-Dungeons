@@ -14,7 +14,7 @@ public class AbilHandler : MonoBehaviour
 	float tpStunTime = 1.0f;
 	float shieldDuraTimer = 15.0f;
 	float flameThrowerAS = 0.8f;
-
+	public bool canUseAbilities;
 	float distanceToEnemy;
 	GameObject[] enemyFound;
 	GameObject flame;
@@ -33,12 +33,15 @@ public class AbilHandler : MonoBehaviour
 	bool canPush;
 	bool canShield;
 	bool canThrowFlame;
+	public bool stabNow;
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
 	
 	// Use this for initialization
 	void Start () 
 	{
+
+		canUseAbilities = true;
 		//Brutes ability levels
 		regenerateLevel = 1;
 		rageLevel = 1;
@@ -63,6 +66,7 @@ public class AbilHandler : MonoBehaviour
 		canTeleport = true;
 		canPush = true;
 		canShield = true;
+		stabNow = false;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
 	}
@@ -70,14 +74,17 @@ public class AbilHandler : MonoBehaviour
 	void Update () 
 	{
 		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
-		if(Input.GetMouseButtonDown (1) && canRage == true)
+		if(canUseAbilities)
 		{
-			//rage ();
-			//groundSlam(groundSlamLevel);
-			//teleport ();
-			//knockback();
-			//absorb();
-			flameThrower();
+			if(Input.GetMouseButtonDown (1) && canRage == true)
+			{
+				//rage ();
+				//groundSlam(groundSlamLevel);
+				//teleport ();
+				//knockback();
+				//absorb();
+				flameThrower();
+			}
 		}
 	}
 
@@ -101,28 +108,28 @@ public class AbilHandler : MonoBehaviour
 					if(knockbackLevel == 1)
 					{
 						e.rigidbody2D.AddForce(new Vector2(-20,0));
-						e.GetComponent<Enemy>().eHp -= 3;
+						e.GetComponent<Enemy>().eHp -= 6;
 						Debug.Log (e.GetComponent<Enemy>().eHp);
 					}
 					else if(knockbackLevel == 2)
 					{
 						e.rigidbody2D.AddForce(new Vector2(-23,0));
-						e.GetComponent<Enemy>().eHp -= 6;
+						e.GetComponent<Enemy>().eHp -= 12;
 					}
 					else if(knockbackLevel == 3)
 					{
 						e.rigidbody2D.AddForce(new Vector2(-26,0));
-						e.GetComponent<Enemy>().eHp -= 9;
+						e.GetComponent<Enemy>().eHp -= 18;
 					}
 					else if(knockbackLevel == 4)
 					{
 						e.rigidbody2D.AddForce(new Vector2(-29,0));
-						e.GetComponent<Enemy>().eHp -= 12;
+						e.GetComponent<Enemy>().eHp -= 36;
 					}
 					else if(knockbackLevel == 5)
 					{
 						e.rigidbody2D.AddForce(new Vector2(-32,0));
-						e.GetComponent<Enemy>().eHp -= 20;
+						e.GetComponent<Enemy>().eHp -= 45;
 					}
 					canPush = false;
 				}
@@ -180,12 +187,12 @@ public class AbilHandler : MonoBehaviour
 				}
 				else if(shieldLevel == 3)
 				{
-					e.GetComponent<Enemy>().eDamage = e.GetComponent<Enemy>().eDamage - (int)(Damage*0.50);
+					e.GetComponent<Enemy>().eDamage = e.GetComponent<Enemy>().eDamage - (int)(Damage*0.35);
 					Debug.Log ("Shielded");
 				}
 				else if(shieldLevel == 4)
 				{
-					e.GetComponent<Enemy>().eDamage = e.GetComponent<Enemy>().eDamage - (int)(Damage*0.55);	
+					e.GetComponent<Enemy>().eDamage = e.GetComponent<Enemy>().eDamage - (int)(Damage*0.45);	
 				}
 				else if(shieldLevel == 5)
 				{
@@ -263,41 +270,6 @@ public class AbilHandler : MonoBehaviour
 	void shadowStab() //MAKE ME PLEASE !!!!!!!!!!!!!!!
 	{
 		Damage = GetComponent<player>().pDamage + (int)(GetComponent<player>().pDamage*0.1);
-		if(sSLevel == 1)
-		{
-			if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().attackCount == 4)
-			{
-				GetComponent<player>().pDamage = GetComponent<player>().pDamage + (int)(Damage*0.3);
-			}
-		}
-		else if(sSLevel == 2)
-		{
-			if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().attackCount == 3)
-			{
-				GetComponent<player>().pDamage = GetComponent<player>().pDamage + (int)(Damage*0.5);
-			}
-		}
-		else if(sSLevel == 3)
-		{
-			if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().attackCount == 3)
-			{
-				GetComponent<player>().pDamage = GetComponent<player>().pDamage + (int)(Damage*0.6);
-			}
-		}
-		else if(sSLevel == 4)
-		{
-			if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().attackCount == 2)
-			{
-				GetComponent<player>().pDamage = Damage;
-			}
-		}
-		else if(sSLevel == 5)
-		{
-			if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().attackCount == 2)
-			{
-				GetComponent<player>().pDamage = Damage*2;
-			}
-		}
 		canShadowStab = false;
 		StartCoroutine("shadowStabDuration");
 	}
@@ -405,32 +377,32 @@ public class AbilHandler : MonoBehaviour
 					int enemyHP = e.GetComponent<Enemy>().eHp;
 					if(groundSlamLevel == 1)
 					{
-						e.GetComponent<Enemy>().eHp -= 15;
+						e.GetComponent<Enemy>().eHp -= 5;
 						if(enemyHP-15 > 0)
 							StartCoroutine("stunDuration", EnemiesList);
 					}
 					else if(groundSlamLevel == 2)
 					{
-						e.GetComponent<Enemy>().eHp -= 25;
+						e.GetComponent<Enemy>().eHp -= 10;
 						if(enemyHP-25 > 0)
 							StartCoroutine("stunDuration", EnemiesList);
 					}
 					else if(groundSlamLevel == 3)
 					{
-						e.GetComponent<Enemy>().eHp -= 35;
+						e.GetComponent<Enemy>().eHp -= 15;
 						timeStunned = 2.0f;
 						if(enemyHP-35 > 0)
 							StartCoroutine("stunDuration", EnemiesList);
 					}
 					else if(groundSlamLevel == 4)
 					{
-						e.GetComponent<Enemy>().eHp -= 45;
+						e.GetComponent<Enemy>().eHp -= 20;
 						if(enemyHP-45 > 0)
 							StartCoroutine("stunDuration", EnemiesList);
 					}
 					else if(groundSlamLevel == 5)
 					{
-						e.GetComponent<Enemy>().eHp -= 55;
+						e.GetComponent<Enemy>().eHp -= 25;
 						timeStunned = 3.0f;
 						if(enemyHP-55 > 0)
 							StartCoroutine("stunDuration", EnemiesList);

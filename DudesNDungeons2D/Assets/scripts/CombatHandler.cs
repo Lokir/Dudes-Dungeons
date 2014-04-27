@@ -7,17 +7,20 @@ public class CombatHandler : MonoBehaviour {
 	//List<Body> enemyList;
 
 	GameObject[] enemies;
+	public GameObject shadeling;
 	GameObject player;
 	GameObject eToAttack = null;
 	public Transform death;
 	public bool canAttack;
 	public float attackSpeed = 0.5f;
-	public int attackCount = 0;
-	public int attackHitCap = 5;
+	public int attackCount;
+	public int attackHitCap;
 
 	// Use this for initialization
 	void Start () 
 	{
+		attackHitCap = 0;
+		attackCount = 0;
 		canAttack = true;
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
@@ -41,10 +44,19 @@ public class CombatHandler : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
-			if(attackCount < attackHitCap)
+			if(attackCount <= attackHitCap)
 				attackCount++;
 			else
+			{
+				float displacement;
+				if(player.GetComponent<player>().left)
+					displacement = -1.0f;
+				else
+					displacement = 1.0f;
+				Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
 				attackCount = 0;
+			}
+
 
 			canAttack = false;
 			player.GetComponent<AnimHandler>().attackBool = true;

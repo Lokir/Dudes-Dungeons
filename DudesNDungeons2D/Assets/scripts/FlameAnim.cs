@@ -58,11 +58,11 @@ public class FlameAnim : MonoBehaviour {
 		{
 			if(player.GetComponent<player>().left == true) // if player moving left
 			{
-				transform.position = new Vector3(player.transform.position.x-1f,player.transform.position.y,0); // move the animation left.
+				transform.position = new Vector3(player.transform.position.x-0.5f,player.transform.position.y,0); // move the animation left.
 			}
 			else 
 			{
-				transform.position = new Vector3(player.transform.position.x+1f,player.transform.position.y,0); // else move the animation right
+				transform.position = new Vector3(player.transform.position.x+0.5f,player.transform.position.y,0); // else move the animation right
 			}
 
 			if(throwFire == false) // if no longer active make render into nothing and set C to 0.
