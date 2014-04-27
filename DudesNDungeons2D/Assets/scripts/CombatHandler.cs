@@ -11,7 +11,9 @@ public class CombatHandler : MonoBehaviour {
 	GameObject eToAttack = null;
 	public Transform death;
 	public bool canAttack;
-	float attackSpeed = 0.5f;
+	public float attackSpeed = 0.5f;
+	public int attackCount = 0;
+	public int attackHitCap = 5;
 
 	// Use this for initialization
 	void Start () 
@@ -39,6 +41,11 @@ public class CombatHandler : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
+			if(attackCount < attackHitCap)
+				attackCount++;
+			else
+				attackCount = 0;
+
 			canAttack = false;
 			player.GetComponent<AnimHandler>().attackBool = true;
 			player.GetComponent<AnimHandler>().q = 0;

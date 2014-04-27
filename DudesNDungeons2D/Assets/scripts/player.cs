@@ -59,7 +59,6 @@ public class player : MonoBehaviour
 		{
 			transform.position -= new Vector3(0.05f,0,0);
 			GetComponent<AnimHandler>().leftBool = true; // allow run of animation left.
-			left = true;
 		}
 
 		if(Input.GetKey(KeyCode.D)) // move right.

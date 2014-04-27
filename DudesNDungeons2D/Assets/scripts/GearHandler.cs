@@ -50,10 +50,10 @@ public class GearHandler : MonoBehaviour
 		Body sneakyBody = new Body();
 		Body mageBody = new Body();
 		
-		makeBody(defBody, "Default", 100, 20,20,20, 10, false, false, false, myDefault, myDefaultTex); // fill these bodies with data.
-		makeBody(bruteBody, "Brute", 150, 20,10,30, 20, false, false, true, brute, bruteTex);
-		makeBody(sneakyBody, "Sneaky", 100, 10,30,20, 10, false, true, false, sneaky, sneakyTex);
-		makeBody(mageBody, "Magus", 75, 30,20,10, 15, true, false, false, mage, mageTex);
+		makeBody(defBody, "Default", 100, 20, 20, 20, 10, false, false, false, myDefault, myDefaultTex); // fill these bodies with data.
+		makeBody(bruteBody, "Brute", 150, 20, 10, 30, 20, false, false, true, brute, bruteTex);
+		makeBody(sneakyBody, "Sneaky", 100, 10, 30, 20, 10, false, true, false, sneaky, sneakyTex);
+		makeBody(mageBody, "Magus", 75, 30, 20, 10, 15, true, false, false, mage, mageTex);
 
 
 

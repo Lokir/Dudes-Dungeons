@@ -358,6 +358,7 @@ public class AnimHandler : MonoBehaviour {
 		if(transform.position.x > wantedPos.x) // detect mouse pos compared to player pos.
 		{
 			leftAttackBool = true; // if mouse is left side of player sprite, face left and attack left if attacking.
+			GetComponent<player>().left = true;
 			if(!Input.GetKeyDown (KeyCode.A) || !Input.GetKeyDown (KeyCode.D)) 
 			{
 				if(GetComponent<player>().currBody.name == "Default")
@@ -376,6 +377,7 @@ public class AnimHandler : MonoBehaviour {
 		else
 		{
 			leftAttackBool = false; // else face right, and attack right.
+			GetComponent<player>().left = false;
 			if(!Input.GetKeyDown (KeyCode.A) || !Input.GetKeyDown (KeyCode.D)) 
 			{
 				if(GetComponent<player>().currBody.name == "Default")

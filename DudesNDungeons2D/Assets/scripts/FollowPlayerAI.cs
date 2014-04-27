@@ -89,8 +89,8 @@ public class FollowPlayerAI : MonoBehaviour
 			eCanAttack = false;
 			eAttackBool = true;
 			if(!fPlayer.GetComponent<player>().invulnerable)
-				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eCurrBody.gDamage;
-			Debug.Log ("Damage");
+				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eDamage;
+			Debug.Log ("Damage = " + GetComponent<Enemy>().eDamage);
 			StartCoroutine("eAttackCooldown");
 		}
 

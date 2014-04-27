@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class FlameAnim : MonoBehaviour {
 
 	GameObject player;
+	public bool throwFire;
 
 	public Sprite fCone1;
 	public Sprite fCone2;
@@ -45,31 +46,34 @@ public class FlameAnim : MonoBehaviour {
 			RConeFire.Add (RfCone4);
 		for(int i = 0; i < 4; i++)
 			RConeFire.Add (RfCone5);
+
+		throwFire = false;
 	}
 	// Update is called once per frame
 	int C = 0; // C is used to control the animations.
 
 	void Update () 
 	{
-		if(player.GetComponent<player>().currBody.mageAbil == true) // if player is wearing a mage body (only one who can use this abil)
+		if(player.GetComponent<player>().currBody.bruteAbil == true) // if player is wearing a mage body (only one who can use this abil)
 		{
 			if(player.GetComponent<player>().left == true) // if player moving left
 			{
-				transform.position = new Vector3(player.transform.position.x-2,player.transform.position.y,0); // move the animation left.
+				transform.position = new Vector3(player.transform.position.x-1f,player.transform.position.y,0); // move the animation left.
 			}
 			else 
 			{
-				transform.position = new Vector3(player.transform.position.x+2,player.transform.position.y,0); // else move the animation right
+				transform.position = new Vector3(player.transform.position.x+1f,player.transform.position.y,0); // else move the animation right
 			}
 
-			if(Input.GetKeyUp (KeyCode.R)) // if no longer active make render into nothing and set C to 0.
+			if(throwFire == false) // if no longer active make render into nothing and set C to 0.
 			{
 				GetComponent<SpriteRenderer>().sprite = none;
 				C = 0;
 			}
 
-			if(Input.GetKey (KeyCode.R)) // if active, render animation.
+			if(throwFire == true) // if active, render animation.
 			{
+
 				if(player.GetComponent<player>().left == true) // if left, render inverse images in sequence.
 					GetComponent<SpriteRenderer>().sprite = RConeFire[C];
 				else // else render standard images.
