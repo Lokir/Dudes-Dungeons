@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class LootHandler : MonoBehaviour {
 	
 	public Body lootedBody = new Body();
-	GameObject camFound;
+	public GameObject camFound;
 
 	int lootChance = 0;
 	int potionChance = 0;

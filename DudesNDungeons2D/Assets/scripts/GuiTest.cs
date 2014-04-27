@@ -67,16 +67,28 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	{
 		if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 			button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
 			button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
 			button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
 			button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
 			button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
 			button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
+			button1 = defaultTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
+			button2 = defaultTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
+			button3 = defaultTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
+			button4 = defaultTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
+			button5 = defaultTex;
+		else if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
+			button6 = defaultTex;
 
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
