@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:DudesNDungeons2D/Assets/Textures/AbsorbPower.png.meta
+guid: 3bf0bf795c40b554c9723b3a367c1022
+=======
 guid: 94aa18b32b550c44bb6837a5d083502e
+>>>>>>> 0bccd3d71cbd8b46bffe2015023edf988c42c0cb:DudesNDungeons2D/Assets/Textures/AbsorbPower.png.meta
 TextureImporter:
   serializedVersion: 2
   mipmaps:
