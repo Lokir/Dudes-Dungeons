@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour {
 	public float dodge, crit;
 
 	GameObject gear;
-	bool buildEnemy = true;
 	public Body eCurrBody = new Body(); // this body is the current body that we can load other bodies into.
 	// Use this for initialization
 	void Start () 
