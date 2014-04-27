@@ -8,6 +8,12 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect healthPot = new Rect(Screen.width/200, Screen.height-70, 110, 60);
 	Rect abilityArea = new Rect (Screen.width/1.12f, Screen.height/3, Screen.width/10.8f/*177*/, Screen.height/3.4f/*220*/);
 
+	//shop
+	Rect pBackpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
+	Rect pressedGear = new Rect(Screen.width/1.12f, Screen.height/100, Screen.width/11.4f/*177*/, Screen.height/4f/*220*/); // this is the box for the equipped box
+	Rect pressedBodyStats = new Rect (Screen.width/1.12f, (Screen.height/100)+((Screen.height/4f)+10), Screen.width/11.4f/*177*/, (Screen.height/4f)+10/*220*/);
+	Rect SkillRect = new Rect(Screen.width/4f, (Screen.height/2.7f), 350, 350);
+	Rect DescriptionRect = new Rect(((Screen.width/4f)*2)+5, 10, 530, 700);
 	GameObject PlayStat;
 
 	public int potionAmount = 3; // temporary potion counter.
@@ -49,7 +55,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	Texture equippedBody; // this is the empty intance that will be swapped in and out to change equipment.
 
-	bool visiGUI; // Boolean that allows for the Gui to be visible/active or not.
+	public bool visiGUI; // Boolean that allows for the Gui to be visible/active or not.
 
 	void Start () // Use this for initialization
 	{
@@ -65,7 +71,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	// Update is called once per frame
 	void Update () 
 	{
-		if(PlayStat.GetComponent<LootHandler>().hasLooted)
+		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold)
 		{
 			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 				button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
@@ -93,6 +99,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
 				button6 = defaultTex;
 			PlayStat.GetComponent<LootHandler>().hasLooted = false;
+			GetComponent<ShopCode>().hasSold = false;
 		}
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
@@ -124,12 +131,24 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		stringHP = GUI.TextField(new Rect((Screen.width/2)-100, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
 		stringCharge = GUI.TextField(new Rect((Screen.width/2)-100, 30, 200, 20), stringCharge, 25);
 		healthPot = GUI.Window (2, healthPot, doHealth, potAmountString);
+
+
+		if(GetComponent<ShopCode>().visiShop == true)
+		{
+			pressedBodyStats = GUI.Window(6,pressedBodyStats, GetComponent<ShopCode>().showBodyStats, GetComponent<ShopCode>().backpackSkin);
+			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
+			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
+			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
+			DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+			//Render shop gui
+		}
+
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
 	void DoBackPack(int windowID) // this function handles backpack buttons
 	{
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button1)) // button for loading Body 1 (default)
+		if (GUI.Button(new Rect(Screen.width/150, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button1) && button1 != defaultTex) // button for loading Body 1 (default)
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
 			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
@@ -138,14 +157,14 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			abilityTexture = defaultTex; // load the relevant ability texture.
 
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button2)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button2)&& button2 != defaultTex) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[1]; // brute
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button2;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)&& button3 != defaultTex) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[2]; // sneaky
 			PlayStat.GetComponent<player>().loadGear = true;
@@ -153,7 +172,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = sneakyTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button4)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button4) && button4 != defaultTex) // same as first.
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
@@ -161,17 +180,17 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button5)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button5)&& button5 != defaultTex) // same as first.
 		{
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[4]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button5; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 			abilityTexture = mageTex;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button6)) // same as first.
+		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button6)&& button6 != defaultTex) // same as first.
 		{
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
+			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[5]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button6; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
@@ -215,4 +234,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			Debug.Log ("PlayerAbil3");
 		}
 	}
+
+
+
+
 }

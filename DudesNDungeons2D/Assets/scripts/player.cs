@@ -10,11 +10,13 @@ public class player : MonoBehaviour
 	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
 	public bool left; // moving left.
 	public float dodge, crit, skillBon;
+	public int SkillPoints;
 
 	public Body currBody = new Body(); // this body is the current body that we can load other bodies into.
 	// Use this for initialization
 	void Start () 
 	{
+		SkillPoints = 0;
 		// default stat Values
 		pHp = sHp = 30;
 		pInte = sInte = 10;

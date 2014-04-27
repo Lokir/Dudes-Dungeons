@@ -2,25 +2,7 @@ fileFormatVersion: 2
 guid: 49e3bded9066b9749a8decafbaf29501
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - Body1: {fileID: 2800000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
-  - Body2: {fileID: 2800000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
-  - Body3: {fileID: 2800000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
-  - Body4: {fileID: 2800000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
-  - backpackSkin: {instanceID: 0}
-  - potion: {fileID: 2800000, guid: 5e6fff3838777e743b1b2d9ed6fbd89c, type: 3}
-  - mageTex: {fileID: 2800000, guid: 2bcfb66c1e72bae4fa64689f033f22ec, type: 3}
-  - bruteTex: {fileID: 2800000, guid: 0fcb64399a66eb14d8ccf97878a331fe, type: 3}
-  - sneakyTex: {fileID: 2800000, guid: 9a0edb206e5fc9e499f49e2b313130e5, type: 3}
-  - abilityTexture: {instanceID: 0}
-  - abilityTexture1: {instanceID: 0}
-  - abilityTexture2: {instanceID: 0}
-  - abilityTexture3: {instanceID: 0}
-  - defaultTex: {fileID: 2800000, guid: d2385d4e4a0a285449a221dd8434d661, type: 3}
-  - playerSkin1: {fileID: 21300000, guid: 6071899fa3e0be347862f4e7951e852b, type: 3}
-  - playerSkin2: {fileID: 21300000, guid: e9df032c25d969545a3b5008afcea271, type: 3}
-  - playerSkin3: {fileID: 21300000, guid: 52fca4513d68997479b8136a5b0a7aa6, type: 3}
-  - playerSkin4: {fileID: 21300000, guid: 83c9d9453e6815b4caca17a5b60ee0b2, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
