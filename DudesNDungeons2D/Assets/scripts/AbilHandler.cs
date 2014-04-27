@@ -11,7 +11,7 @@ public class AbilHandler : MonoBehaviour
 	float TPCD = 10.0f;
 
 	float distanceToEnemy;
-	Transform enemyFound;
+	GameObject[] enemyFound;
 
 	int HP;
 	int Inte;
@@ -21,8 +21,8 @@ public class AbilHandler : MonoBehaviour
 	int Charge;
 	int Damage;
 	float Dodge;
-	int regenerateLevel, rageLevel = 1, groundSlamLevel;
-	float hpMultiply = 0, strMultiply = 0, dmgMultiply = 0, dodgeMultiply = 0;
+	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
+	float hpMultiply, strMultiply, dmgMultiply , dodgeMultiply = 0;
 	bool canRage;
 	bool canTeleport;
 
@@ -30,21 +30,30 @@ public class AbilHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		regenerateLevel = 1;
+		rageLevel = 1;
+		groundSlamLevel = 1;
+
+		hpMultiply= 0;
+		strMultiply = 0;
+		dmgMultiply = 0;
+		dodgeMultiply = 0;
+
 		canRage = true;
 		canTeleport = true;
-		enemyFound = GameObject.FindGameObjectWithTag("Enemy").transform;
 	}
 	// Update is called once per frame
 	void Update () 
 	{
-		distanceToEnemy = Vector3.Distance(transform.position, enemyFound.position);
-		/*if(Input.GetMouseButtonDown(0) && canTeleport == true)
+		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
+		if(Input.GetMouseButtonDown(0) && canTeleport == true)
 		{
 			teleport ();
-		}*/
+		}
 		if(Input.GetMouseButtonDown (1) && canRage == true)
 		{
-			rage ();
+			//rage ();
+			groundSlam(groundSlamLevel);
 		}
 	}
 	public void teleport()
@@ -68,7 +77,6 @@ public class AbilHandler : MonoBehaviour
 		Damage = GetComponent<player>().pDamage;
 		Dodge = GetComponent<player>().dodge;
 		Debug.Log ("First "+GetComponent<player>().pHp);
-
 
 		if(rageLevel == 1)
 		{
@@ -136,34 +144,64 @@ public class AbilHandler : MonoBehaviour
 		StartCoroutine("rageDurationElapse");
 		Debug.Log ("After Coroutine "+GetComponent<player>().pHp);
 	}
-	public void groundSlam()
+	public void groundSlam(int groundSlamLevel)
 	{
-		if(distanceToEnemy >= 0.3f && distanceToEnemy <= 1.0f)
+		if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true)
 		{
-			enemyFound.GetComponent<FollowPlayerAI>().isStunned = true;
-			if(groundSlamLevel == 1)
+			GetComponent<AnimHandler>().isGroundSlam = true;
+			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack = false;
+			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().StartCoroutine ("attackCooldown");
+			GetComponent<AnimHandler>().attackBool = true;
+			GetComponent<AnimHandler>().q = 0;
+		}
+		if(enemyFound.Length > 0)
+		{
+			float distanceToEnemy = 1;
+			foreach(GameObject e in enemyFound)
 			{
-				enemyFound.GetComponent<Enemy>().eHp -= 15;
+				distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
+				if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
+				{
+					//Debug.Log ("Stun me please");
+					Debug.Log ("Enemy HP: "+ e.GetComponent<Enemy>().eHp);
+
+					e.GetComponent<FollowPlayerAI>().isStunned = true;
+					int enemyHP = e.GetComponent<Enemy>().eHp;
+					if(groundSlamLevel == 1)
+					{
+						e.GetComponent<Enemy>().eHp -= 15;
+						if(enemyHP-15 > 0)
+							StartCoroutine("stunDuration", e);
+					}
+					else if(groundSlamLevel == 2)
+					{
+						e.GetComponent<Enemy>().eHp -= 25;
+						if(enemyHP-25 > 0)
+							StartCoroutine("stunDuration", e);
+					}
+					else if(groundSlamLevel == 3)
+					{
+						e.GetComponent<Enemy>().eHp -= 35;
+						timeStunned = 2.0f;
+						if(enemyHP-35 > 0)
+							StartCoroutine("stunDuration", e);
+					}
+					else if(groundSlamLevel == 4)
+					{
+						e.GetComponent<Enemy>().eHp -= 45;
+						if(enemyHP-45 > 0)
+							StartCoroutine("stunDuration", e);
+					}
+					else if(groundSlamLevel == 5)
+					{
+						e.GetComponent<Enemy>().eHp -= 55;
+						timeStunned = 3.0f;
+						if(enemyHP-55 > 0)
+							StartCoroutine("stunDuration", e);
+					}
+
+				}
 			}
-			else if(groundSlamLevel == 2)
-			{
-				enemyFound.GetComponent<Enemy>().eHp -= 25;
-			}
-			else if(groundSlamLevel == 3)
-			{
-				enemyFound.GetComponent<Enemy>().eHp -= 35;
-				timeStunned = 2.0f;
-			}
-			else if(groundSlamLevel == 4)
-			{
-				enemyFound.GetComponent<Enemy>().eHp -= 45;
-			}
-			else if(groundSlamLevel == 5)
-			{
-				enemyFound.GetComponent<Enemy>().eHp -= 55;
-				timeStunned = 3.0f;
-			}
-			StartCoroutine("stunDuration");
 		}
 	}
 	public void regenerate()
@@ -204,10 +242,12 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<player>().pHp += regen;
 		}
 	}
-	IEnumerator stunDuration()
+	IEnumerator stunDuration(GameObject enemy)
 	{
 			yield return new WaitForSeconds (timeStunned);
-			enemyFound.GetComponent<FollowPlayerAI>().isStunned = false;
+		if(enemy != null)
+			enemy.GetComponent<FollowPlayerAI>().isStunned = false;
+			GetComponent<AnimHandler>().isGroundSlam = false;
 			StopCoroutine("stunDuration");
 	}
 	IEnumerator rageDurationElapse()

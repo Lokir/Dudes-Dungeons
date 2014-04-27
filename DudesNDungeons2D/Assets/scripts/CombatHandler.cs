@@ -10,7 +10,7 @@ public class CombatHandler : MonoBehaviour {
 	GameObject player;
 	GameObject eToAttack = null;
 	public Transform death;
-	bool canAttack;
+	public bool canAttack;
 	float attackSpeed = 0.5f;
 
 	// Use this for initialization
@@ -23,8 +23,19 @@ public class CombatHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+		if(enemies.Length > 0)
+			foreach(GameObject e in enemies)
+			{
+				if(e.GetComponent<Enemy>().eHp <= 0)
+				{
+					player.GetComponent<LootHandler>().lootBody(e);
+					Instantiate (death, new Vector3(e.transform.position.x,e.transform.position.y,e.transform.position.z-1), Quaternion.identity);
+					Destroy (e);
+				}
+			}
+
 
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
@@ -60,22 +71,13 @@ public class CombatHandler : MonoBehaviour {
 		//iniate Attack Animation.
 		eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
 		//Debug.Log ("Enemy HP in function: "+eToAttack.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
-		if(eToAttack.GetComponent<Enemy>().eHp <= 0)
-		{
-			player.GetComponent<LootHandler>().lootBody(eToAttack);
-			eToAttack.GetComponent<FollowPlayerAI>().standardSprite();
-			eToAttack.rigidbody2D.fixedAngle = false;
-			eToAttack.rigidbody2D.AddForce(new Vector2 (10,10));
-			eToAttack.GetComponent<FollowPlayerAI>().eCanAttack = false;
-			eToAttack.GetComponent<FollowPlayerAI>().eCanFollow = false;
-			Instantiate (death, new Vector3(eToAttack.transform.position.x,eToAttack.transform.position.y,eToAttack.transform.position.z-1), Quaternion.identity);
-			Destroy (eToAttack);
-		}
 	}
-	IEnumerator attackCooldown()
+	public IEnumerator attackCooldown()
 	{
 		yield return new WaitForSeconds(attackSpeed);
 		canAttack = true;
+		player.GetComponent<AnimHandler>().isGroundSlam = false;
+
 		Debug.Log("Im here");
 		StopCoroutine ("attackCooldown");
 	}

@@ -65,19 +65,35 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	// Update is called once per frame
 	void Update () 
 	{
-		if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
-			button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
-			button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
-			button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
-			button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
-			button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
-		if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
-			button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
+		if(PlayStat.GetComponent<LootHandler>().hasLooted)
+		{
+			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
+				button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+				button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+				button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+				button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+				button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+				button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
 
+			if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
+				button1 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
+				button2 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
+				button3 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
+				button4 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
+				button5 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
+				button6 = defaultTex;
+			PlayStat.GetComponent<LootHandler>().hasLooted = false;
+		}
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
 		stringHP = "HP: "+PlayStat.GetComponent<player>().pHp; // update displayed stats with current stats.
@@ -128,7 +144,6 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button2;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			abilityTexture = bruteTex;
 		}
 		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)) // same as first.
 		{

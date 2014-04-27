@@ -5,10 +5,11 @@ using System.Collections.Generic;
 public class LootHandler : MonoBehaviour {
 	
 	public Body lootedBody = new Body();
-	GameObject camFound;
+	public GameObject camFound;
 
 	int lootChance = 0;
 	int potionChance = 0;
+	public bool hasLooted = false;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +31,7 @@ public class LootHandler : MonoBehaviour {
 		if(lootChance <= 75) //we give the player 75% chance of getting loot from the enemy
 		{
 			int h = 0;
-			bool hasLooted = false;
+
 			foreach (Body l in GetComponent<GearHandler>().Backpack)
 			{
 				if(l == null && !hasLooted)

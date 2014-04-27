@@ -25,6 +25,8 @@ public class AnimHandler : MonoBehaviour {
 
 	public List<Sprite> bruteAtkList = new List<Sprite>();
 	public List<Sprite> bruteAtkListR = new List<Sprite>();
+	public List<Sprite> groundSlamList = new List<Sprite>();
+	public List<Sprite> groundSlamListR = new List<Sprite>();
 
 	public List<Sprite> sneakyAtkList = new List<Sprite>();
 	public List<Sprite> sneakyAtkListR = new List<Sprite>();
@@ -36,6 +38,7 @@ public class AnimHandler : MonoBehaviour {
 	public bool leftBool;
 	public bool attackBool;
 	public bool leftAttackBool;
+	public bool isGroundSlam;
 
 	public Sprite defAttack1;
 	public Sprite defAttack2;
@@ -48,6 +51,8 @@ public class AnimHandler : MonoBehaviour {
 	public Sprite bruteAttack1R;
 	public Sprite bruteAttack2R;
 	public Sprite bruteAttack3R;
+	public Sprite groundSlam;
+	public Sprite groundSlamR;
 
 	public Sprite sneakyAttack1;
 	public Sprite sneakyAttack2;
@@ -111,6 +116,7 @@ public class AnimHandler : MonoBehaviour {
 		rightBool = false; // These bools help define what animation to start.
 		leftBool = false;
 		attackBool = false;
+		isGroundSlam = false;
 
 		//Default attack animation to the right
 		addSpritesToList(defAtkList, defAttack1, 7); // add to list takes in a list, a sprite and a number of iterations.
@@ -128,17 +134,25 @@ public class AnimHandler : MonoBehaviour {
 		defAtkListR.Add (walk1R);
 		defAtkListR.Add (walk1R);
 
-
-
 		//Brute attack animation to the right
 		addSpritesToList(bruteAtkList, bruteAttack1, 10);
 		addSpritesToList(bruteAtkList, bruteAttack2, 10);
 		addSpritesToList(bruteAtkList, bruteAttack3, 10);
 
+		//Groundslam
+		addSpritesToList(groundSlamList, bruteAttack1, 10);
+		addSpritesToList(groundSlamList, bruteAttack2, 10);
+		addSpritesToList(groundSlamList, groundSlam, 10);
+
 		//Brute attack animation to the left
 		addSpritesToList(bruteAtkListR, bruteAttack1R, 10);
 		addSpritesToList(bruteAtkListR, bruteAttack2R, 10);
 		addSpritesToList(bruteAtkListR, bruteAttack3R, 10);
+
+		//Groundslam left
+		addSpritesToList(groundSlamListR, bruteAttack1R, 10);
+		addSpritesToList(groundSlamListR, bruteAttack2R, 10);
+		addSpritesToList(groundSlamListR, groundSlamR, 10);
 
 
 
@@ -266,8 +280,11 @@ public class AnimHandler : MonoBehaviour {
 				if(GetComponent<player>().currBody.name == "Default")
 					GetComponent<SpriteRenderer>().sprite = defAtkListR[q];
 
-				if(GetComponent<player>().currBody.name == "Brute")
+				if(GetComponent<player>().currBody.name == "Brute" && !isGroundSlam)
 					GetComponent<SpriteRenderer>().sprite = bruteAtkListR[q];
+
+				if(GetComponent<player>().currBody.name == "Brute" && isGroundSlam)
+					GetComponent<SpriteRenderer>().sprite = groundSlamListR[q];
 
 				if(GetComponent<player>().currBody.name == "Sneaky")
 					GetComponent<SpriteRenderer>().sprite = sneakyAtkListR[q];
@@ -282,8 +299,11 @@ public class AnimHandler : MonoBehaviour {
 				if(GetComponent<player>().currBody.name == "Default")
 					GetComponent<SpriteRenderer>().sprite = defAtkList[q];
 
-				if(GetComponent<player>().currBody.name == "Brute")
+				if(GetComponent<player>().currBody.name == "Brute" && !isGroundSlam)
 					GetComponent<SpriteRenderer>().sprite = bruteAtkList[q];
+				
+				if(GetComponent<player>().currBody.name == "Brute" && isGroundSlam)
+					GetComponent<SpriteRenderer>().sprite = groundSlamList[q];
 
 				if(GetComponent<player>().currBody.name == "Sneaky")
 					GetComponent<SpriteRenderer>().sprite = sneakyAtkList[q];
