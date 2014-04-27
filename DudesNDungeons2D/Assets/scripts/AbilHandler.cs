@@ -18,6 +18,7 @@ public class AbilHandler : MonoBehaviour
 	float distanceToEnemy;
 	GameObject[] enemyFound;
 	GameObject flame;
+	GameObject stabstab;
 
 	int HP;
 	int Str;
@@ -33,11 +34,7 @@ public class AbilHandler : MonoBehaviour
 	bool canPush;
 	bool canShield;
 	bool canThrowFlame;
-<<<<<<< HEAD
-	public bool stabNow;
-=======
 	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
->>>>>>> 603dfeebfaf8da30a8fd45e47b7633bc290a0776
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
 	
@@ -70,7 +67,6 @@ public class AbilHandler : MonoBehaviour
 		canTeleport = true;
 		canPush = true;
 		canShield = true;
-		stabNow = false;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
 	}
@@ -271,10 +267,11 @@ public class AbilHandler : MonoBehaviour
 		canTeleport = false;
 		StartCoroutine("teleportCooldown");
 	}
-	void shadowStab() //MAKE ME PLEASE !!!!!!!!!!!!!!!
+	void shadowStab()
 	{
 		Damage = GetComponent<player>().pDamage + (int)(GetComponent<player>().pDamage*0.1);
 		canShadowStab = false;
+		stabstab.GetComponent<Stab>().stabStabStab = true;
 		StartCoroutine("shadowStabDuration");
 	}
 
@@ -509,6 +506,7 @@ public class AbilHandler : MonoBehaviour
 		yield return new WaitForSeconds(shadowStabTimer);
 		GetComponent<player>().pDamage = Damage;
 		canShadowStab = true;
+		stabstab.GetComponent<Stab>().stabStabStab = false;
 		StopCoroutine("shadowStabDuration");
 	}
 

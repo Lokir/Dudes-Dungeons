@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Stab : MonoBehaviour {
 	
 	GameObject PlayStat;
+	public bool stabStabStab;
 	
 	public Sprite SCone1; // Stab animation
 	public Sprite SCone2;
@@ -107,13 +108,13 @@ public class Stab : MonoBehaviour {
 				transform.position = new Vector3(PlayStat.transform.position.x+2,PlayStat.transform.position.y,0); // else move right.
 			}
 			
-			if(Input.GetKeyUp (KeyCode.R)) // if inactive load no image.
+			if(stabStabStab == false) // if inactive load no image.
 			{
 				GetComponent<SpriteRenderer>().sprite = none;
 				C = 0; // reset animation.
 			}
 			
-			if(Input.GetKey (KeyCode.R)) // if active load animation.
+			if(stabStabStab == true) // if active load animation.
 			{
 				if(PlayStat.GetComponent<player>().left == true) // moving left laod inverse.
 					GetComponent<SpriteRenderer>().sprite = RConeStab[C];
