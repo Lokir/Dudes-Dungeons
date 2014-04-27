@@ -25,7 +25,7 @@ public class AbilHandler : MonoBehaviour
 	int Charge;
 	int Damage;
 	float Dodge;
-	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
+
 	float hpMultiply, strMultiply, dmgMultiply , dodgeMultiply = 0;
 	bool canRage;
 	bool canTeleport;
@@ -33,6 +33,7 @@ public class AbilHandler : MonoBehaviour
 	bool canPush;
 	bool canShield;
 	bool canThrowFlame;
+	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
 	

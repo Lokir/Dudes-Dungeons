@@ -7,12 +7,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect equippedGear = new Rect(Screen.width/1.12f, Screen.height/100, Screen.width/11.4f/*177*/, Screen.height/4f/*220*/); // this is the box for the equipped box
 	Rect healthPot = new Rect(Screen.width/200, Screen.height-70, 110, 60);
 	Rect abilityArea = new Rect (Screen.width/1.12f, Screen.height/3, Screen.width/10.8f/*177*/, Screen.height/3.4f/*220*/);
-
+	float skillRectx, skillRecty;
 	//shop
 	Rect pBackpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
 	Rect pressedGear = new Rect(Screen.width/1.12f, Screen.height/100, Screen.width/11.4f/*177*/, Screen.height/4f/*220*/); // this is the box for the equipped box
 	Rect pressedBodyStats = new Rect (Screen.width/1.12f, (Screen.height/100)+((Screen.height/4f)+10), Screen.width/11.4f/*177*/, (Screen.height/4f)+10/*220*/);
 	Rect SkillRect = new Rect(Screen.width/4f, (Screen.height/2.7f), 350, 350);
+
 	Rect DescriptionRect = new Rect(((Screen.width/4f)*2)+5, 10, 530, 700);
 	GameObject PlayStat;
 
@@ -71,6 +72,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	// Update is called once per frame
 	void Update () 
 	{
+		SkillRect.x = skillRectx;
+		SkillRect.y = skillRecty;
 		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold)
 		{
 			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
@@ -139,7 +142,17 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
 			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
 			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
-			DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+			if(GetComponent<ShopCode>().showDescription)
+			{
+				skillRectx = Screen.width/4f;
+				skillRecty = Screen.height/2.7f;
+				DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+			}
+			else
+			{
+				skillRectx = (Screen.width/2f)-175;
+				skillRecty = (Screen.height/2f)-175;
+			}
 			//Render shop gui
 		}
 
