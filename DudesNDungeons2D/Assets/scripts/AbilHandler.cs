@@ -78,7 +78,6 @@ public class AbilHandler : MonoBehaviour
 		Dodge = GetComponent<player>().dodge;
 		Debug.Log ("First "+GetComponent<player>().pHp);
 
-
 		if(rageLevel == 1)
 		{
 			hpMultiply = 0.03f;
