@@ -34,6 +34,7 @@ public class AbilHandler : MonoBehaviour
 	bool canPush;
 	bool canShield;
 	bool canThrowFlame;
+	bool canGroundSlam;
 	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
@@ -43,6 +44,9 @@ public class AbilHandler : MonoBehaviour
 	{
 
 		canUseAbilities = true;
+		canGroundSlam  = true;
+		canShadowStab  = true;
+		canThrowFlame = true;
 		//Brutes ability levels
 		regenerateLevel = 1;
 		rageLevel = 1;
@@ -69,6 +73,7 @@ public class AbilHandler : MonoBehaviour
 		canShield = true;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
+		stabstab = GameObject.FindGameObjectWithTag("Stab");
 	}
 	// Update is called once per frame
 	void Update () 
@@ -76,14 +81,46 @@ public class AbilHandler : MonoBehaviour
 		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
 		if(canUseAbilities == true)
 		{
-			if(Input.GetMouseButtonDown (1) && canRage == true)
+			if(GetComponent<player>().currBody.name == "Brute")
 			{
-				//rage ();
-				//groundSlam(groundSlamLevel);
-				//teleport ();
-				//knockback();
-				//absorb();
-				flameThrower();
+				if(Input.GetMouseButtonDown (1) && canGroundSlam == true)
+				{
+					groundSlam(groundSlamLevel);
+				}
+				if(Input.GetKeyDown(KeyCode.R) && canRage == true)
+				{
+					rage ();
+					Debug.Log ("raging");
+				}
+				regenerate();
+			}
+			if(GetComponent<player>().currBody.name == "Sneaky")
+			{
+				if(Input.GetMouseButtonDown (1) && canTeleport == true)
+				{
+					teleport();
+				}
+				if(Input.GetKeyDown(KeyCode.R) && canShadowStab == true)
+				{
+					shadowStab();
+				}
+
+				// evade & attack speed();
+			}
+			if(GetComponent<player>().currBody.name == "Magus")
+			{
+				if(Input.GetMouseButtonDown (1) && canThrowFlame == true)
+				{
+					flameThrower();
+				}
+				if(Input.GetKeyDown(KeyCode.R) && canShield == true)
+				{
+					absorb();
+				}
+				if(Input.GetKeyDown(KeyCode.F) && canPush == true)
+				{
+					knockback();
+				}
 			}
 		}
 	}
@@ -415,7 +452,6 @@ public class AbilHandler : MonoBehaviour
 	}
 	public void regenerate()
 	{
-		StopCoroutine("regenPerSecond");
 		int regen = 0;
 		if(regenerateLevel == 1)
 		{
@@ -449,6 +485,7 @@ public class AbilHandler : MonoBehaviour
 		{
 			yield return new WaitForSeconds (regenTimer);
 			GetComponent<player>().pHp += regen;
+			StopCoroutine("regenPerSecond");
 		}
 	}
 

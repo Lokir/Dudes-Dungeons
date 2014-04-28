@@ -44,7 +44,7 @@ public class CombatHandler : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
-			if(player.GetComponent<AbilHandler>().canUseAbilities && player.GetComponent<AbilHandler>().canShadowStab)
+			if(player.GetComponent<AbilHandler>().canUseAbilities && !player.GetComponent<AbilHandler>().canShadowStab)
 			{
 				if(attackCount <= attackHitCap)
 					attackCount++;

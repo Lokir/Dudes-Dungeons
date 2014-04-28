@@ -188,6 +188,7 @@ public class ShopCode : MonoBehaviour {
 		Player.GetComponent<GearHandler>().Backpack[0] = null;
 		Player.GetComponent<player>().SkillPoints++;
 		hasSold = true;
+		GetComponent<GuiTest>().bodyChange = true;
 		Debug.Log (Player.GetComponent<player>().SkillPoints);
 	}
 	public void showBodyStats(int windowID)
@@ -314,47 +315,56 @@ public class ShopCode : MonoBehaviour {
 			{
 				skillLvl = ++Player.GetComponent<AbilHandler>().rageLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 
 			}
 			else if(skillOpen == regenName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().regenerateLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == slamName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().groundSlamLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == teleportName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().tpLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == shadowStabName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().sSLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == accDexName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl = ++Player.GetComponent<AbilHandler>().eAndASLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == forcePushName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().knockbackLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == stoneSkinName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().shieldLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == flameBurstName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().flameThrowerLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				GetComponent<GuiTest>().bodyChange = true;
 			}
 			currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
 			currSkillLvl = GUI.TextField(new Rect(350-152, 40, 165, 20), currSkillLvl, 100);						

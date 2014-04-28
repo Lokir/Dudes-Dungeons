@@ -6,7 +6,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect backpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
 	Rect equippedGear = new Rect(Screen.width/1.12f, Screen.height/100, Screen.width/11.4f/*177*/, Screen.height/4f/*220*/); // this is the box for the equipped box
 	Rect healthPot = new Rect(Screen.width/200, Screen.height-70, 110, 60);
-	Rect abilityArea = new Rect ((Screen.width/2f)-110, Screen.height-70, 220, 60);
+	Rect abilityArea = new Rect ((Screen.width/2f)-110, Screen.height-90, 220, 90);
 	float skillRectx, skillRecty;
 	//shop
 	Rect pBackpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
@@ -16,6 +16,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	Rect DescriptionRect = new Rect(((Screen.width/4f)*2)+5, 10, 530, 700);
 	GameObject PlayStat;
+	string abilLvl1;
+	string abilLvl2;
+	string abilLvl3;
 
 	public int potionAmount = 3; // temporary potion counter.
 	string potAmountString = ""; // amount of potions in string.
@@ -46,11 +49,11 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture button4;
 	public Texture button5;
 	public Texture button6;
-
-	public Texture abilityTexture; // this one is the one continously loaded
+	
 	public Texture abilityTexture1;
 	public Texture abilityTexture2;
 	public Texture abilityTexture3;
+	public bool bodyChange = true;
 
 
 
@@ -68,6 +71,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		button6 = defaultTex;
 		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
+
+		abilLvl1 = "NA";
+     	abilLvl2 = "NA";
+    	abilLvl3 = "NA";
 	}
 	// Update is called once per frame
 	void Update () 
@@ -104,6 +111,51 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<LootHandler>().hasLooted = false;
 			GetComponent<ShopCode>().hasSold = false;
 		}
+
+		if(bodyChange)
+		{
+			if(PlayStat.GetComponent<player>().currBody.name == "Default")
+			{
+				abilityTexture1 = defaultTex;
+				abilityTexture2 = defaultTex;
+				abilityTexture3 = defaultTex;
+				abilLvl1 = "NA";
+				abilLvl2 = "NA";
+				abilLvl3 = "NA";
+			}
+
+			else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
+			{
+				abilityTexture1 = GetComponent<ShopCode>().GroundSlamSkill;
+				abilityTexture2 = GetComponent<ShopCode>().RegenSkill;
+				abilityTexture3 = GetComponent<ShopCode>().RageSkill;
+				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().groundSlamLevel;
+				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().regenerateLevel;
+				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().rageLevel;
+			}
+
+			else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
+			{
+				abilityTexture1 = GetComponent<ShopCode>().TeleportSkill;
+				abilityTexture2 = GetComponent<ShopCode>().ShadowStabSkill;
+				abilityTexture3 = GetComponent<ShopCode>().AccuteDexterity;
+				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().tpLevel;
+				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().sSLevel;
+				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().eAndASLevel;
+			}
+
+			else if(PlayStat.GetComponent<player>().currBody.name == "Magus")
+			{
+				abilityTexture1 = GetComponent<ShopCode>().ForcePush;
+				abilityTexture2 = GetComponent<ShopCode>().StoneSkin;
+				abilityTexture3 = GetComponent<ShopCode>().FlameBurst;
+				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().knockbackLevel;
+				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().shieldLevel;
+				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().flameThrowerLevel;
+			}
+			bodyChange = false;
+		}
+
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
 
 		stringHP = "HP: "+PlayStat.GetComponent<player>().pHp; // update displayed stats with current stats.
@@ -172,9 +224,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		{
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
 			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
-			equippedBody = Body1; // swap button's body into the equipped body. 
+			equippedBody = button1; // swap button's body into the equipped body. 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
-			abilityTexture = defaultTex; // load the relevant ability texture.
+			bodyChange = true;
 
 		}
 		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button2)&& button2 != defaultTex) // same as first.
@@ -183,6 +235,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button2;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+			bodyChange = true;
 		}
 		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)&& button3 != defaultTex) // same as first.
 		{
@@ -190,7 +243,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button3;
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			abilityTexture = sneakyTex;
+			bodyChange = true;
 		}
 		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button4) && button4 != defaultTex) // same as first.
 		{
@@ -198,7 +251,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button4; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			abilityTexture = mageTex;
+			bodyChange = true;
 		}
 		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button5)&& button5 != defaultTex) // same as first.
 		{
@@ -206,7 +259,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button5; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			abilityTexture = mageTex;
+			bodyChange = true;
 		}
 		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button6)&& button6 != defaultTex) // same as first.
 		{
@@ -214,7 +267,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button6; 
 			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			abilityTexture = mageTex;
+			bodyChange = true;
 		}
 	}
 	void doEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
@@ -227,31 +280,20 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			PlayStat.GetComponent<player>().pHp = PlayStat.GetComponent<player>().HPCap; // add 50 life.
 			potionAmount--; // deduct one potion.
 		}
-		if(GUI.Button (new Rect(60,10,40,40),abilityTexture) || Input.GetKeyDown(KeyCode.E))
-		{
-			PlayStat.GetComponent<player>().pCharge += 10;
-		}
 
 	}
 	void doAbility(int windowID)
-	{
-		if(GUI.Button (new Rect(10,10, Screen.width/13f/*159*/, Screen.height/12/*59*/),abilityTexture1))
+	{	abilLvl1 = GUI.TextField(new Rect(15,65,50,20),abilLvl1,20);
+		abilLvl2 = GUI.TextField(new Rect(85,65,50,20),abilLvl2,20);
+		abilLvl3 = GUI.TextField(new Rect(155,65,50,20),abilLvl3,20);
+		if(GUI.Button (new Rect(10,5, 60, 60),abilityTexture1))
 		{
-			abilityTexture1 = abilityTexture;
-			PlayStat.GetComponent<player>().pCharge += 10;
-			Debug.Log ("PlayerAbil1");
 		}
-		if(GUI.Button (new Rect(10, Screen.height/10, Screen.width/13f/*159*/, Screen.height/12/*59*/),abilityTexture2))
+		if(GUI.Button (new Rect(80, 5, 60,60),abilityTexture2))
 		{
-			abilityTexture2 = abilityTexture;
-			PlayStat.GetComponent<player>().pCharge += 10;
-			Debug.Log ("PlayerAbil2");
 		}
-		if(GUI.Button (new Rect(10, Screen.height/5.3f, Screen.width/13f/*159*/, Screen.height/12/*59*/),abilityTexture3))
+		if(GUI.Button (new Rect(150,5, 60, 60),abilityTexture3))
 		{
-			abilityTexture3 = abilityTexture;
-			PlayStat.GetComponent<player>().pCharge += 10;
-			Debug.Log ("PlayerAbil3");
 		}
 	}
 
