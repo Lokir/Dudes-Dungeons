@@ -110,40 +110,40 @@ public class ShopCode : MonoBehaviour {
 	void Start () 
 	{
 		//Buttons
-		fitShopToScreen(SellRect, true);
-		fitShopToScreen(rageRect, true);
-		fitShopToScreen(regenRect, true);
-		fitShopToScreen(slamRect, true);
-		fitShopToScreen(tpRect, true);
-		fitShopToScreen(sSRect, true);
-		fitShopToScreen(accuteBodyRect, true);
-		fitShopToScreen(FPRect, true);
-		fitShopToScreen(StoneSkinRect, true);
-		fitShopToScreen(flameRect, true);
-		fitShopToScreen(exitRect, true);
-		fitShopToScreen(skillPlusRect, true);
+		fitShopToScreen(ref SellRect, true);
+		fitShopToScreen(ref rageRect, true);
+		fitShopToScreen(ref regenRect, true);
+		fitShopToScreen(ref slamRect, true);
+		fitShopToScreen(ref tpRect, true);
+		fitShopToScreen(ref sSRect, true);
+		fitShopToScreen(ref accuteBodyRect, true);
+		fitShopToScreen(ref FPRect, true);
+		fitShopToScreen(ref StoneSkinRect, true);
+		fitShopToScreen(ref flameRect, true);
+		fitShopToScreen(ref exitRect, true);
+		fitShopToScreen(ref skillPlusRect, true);
 
 		//Text
-		fitShopToScreen(nameTextRect, false);
-		fitShopToScreen(textRect, false);
-		fitShopToScreen(textRect2, false);
-		fitShopToScreen(textRect3, false);
-		fitShopToScreen(textRect4, false);
-		fitShopToScreen(textRect5, false);
-		fitShopToScreen(textRect6, false);
+		fitShopToScreen(ref nameTextRect, false);
+		fitShopToScreen(ref textRect, false);
+		fitShopToScreen(ref textRect2, false);
+		fitShopToScreen(ref textRect3, false);
+		fitShopToScreen(ref textRect4, false);
+		fitShopToScreen(ref textRect5, false);
+		fitShopToScreen(ref textRect6, false);
 		
-		fitShopToScreen(rageNameRect, false);
-		fitShopToScreen(regenNameRect, false);
-		fitShopToScreen(slamNameRect, false);
-		fitShopToScreen(tpNameRect, false);
-		fitShopToScreen(sSNameRect, false);
-		fitShopToScreen(accuteBodyNameRect, false);
-		fitShopToScreen(FPNameRect, false);
-		fitShopToScreen(StoneSkinNameRect, false);
-		fitShopToScreen(flameNameRect, false);
+		fitShopToScreen(ref rageNameRect, false);
+		fitShopToScreen(ref regenNameRect, false);
+		fitShopToScreen(ref slamNameRect, false);
+		fitShopToScreen(ref tpNameRect, false);
+		fitShopToScreen(ref sSNameRect, false);
+		fitShopToScreen(ref accuteBodyNameRect, false);
+		fitShopToScreen(ref FPNameRect, false);
+		fitShopToScreen(ref StoneSkinNameRect, false);
+		fitShopToScreen(ref flameNameRect, false);
 		
-		fitShopToScreen(currSkillLvlRect, false);
-		fitShopToScreen(ptsAvailRect, false);
+		fitShopToScreen(ref currSkillLvlRect, false);
+		fitShopToScreen(ref ptsAvailRect, false);
 
 
 
@@ -158,15 +158,12 @@ public class ShopCode : MonoBehaviour {
 
 		visiShop = false;
 	}
-	void fitShopToScreen(Rect rectToMod, bool fitSize)
+	void fitShopToScreen(ref Rect rectToMod, bool fitSize)
 	{
-			if(fitSize)
-			{
-				rectToMod.x = ((rectToMod.width/1366)*Screen.width);
-				rectToMod.y = ((rectToMod.height/768)*Screen.height);
-			}
+		rectToMod.width = ((rectToMod.width/1366)*Screen.width);
+		rectToMod.height = ((rectToMod.height/608)*Screen.height);
 		rectToMod.x = ((rectToMod.x/1366)*Screen.width);
-		rectToMod.y = ((rectToMod.x/768)*Screen.height);
+		rectToMod.y = ((rectToMod.y/608)*Screen.height);
 	}
 	// Update is called once per frame
 	void Update () 

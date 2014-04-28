@@ -92,42 +92,51 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void Start () // Use this for initialization
 	{
 		//Inventory GUI Windows
-		fitGUIToScreen(backpack, true);
-		fitGUIToScreen(equippedGear, true);
-		fitGUIToScreen(healthPot, true);
-		fitGUIToScreen(abilityArea, true);
+		Debug.Log ("backpackW before "+backpack.width);
+		Debug.Log ("backpackH before "+backpack.height);
+		Debug.Log ("backpackX before "+backpack.x);
+		Debug.Log ("backpackY before "+backpack.y);
+
+		fitGUIToScreen(ref backpack, true);
+		Debug.Log ("backpackW after "+backpack.width);
+		Debug.Log ("backpackH after "+backpack.height);
+		Debug.Log ("backpackX after "+backpack.x);
+		Debug.Log ("backpackY after "+backpack.y);
+		fitGUIToScreen(ref equippedGear, true);
+		fitGUIToScreen(ref healthPot, true);
+		fitGUIToScreen(ref abilityArea, true);
 		
 		//shop GUI Windows
-		fitGUIToScreen(pBackpack, true);
-		fitGUIToScreen(pressedGear, true);
-		fitGUIToScreen(pressedBodyStats, true);
-		fitGUIToScreen(SkillRect, true);
-		fitGUIToScreen(DescriptionRect, true);
+		fitGUIToScreen(ref pBackpack, true);
+		fitGUIToScreen(ref pressedGear, true);
+		fitGUIToScreen(ref pressedBodyStats, true);
+		fitGUIToScreen(ref SkillRect, true);
+		fitGUIToScreen(ref DescriptionRect, true);
 
 	//Rects for buttons
-		fitGUIToScreen(doBackpackBtn1, true);
-		fitGUIToScreen(doBackpackBtn2, true);
-		fitGUIToScreen(doBackpackBtn3, true);
-		fitGUIToScreen(doBackpackBtn4, true);
-		fitGUIToScreen(doBackpackBtn5, true);
-		fitGUIToScreen(doBackpackBtn6, true);
+		fitGUIToScreen(ref doBackpackBtn1, true);
+		fitGUIToScreen(ref doBackpackBtn2, true);
+		fitGUIToScreen(ref doBackpackBtn3, true);
+		fitGUIToScreen(ref doBackpackBtn4, true);
+		fitGUIToScreen(ref doBackpackBtn5, true);
+		fitGUIToScreen(ref doBackpackBtn6, true);
 
-		fitGUIToScreen(potionRect, true);
-		fitGUIToScreen(abilityBtnRect1, true);
-		fitGUIToScreen(abilityBtnRect2, true);
-		fitGUIToScreen(abilityBtnRect3, true);
+		fitGUIToScreen(ref potionRect, true);
+		fitGUIToScreen(ref abilityBtnRect1, true);
+		fitGUIToScreen(ref abilityBtnRect2, true);
+		fitGUIToScreen(ref abilityBtnRect3, true);
 		
 	//Rects for text.
-		fitGUIToScreen(stringStrRect, false);
-		fitGUIToScreen(stringDexRect, false);
-		fitGUIToScreen(stringIntRect, false);
-		fitGUIToScreen(stringDamRect, false);
-		fitGUIToScreen(stringHPRect, false);
-		fitGUIToScreen(stringChargeRect, false);
+		fitGUIToScreen(ref stringStrRect, false);
+		fitGUIToScreen(ref stringDexRect, false);
+		fitGUIToScreen(ref stringIntRect, false);
+		fitGUIToScreen(ref stringDamRect, false);
+		fitGUIToScreen(ref stringHPRect, false);
+		fitGUIToScreen(ref stringChargeRect, false);
 
-		fitGUIToScreen(abilityRect1, false);
-		fitGUIToScreen(abilityRect2, false);
-		fitGUIToScreen(abilityRect3, false);
+		fitGUIToScreen(ref abilityRect1, false);
+		fitGUIToScreen(ref abilityRect2, false);
+		fitGUIToScreen(ref abilityRect3, false);
 
 
 		button1 = defaultTex;
@@ -143,19 +152,17 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
      	abilLvl2 = "NA";
     	abilLvl3 = "NA";
 	}
-	void fitGUIToScreen(Rect rectToMod, bool fitSize)
+	void fitGUIToScreen(ref Rect rectToMod, bool fitSize)
 	{
-		if(fitSize)
-		{
-			rectToMod.x = ((rectToMod.width/1366)*Screen.width);
-			rectToMod.y = ((rectToMod.height/768)*Screen.height);
-		}
+		rectToMod.width = ((rectToMod.width/1366)*Screen.width);
+		rectToMod.height = ((rectToMod.height/608)*Screen.height);
 		rectToMod.x = ((rectToMod.x/1366)*Screen.width);
-		rectToMod.y = ((rectToMod.x/768)*Screen.height);
+		rectToMod.y = ((rectToMod.y/608)*Screen.height);
 	}
 	// Update is called once per frame
 	void Update () 
 	{
+
 		SkillRect.x = skillRectx;
 		SkillRect.y = skillRecty;
 		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold)
