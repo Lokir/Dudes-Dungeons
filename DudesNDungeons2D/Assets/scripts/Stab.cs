@@ -101,11 +101,11 @@ public class Stab : MonoBehaviour {
 		{
 			if(PlayStat.GetComponent<player>().left == true) // if moving left
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x-2,PlayStat.transform.position.y,0); // move left.
+				transform.position = new Vector3(PlayStat.transform.position.x-0.5f,PlayStat.transform.position.y,0); // move left.
 			}
 			else 
 			{
-				transform.position = new Vector3(PlayStat.transform.position.x+2,PlayStat.transform.position.y,0); // else move right.
+				transform.position = new Vector3(PlayStat.transform.position.x+0.5f,PlayStat.transform.position.y,0); // else move right.
 			}
 			
 			if(stabStabStab == false) // if inactive load no image.

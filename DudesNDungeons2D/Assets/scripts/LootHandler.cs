@@ -28,7 +28,7 @@ public class LootHandler : MonoBehaviour {
 		
 		lootedBody = enemyDeadBody.GetComponent<Enemy>().eCurrBody;
 		
-		if(lootChance <= 75) //we give the player 75% chance of getting loot from the enemy
+		if(lootChance <= 50) //we give the player 50% chance of getting loot from the enemy
 		{
 			int h = 0;
 
