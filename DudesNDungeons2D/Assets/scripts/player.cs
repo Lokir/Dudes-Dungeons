@@ -52,7 +52,7 @@ public class player : MonoBehaviour
 			dodge = (float)pDex;
 			crit = (float)(pDex/2);
 			skillBon = (float)(pInte/2);
-			pCharge += ((int)(pInte/3))+1;
+			pCharge += ((int)(pInte*3));
 			pDamage += ((int)(pStr*0.33))+1;
 			pHp += ((int)(pStr*0.2))+1;
 			HPCap = pHp;
