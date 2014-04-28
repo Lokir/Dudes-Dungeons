@@ -7,6 +7,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect equippedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect healthPot = new Rect(10, 669.47f, 60, 88.42f);
 	Rect abilityArea = new Rect (573, 644.21f, 220, 113.68f);
+
+	public AudioClip backpackSound;
 	//Rects for buttons
 	public Rect doBackpackBtn1 = new Rect(10, 10.1f, 75, 127.58f);
 	public Rect doBackpackBtn2 = new Rect(88, 10.1f, 75, 127.58f);
@@ -86,7 +88,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture abilityTexture3;
 	public bool bodyChange = true;
 
-
+	public AudioClip clickSound;
+	public AudioClip coinSound;
 
 	Texture equippedBody; // this is the empty intance that will be swapped in and out to change equipment.
 
@@ -256,6 +259,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		if(Input.GetKeyUp(KeyCode.I)) 	// if I is pressed inverse the boolean controlling it, meaning if bool false become true and reverse.				
 		{
 			visiGUI = !visiGUI;
+			audio.clip = backpackSound;
+			audio.Play();
 		}
 	}
 	void OnGUI() // this is like the update function but for GUI's, use this for all GUI related matters.
@@ -335,6 +340,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(doBackpackBtn1, button1) && button1 != defaultTex) // button for loading Body 1 (default)
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
 			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
 			equippedBody = button1; // swap button's body into the equipped body. 
@@ -344,6 +351,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if (GUI.Button(doBackpackBtn2, button2)&& button2 != defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[1]; // brute
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button2;
@@ -352,6 +361,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if (GUI.Button(doBackpackBtn3, button3)&& button3 != defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[2]; // sneaky
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button3;
@@ -360,6 +371,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if (GUI.Button(doBackpackBtn4, button4) && button4 != defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button4; 
@@ -368,6 +381,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if (GUI.Button(doBackpackBtn5, button5)&& button5 != defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[4]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button5; 
@@ -376,6 +391,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if (GUI.Button(doBackpackBtn6, button6)&& button6 != defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[5]; //mage
 			PlayStat.GetComponent<player>().loadGear = true;
 			equippedBody = button6; 

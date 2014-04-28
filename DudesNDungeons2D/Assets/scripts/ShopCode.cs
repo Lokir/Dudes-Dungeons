@@ -118,11 +118,13 @@ public class ShopCode : MonoBehaviour {
 	Rect currSkillLvlRect = new Rect(198, 10, 165, 20);
 	Rect costRect = new Rect(198, 35, 150, 20);
 	Rect ptsAvailRect = new Rect(198, 60, 150, 20);
-
+	public AudioClip clickSound;
+	public AudioClip coinSound;
 
 	// Use this for initialization
 	void Start () 
 	{
+
 		//Buttons
 		fitShopToScreen(ref BuyHPRect, true, true);
 		fitShopToScreen(ref BuyDexRect, true, true);
@@ -217,6 +219,8 @@ public class ShopCode : MonoBehaviour {
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn1, button1) && button1 !=camera.GetComponent<GuiTest>().defaultTex) // button for loading Body 1 (default)
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button1;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[0].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[0].gHp;
@@ -229,6 +233,8 @@ public class ShopCode : MonoBehaviour {
 		}
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn2, button2)&& button2 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button2;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[1].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[1].gHp;
@@ -241,6 +247,8 @@ public class ShopCode : MonoBehaviour {
 		}
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn3, button3)&& button3 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button3;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[2].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[2].gHp;
@@ -253,6 +261,8 @@ public class ShopCode : MonoBehaviour {
 		}
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn4, button4)&& button4!=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button4;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[3].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[3].gHp;
@@ -265,6 +275,8 @@ public class ShopCode : MonoBehaviour {
 		}
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn5, button5)&& button5 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button5;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[4].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[4].gHp;
@@ -277,6 +289,8 @@ public class ShopCode : MonoBehaviour {
 		}
 		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn6, button6)&& button6 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			pressedBodyTex = button6;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[5].name;
 			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[5].gHp;
@@ -300,6 +314,8 @@ public class ShopCode : MonoBehaviour {
 	}
 	void sellBody(int pos)
 	{
+		audio.clip = coinSound;
+		audio.Play ();
 		Player.GetComponent<GearHandler>().Backpack[0] = null;
 		Player.GetComponent<player>().SkillPoints++;
 		hasSold = true;
@@ -341,6 +357,8 @@ public class ShopCode : MonoBehaviour {
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				Player.GetComponent<player>().SkillPoints -= 1;
 				Player.GetComponent<player>().sHp += 10;
 				Player.GetComponent<player>().pHp = Player.GetComponent<player>().sHp + Player.GetComponent<player>().currBody.gHp;
@@ -351,6 +369,8 @@ public class ShopCode : MonoBehaviour {
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				Player.GetComponent<player>().SkillPoints -= 1;
 				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().HPCap-((int)(Player.GetComponent<player>().pStr*0.2))+1;
 				Player.GetComponent<player>().pDamage -= (((int)(Player.GetComponent<player>().pStr*0.33))+1);
@@ -366,6 +386,8 @@ public class ShopCode : MonoBehaviour {
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				Player.GetComponent<player>().SkillPoints -= 1;
 				Player.GetComponent<player>().sDex += 1;
 				Player.GetComponent<player>().pDex = Player.GetComponent<player>().sDex + Player.GetComponent<player>().currBody.gDex;
@@ -377,6 +399,8 @@ public class ShopCode : MonoBehaviour {
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				Player.GetComponent<player>().SkillPoints -= 1;
 				Player.GetComponent<player>().sInte += 1;
 				Player.GetComponent<player>().pInte = Player.GetComponent<player>().sInte+Player.GetComponent<player>().currBody.gInte;
@@ -388,6 +412,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (rageRect, RageSkill))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = rageName;
 			skillLvl = Player.GetComponent<AbilHandler>().rageLevel;
 			SkillDescription = RageSkillDescription;
@@ -396,6 +422,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (regenRect, RegenSkill))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = regenName;
 			skillLvl = Player.GetComponent<AbilHandler>().regenerateLevel;
 			SkillDescription = RegenDescription;
@@ -404,6 +432,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (slamRect, GroundSlamSkill))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = slamName;
 			skillLvl = Player.GetComponent<AbilHandler>().groundSlamLevel;
 			SkillDescription = GroundSlamDescription;
@@ -413,6 +443,8 @@ public class ShopCode : MonoBehaviour {
 		// sneaky
 		if(GUI.Button (tpRect, TeleportSkill))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = teleportName;
 			skillLvl = Player.GetComponent<AbilHandler>().tpLevel;
 			SkillDescription = TeleportDescription;
@@ -421,6 +453,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (sSRect, ShadowStabSkill))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = shadowStabName;
 			skillLvl = Player.GetComponent<AbilHandler>().sSLevel;
 			SkillDescription = ShadowStabDescription;
@@ -429,6 +463,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (accuteBodyRect, AccuteDexterity))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = accDexName;
 			skillLvl = Player.GetComponent<AbilHandler>().eAndASLevel;
 			SkillDescription = AccuteDexterityDescription;
@@ -438,6 +474,8 @@ public class ShopCode : MonoBehaviour {
 		// mage
 		if(GUI.Button (FPRect, ForcePush))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = forcePushName;
 			skillLvl = Player.GetComponent<AbilHandler>().knockbackLevel;
 			SkillDescription = ForcePushDescription;
@@ -446,6 +484,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (StoneSkinRect, StoneSkin))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = stoneSkinName;
 			skillLvl = Player.GetComponent<AbilHandler>().shieldLevel;
 			SkillDescription = StoneSkinDescription;
@@ -454,6 +494,8 @@ public class ShopCode : MonoBehaviour {
 
 		if(GUI.Button (flameRect, FlameBurst))
 		{
+			audio.clip = clickSound;
+			audio.Play ();
 			skillOpen = flameBurstName;
 			skillLvl = Player.GetComponent<AbilHandler>().flameThrowerLevel;
 			SkillDescription = FlameBurstDescription;
@@ -480,6 +522,8 @@ public class ShopCode : MonoBehaviour {
 		{
 			if(skillOpen == rageName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().rageLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl = ++Player.GetComponent<AbilHandler>().rageLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
@@ -487,30 +531,40 @@ public class ShopCode : MonoBehaviour {
 			}
 			else if(skillOpen == regenName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().regenerateLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().regenerateLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == slamName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().groundSlamLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().groundSlamLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == teleportName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().tpLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().tpLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == shadowStabName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().sSLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().sSLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == accDexName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().eAndASLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl = ++Player.GetComponent<AbilHandler>().eAndASLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				Player.GetComponent<AbilHandler>().canEandAS = true;
@@ -518,18 +572,24 @@ public class ShopCode : MonoBehaviour {
 			}
 			else if(skillOpen == forcePushName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().knockbackLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().knockbackLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == stoneSkinName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().shieldLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().shieldLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			else if(skillOpen == flameBurstName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().flameThrowerLevel < 5)
 			{
+				audio.clip = coinSound;
+				audio.Play ();
 				skillLvl= ++Player.GetComponent<AbilHandler>().flameThrowerLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;

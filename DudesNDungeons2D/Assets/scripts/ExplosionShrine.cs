@@ -8,11 +8,12 @@ public class ExplosionShrine : MonoBehaviour {
 	GameObject[] Enemies;
 	public Transform Explosion;
 	float Distance;
-	
-	
+	public Sprite None;
+	public AudioClip boom;
 	
 	// Use this for initialization
 	void Start () {
+		audio.clip = boom;
 		Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
@@ -21,7 +22,10 @@ public class ExplosionShrine : MonoBehaviour {
 	void Update () {
 		Distance = Vector3.Distance(transform.position, player.transform.position);
 		if(Input.GetKeyDown(KeyCode.E) && Distance <= 1.0f)
+		{
 			explode();
+			audio.Play();
+		}
 	}
 	void explode()
 	{
@@ -43,6 +47,8 @@ public class ExplosionShrine : MonoBehaviour {
 			}
 		}
 		Instantiate (Explosion, new Vector3(transform.position.x ,transform.position.y, transform.position.z), Quaternion.identity);
-		Destroy(gameObject);
+
+		GetComponent<SpriteRenderer>().sprite = None;
+		Destroy(gameObject, audio.clip.length);
 	}
 }

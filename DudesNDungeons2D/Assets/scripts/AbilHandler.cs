@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public class AbilHandler : MonoBehaviour 
 {
+	AudioSource[] abilitySounds;
+	public AudioClip RageSound;
+	public AudioClip GroundSlamSound;
+	public AudioClip WindSound;
+	public AudioClip FlameSound;
+	public AudioClip BuffSound; // covers Shadelings & stoneskin, Regen & EandAS are not included cuz 
+	public AudioClip TeleportSound;
+
 	Vector3 mousePos;
 	Vector3 wantedPos;
 	float rageDuration = 20.0f; // adjust this for rage duration.
@@ -43,6 +51,15 @@ public class AbilHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		abilitySounds = GetComponents<AudioSource>();
+		abilitySounds[0].audio.clip = GetComponent<player>().heartBeat;
+		abilitySounds[1].audio.clip = RageSound;
+		abilitySounds[2].audio.clip = GroundSlamSound;
+		abilitySounds[3].audio.clip = WindSound;
+		abilitySounds[4].audio.clip = FlameSound;
+		abilitySounds[5].audio.clip = BuffSound;
+		abilitySounds[6].audio.clip = TeleportSound;
+
 		canEandAS = true;
 		canUseAbilities = true;
 		canGroundSlam  = true;
@@ -61,7 +78,7 @@ public class AbilHandler : MonoBehaviour
 		//Mages ability levels
 		knockbackLevel = 0;
 		shieldLevel = 0;
-		flameThrowerLevel = 0;
+		flameThrowerLevel = 1;
 
 		hpMultiply= 0;
 		strMultiply = 0;
@@ -101,6 +118,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					groundSlam(groundSlamLevel);
+					abilitySounds[2].Play();
 					Debug.Log("fisk");
 				}
 
@@ -121,7 +139,7 @@ public class AbilHandler : MonoBehaviour
 					GetComponent<player>().pCharge -= chargeCost;
 					rageDuration += (float)GetComponent<player>().skillBon;
 					rage ();
-					Debug.Log ("raging");
+					abilitySounds[1].Play();
 				}
 				regenerate();
 			}
@@ -143,6 +161,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					teleport();
+					abilitySounds[5].Play();
 				}
 
 				if(sSLevel == 0)
@@ -161,6 +180,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					shadowStab();
+					abilitySounds[6].Play();
 				}
 
 				if(canEandAS)
@@ -186,6 +206,10 @@ public class AbilHandler : MonoBehaviour
 					chargeCost = 100;
 				if(Input.GetMouseButtonDown (1) && canThrowFlame == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					if(!audio.isPlaying)
+					{
+						abilitySounds[4].Play();
+					}
 					GetComponent<player>().pCharge -= chargeCost;
 					flameThrower();
 				}
@@ -206,7 +230,9 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					absorb();
-				}
+					abilitySounds[6].Play ();
+				}	
+
 
 				if(knockbackLevel == 0)
 					chargeCost = 50000;
@@ -224,6 +250,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					knockback();
+					abilitySounds[3].Play();
 				}
 			}
 		}
@@ -347,6 +374,7 @@ public class AbilHandler : MonoBehaviour
 	public void flameThrower()
 	{
 		flame.GetComponent<FlameAnim>().throwFire = true;
+		canThrowFlame = false;
 		StartCoroutine("flameThrowerAttack");
 	}
 
@@ -706,6 +734,7 @@ public class AbilHandler : MonoBehaviour
 		if(other.gameObject.name == "Enemy" && canThrowFlame == true)
 			// if another gameobject specified Enemy. Hits this object.
 		{
+				canThrowFlame = false;
 				if(flameThrowerLevel == 1)
 				{
 					other.GetComponent<Enemy>().eHp -= 20;
@@ -727,7 +756,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					other.GetComponent<Enemy>().eHp -= 50;
 				}
-				canThrowFlame = false;
+				
 		}
 	}
 }

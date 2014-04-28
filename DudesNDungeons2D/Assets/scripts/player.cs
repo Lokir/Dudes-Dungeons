@@ -11,11 +11,12 @@ public class player : MonoBehaviour
 	public bool left; // moving left.
 	public float dodge, crit, skillBon;
 	public int SkillPoints;
-
+	public AudioClip heartBeat;
 	public Body currBody = new Body(); // this body is the current body that we can load other bodies into.
 	// Use this for initialization
 	void Start () 
 	{
+		audio.clip = heartBeat;
 		SkillPoints = 0;
 		// default stat Values
 		pHp = sHp = 30;
@@ -35,6 +36,17 @@ public class player : MonoBehaviour
 	public bool loadGear = true; // if this is true then we load the gear.
 	void Update () 
 	{
+		if(pHp < HPCap/2 && !audio.isPlaying)
+		{
+			audio.clip = heartBeat;
+			audio.loop = true;
+			audio.Play ();
+		}
+		if(pHp > HPCap/2 && audio.isPlaying && audio.clip == heartBeat)
+		{
+			audio.loop = false;
+			audio.Stop();
+		}
 		if(transform.position.y < -3.6f) // again this system will be remade.
 		{
 			canJump = true;
