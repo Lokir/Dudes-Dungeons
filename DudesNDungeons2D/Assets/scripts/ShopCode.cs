@@ -44,6 +44,7 @@ public class ShopCode : MonoBehaviour {
 	string forcePushName = "Wave of Force";
 	string stoneSkinName = "Stoneskin";
 	string flameBurstName = "Cone of Fire";
+
 	int skillLvl;
 	int skillCost;
 	string currSkillLvl;
@@ -61,9 +62,91 @@ public class ShopCode : MonoBehaviour {
 
 	float Distance;
 	public bool visiShop;
+
+	//buttonRects
+	Rect SellRect = new Rect(130, 175, 40, 40);
+
+	Rect rageRect = new Rect(25, 30, 80, 80);
+	Rect regenRect = new Rect(25, 140, 80, 80);
+	Rect slamRect = new Rect(25, 250, 80, 80);
+	
+	Rect tpRect = new Rect(140, 30, 80, 80);
+	Rect sSRect = new Rect( 140, 140, 80, 80);
+	Rect accuteBodyRect = new Rect(140, 250, 80, 80);
+	
+	Rect FPRect = new Rect( 255, 30, 80, 80);
+	Rect StoneSkinRect = new Rect(255, 140, 80, 80);
+	Rect flameRect = new Rect(255, 250, 80, 80);
+
+	Rect exitRect = new Rect(10,10,50,50);
+	Rect skillPlusRect = new Rect(420,130,50,50);
+
+
+	//textRects
+	Rect nameTextRect = new Rect(10, 10, 100,23);
+	Rect textRect = new Rect(10, 30, 100, 23);
+	Rect textRect2 = new Rect(10, 50, 100, 23);
+	Rect textRect3 = new Rect(10, 70, 100, 23);
+	Rect textRect4 = new Rect(10, 90, 100, 23);
+	Rect textRect5 = new Rect(10, 110, 100, 23);
+	Rect textRect6 = new Rect(10, 130, 100, 23);
+
+	Rect rageNameRect = new Rect(15, 10, 100, 20);
+	Rect regenNameRect = new Rect(15, 120, 100, 20);
+	Rect slamNameRect = new Rect(15, 230, 100, 20);
+	Rect tpNameRect = new Rect(130, 10, 100, 20);
+	Rect sSNameRect = new Rect(130, 120, 100, 20);
+	Rect accuteBodyNameRect = new Rect(130, 230, 100, 20);
+	Rect FPNameRect = new Rect(235, 10, 100, 20);
+	Rect StoneSkinNameRect = new Rect(235, 120, 100, 20);
+	Rect flameNameRect = new Rect(235, 230, 100, 20);
+
+	Rect currSkillLvlRect = new Rect(198, 40, 165, 20);
+	Rect costRect = new Rect(210, 70, 150, 20);
+	Rect ptsAvailRect = new Rect(210, 100, 150, 20);
+
+
 	// Use this for initialization
 	void Start () 
 	{
+		//Buttons
+		fitShopToScreen(SellRect, true);
+		fitShopToScreen(rageRect, true);
+		fitShopToScreen(regenRect, true);
+		fitShopToScreen(slamRect, true);
+		fitShopToScreen(tpRect, true);
+		fitShopToScreen(sSRect, true);
+		fitShopToScreen(accuteBodyRect, true);
+		fitShopToScreen(FPRect, true);
+		fitShopToScreen(StoneSkinRect, true);
+		fitShopToScreen(flameRect, true);
+		fitShopToScreen(exitRect, true);
+		fitShopToScreen(skillPlusRect, true);
+
+		//Text
+		fitShopToScreen(nameTextRect, false);
+		fitShopToScreen(textRect, false);
+		fitShopToScreen(textRect2, false);
+		fitShopToScreen(textRect3, false);
+		fitShopToScreen(textRect4, false);
+		fitShopToScreen(textRect5, false);
+		fitShopToScreen(textRect6, false);
+		
+		fitShopToScreen(rageNameRect, false);
+		fitShopToScreen(regenNameRect, false);
+		fitShopToScreen(slamNameRect, false);
+		fitShopToScreen(tpNameRect, false);
+		fitShopToScreen(sSNameRect, false);
+		fitShopToScreen(accuteBodyNameRect, false);
+		fitShopToScreen(FPNameRect, false);
+		fitShopToScreen(StoneSkinNameRect, false);
+		fitShopToScreen(flameNameRect, false);
+		
+		fitShopToScreen(currSkillLvlRect, false);
+		fitShopToScreen(ptsAvailRect, false);
+
+
+
 		showDescription = false;
 		skillOpen = "Default";
 		hasSold = false;
@@ -75,7 +158,16 @@ public class ShopCode : MonoBehaviour {
 
 		visiShop = false;
 	}
-	
+	void fitShopToScreen(Rect rectToMod, bool fitSize)
+	{
+			if(fitSize)
+			{
+				rectToMod.x = ((rectToMod.width/1366)*Screen.width);
+				rectToMod.y = ((rectToMod.height/768)*Screen.height);
+			}
+		rectToMod.x = ((rectToMod.x/1366)*Screen.width);
+		rectToMod.y = ((rectToMod.x/768)*Screen.height);
+	}
 	// Update is called once per frame
 	void Update () 
 	{
@@ -100,7 +192,7 @@ public class ShopCode : MonoBehaviour {
 		button6 = camera.GetComponent<GuiTest>().button6;
 
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button1) && button1 !=camera.GetComponent<GuiTest>().defaultTex) // button for loading Body 1 (default)
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn1, button1) && button1 !=camera.GetComponent<GuiTest>().defaultTex) // button for loading Body 1 (default)
 		{
 			pressedBodyTex = button1;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[0].name;
@@ -112,7 +204,7 @@ public class ShopCode : MonoBehaviour {
 			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[0].gDamage;
 			posInBackpack = 0;
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button2)&& button2 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn2, button2)&& button2 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
 			pressedBodyTex = button2;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[1].name;
@@ -124,7 +216,7 @@ public class ShopCode : MonoBehaviour {
 			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[1].gDamage;
 			posInBackpack = 1;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/75, Screen.width/18/*165*/, Screen.height/6/*215*/), button3)&& button3 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn3, button3)&& button3 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
 			pressedBodyTex = button3;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[2].name;
@@ -136,7 +228,7 @@ public class ShopCode : MonoBehaviour {
 			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[2].gDamage;
 			posInBackpack = 2;
 		}
-		if (GUI.Button(new Rect(Screen.width/150, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button4)&& button4!=camera.GetComponent<GuiTest>().defaultTex) // same as first.
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn4, button4)&& button4!=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
 			pressedBodyTex = button4;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[3].name;
@@ -148,7 +240,7 @@ public class ShopCode : MonoBehaviour {
 			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[3].gDamage;
 			posInBackpack = 3;
 		}
-		if (GUI.Button(new Rect(Screen.width/15.5f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button5)&& button5 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn5, button5)&& button5 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
 			pressedBodyTex = button5;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[4].name;
@@ -160,7 +252,7 @@ public class ShopCode : MonoBehaviour {
 			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[4].gDamage;
 			posInBackpack = 4;
 		}
-		if (GUI.Button(new Rect(Screen.width/8.17f, Screen.height/5, Screen.width/18/*165*/, Screen.height/6/*215*/), button6)&& button6 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
+		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn6, button6)&& button6 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
 		{
 			pressedBodyTex = button6;
 			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[5].name;
@@ -175,7 +267,7 @@ public class ShopCode : MonoBehaviour {
 	}
 	public void pressedEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
 	{
-		if (GUI.Button(new Rect(70, 105, 40, 40), Sell) && Player.GetComponent<GearHandler>().Backpack[posInBackpack] != null) // same as first.
+		if (GUI.Button(SellRect, Sell) && Player.GetComponent<GearHandler>().Backpack[posInBackpack] != null) // same as first.
 		{
 			Player.GetComponent<player>().currBody = Player.GetComponent<GearHandler>().Bodies[0];
 			Player.GetComponent<player>().loadGear = true;
@@ -194,35 +286,36 @@ public class ShopCode : MonoBehaviour {
 	public void showBodyStats(int windowID)
 	{
 		string nameText = "name: "+pressedBodyObject.name;
-		nameText = GUI.TextField(new Rect(10, 10, 100,23), nameText, 25);
+		nameText = GUI.TextField(nameTextRect, nameText, 25);
 		string text = "HP: "+pressedBodyObject.gHp;
-		text = GUI.TextField(new Rect(10, 30, 100, 23), text, 25);
+		text = GUI.TextField(textRect, text, 25);
 		string text2 = "Str: "+pressedBodyObject.gStr;
-		text2 = GUI.TextField(new Rect(10, 50, 100, 23), text2, 25);
+		text2 = GUI.TextField(textRect2, text2, 25);
 		string text3 = "Dex: "+pressedBodyObject.gDex;
-		text3 = GUI.TextField(new Rect(10, 70, 100, 23), text3, 25);
+		text3 = GUI.TextField(textRect3, text3, 25);
 		string text4 = "Int: "+pressedBodyObject.gInte;
-		text4 = GUI.TextField(new Rect(10, 90, 100, 23), text4, 25);
+		text4 = GUI.TextField(textRect4, text4, 25);
 		string text5 = "Charge: "+pressedBodyObject.gCharge;
-		text5 = GUI.TextField(new Rect(10, 110, 100, 23), text5, 25);
+		text5 = GUI.TextField(textRect5, text5, 25);
 		string text6 = "Damage: "+pressedBodyObject.gDamage;
-		text6 = GUI.TextField(new Rect(10, 130, 100, 23), text6, 25);
+		text6 = GUI.TextField(textRect6, text6, 25);
 
 	}
 	public void displaySkills(int windowID)
 	{
 
-		rageName = GUI.TextField(new Rect(15, 10, 100, 20), rageName, 25);
-		regenName = GUI.TextField(new Rect(15, 120, 100, 20), regenName, 25);
-		slamName = GUI.TextField(new Rect(15, 230, 100, 20), slamName, 25);
-		teleportName = GUI.TextField(new Rect(130, 10, 100, 20), teleportName, 25);
-		shadowStabName = GUI.TextField(new Rect(130, 120, 100, 20), shadowStabName, 25);
-		accDexName = GUI.TextField(new Rect(130, 230, 100, 20), accDexName, 25);
-		forcePushName = GUI.TextField(new Rect(235, 10, 100, 20), forcePushName, 25);
-		stoneSkinName = GUI.TextField(new Rect(235, 120, 100, 20), stoneSkinName, 25);
-		flameBurstName = GUI.TextField(new Rect(235, 230, 100, 20), flameBurstName, 25);
+		rageName = GUI.TextField(rageNameRect, rageName, 25);
+		regenName = GUI.TextField(regenNameRect, regenName, 25);
+		slamName = GUI.TextField(slamNameRect, slamName, 25);
+		teleportName = GUI.TextField(tpNameRect, teleportName, 25);
+		shadowStabName = GUI.TextField(sSNameRect, shadowStabName, 25);
+		accDexName = GUI.TextField(accuteBodyNameRect, accDexName, 25);
+		forcePushName = GUI.TextField(FPNameRect, forcePushName, 25);
+		stoneSkinName = GUI.TextField(StoneSkinNameRect, stoneSkinName, 25);
+		flameBurstName = GUI.TextField(flameNameRect, flameBurstName, 25);
 
-		if(GUI.Button (new Rect ( 25, 30, 80, 80), RageSkill))
+
+		if(GUI.Button (rageRect, RageSkill))
 		{
 			skillOpen = rageName;
 			skillLvl = Player.GetComponent<AbilHandler>().rageLevel;
@@ -230,7 +323,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 25, 140, 80, 80), RegenSkill))
+		if(GUI.Button (regenRect, RegenSkill))
 		{
 			skillOpen = regenName;
 			skillLvl = Player.GetComponent<AbilHandler>().regenerateLevel;
@@ -238,7 +331,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 25, 250, 80, 80), GroundSlamSkill))
+		if(GUI.Button (slamRect, GroundSlamSkill))
 		{
 			skillOpen = slamName;
 			skillLvl = Player.GetComponent<AbilHandler>().groundSlamLevel;
@@ -247,7 +340,7 @@ public class ShopCode : MonoBehaviour {
 		}
 
 		// sneaky
-		if(GUI.Button (new Rect ( 140, 30, 80, 80), TeleportSkill))
+		if(GUI.Button (tpRect, TeleportSkill))
 		{
 			skillOpen = teleportName;
 			skillLvl = Player.GetComponent<AbilHandler>().tpLevel;
@@ -255,7 +348,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 140, 140, 80, 80), ShadowStabSkill))
+		if(GUI.Button (sSRect, ShadowStabSkill))
 		{
 			skillOpen = shadowStabName;
 			skillLvl = Player.GetComponent<AbilHandler>().sSLevel;
@@ -263,7 +356,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 140, 250, 80, 80), AccuteDexterity))
+		if(GUI.Button (accuteBodyRect, AccuteDexterity))
 		{
 			skillOpen = accDexName;
 			skillLvl = Player.GetComponent<AbilHandler>().eAndASLevel;
@@ -272,7 +365,7 @@ public class ShopCode : MonoBehaviour {
 		}
 
 		// mage
-		if(GUI.Button (new Rect ( 255, 30, 80, 80), ForcePush))
+		if(GUI.Button (FPRect, ForcePush))
 		{
 			skillOpen = forcePushName;
 			skillLvl = Player.GetComponent<AbilHandler>().knockbackLevel;
@@ -280,7 +373,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 255, 140, 80, 80), StoneSkin))
+		if(GUI.Button (StoneSkinRect, StoneSkin))
 		{
 			skillOpen = stoneSkinName;
 			skillLvl = Player.GetComponent<AbilHandler>().shieldLevel;
@@ -288,7 +381,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 
-		if(GUI.Button (new Rect ( 255, 250, 80, 80), FlameBurst))
+		if(GUI.Button (flameRect, FlameBurst))
 		{
 			skillOpen = flameBurstName;
 			skillLvl = Player.GetComponent<AbilHandler>().flameThrowerLevel;
@@ -301,15 +394,14 @@ public class ShopCode : MonoBehaviour {
 		currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
 		skillCost = skillLvl+1;
 		cost = "Point cost to increase: "+skillCost;
-		currSkillLvl = GUI.TextField(new Rect(350-152, 40, 165, 20), currSkillLvl, 100);
-		cost = GUI.TextField(new Rect(210, 70, 150, 20),cost,40);
+		cost = GUI.TextField(costRect,cost,40);
 		string pointsAvailable = "points to spend: "+ Player.GetComponent<player>().SkillPoints;
-		pointsAvailable = GUI.TextField (new Rect(210, 100, 150, 20), pointsAvailable, 40);
-		if(GUI.Button (new Rect(10,10,50,50), exitTex))
+		pointsAvailable = GUI.TextField (ptsAvailRect, pointsAvailable, 40);
+		if(GUI.Button (exitRect, exitTex))
 		{
 			showDescription = false;
 		}
-		if(GUI.Button (new Rect(420,130,50,50), skillInc))
+		if(GUI.Button (skillPlusRect, skillInc))
 		{
 			if(skillOpen == rageName && Player.GetComponent<player>().SkillPoints >= skillCost)
 			{
@@ -367,7 +459,7 @@ public class ShopCode : MonoBehaviour {
 				GetComponent<GuiTest>().bodyChange = true;
 			}
 			currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
-			currSkillLvl = GUI.TextField(new Rect(350-152, 40, 165, 20), currSkillLvl, 100);						
+			currSkillLvl = GUI.TextField(currSkillLvlRect, currSkillLvl, 100);						
 		}
 	}
 
