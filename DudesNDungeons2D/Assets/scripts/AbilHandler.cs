@@ -18,7 +18,6 @@ public class AbilHandler : MonoBehaviour
 	float distanceToEnemy;
 	GameObject[] enemyFound;
 	GameObject flame;
-	GameObject stabstab;
 
 	int HP;
 	int Str;
@@ -42,7 +41,6 @@ public class AbilHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
 		canUseAbilities = true;
 		canGroundSlam  = true;
 		canShadowStab  = true;
@@ -73,7 +71,7 @@ public class AbilHandler : MonoBehaviour
 		canShield = true;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
-		stabstab = GameObject.FindGameObjectWithTag("Stab");
+
 	}
 	// Update is called once per frame
 	void Update () 
@@ -81,14 +79,44 @@ public class AbilHandler : MonoBehaviour
 		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
 		if(canUseAbilities == true)
 		{
+			int chargeCost = 0;
 			if(GetComponent<player>().currBody.name == "Brute")
 			{
-				if(Input.GetMouseButtonDown (1) && canGroundSlam == true)
+				if(groundSlamLevel == 0)
+					chargeCost = 50000;
+				else if(groundSlamLevel == 1)
+					chargeCost = 40;
+				else if(groundSlamLevel == 2)
+					chargeCost = 60;
+				else if(groundSlamLevel == 3)
+					chargeCost = 80;
+				else if(groundSlamLevel == 4)
+					chargeCost = 100;
+				else if(groundSlamLevel == 5)
+					chargeCost = 120;
+				if(Input.GetMouseButtonDown (1) && GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					groundSlam(groundSlamLevel);
+					Debug.Log("fisk");
 				}
-				if(Input.GetKeyDown(KeyCode.R) && canRage == true)
+
+				if(groundSlamLevel == 0)
+					chargeCost = 50000;
+				else if(groundSlamLevel == 1)
+					chargeCost = GetComponent<player>().chargeCap;
+				else if(groundSlamLevel == 2)
+					chargeCost = GetComponent<player>().chargeCap;
+				else if(groundSlamLevel == 3)
+					chargeCost = GetComponent<player>().chargeCap;
+				else if(groundSlamLevel == 4)
+					chargeCost = GetComponent<player>().chargeCap;
+				else if(groundSlamLevel == 5)
+					chargeCost = GetComponent<player>().chargeCap;
+				if(Input.GetKeyDown(KeyCode.R) && canRage == true && GetComponent<player>().pCharge == chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
+					rageDuration += (float)GetComponent<player>().skillBon;
 					rage ();
 					Debug.Log ("raging");
 				}
@@ -96,29 +124,98 @@ public class AbilHandler : MonoBehaviour
 			}
 			if(GetComponent<player>().currBody.name == "Sneaky")
 			{
-				if(Input.GetMouseButtonDown (1) && canTeleport == true)
+				if(tpLevel == 0)
+					chargeCost = 50000;
+				else if(tpLevel == 1)
+					chargeCost = 40;
+				else if(tpLevel == 2)
+					chargeCost = 50;
+				else if(tpLevel == 3)
+					chargeCost = 55;
+				else if(tpLevel == 4)
+					chargeCost = 60;
+				else if(tpLevel == 5)
+					chargeCost = 70;
+				if(Input.GetMouseButtonDown (1) && canTeleport == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					teleport();
 				}
-				if(Input.GetKeyDown(KeyCode.R) && canShadowStab == true)
+
+				if(sSLevel == 0)
+					chargeCost = 50000;
+				else if(sSLevel == 1)
+					chargeCost = GetComponent<player>().chargeCap;
+				else if(sSLevel == 2)
+					chargeCost = (int)(GetComponent<player>().chargeCap*0.9);
+				else if(sSLevel == 3)
+					chargeCost = (int)(GetComponent<player>().chargeCap*0.8);
+				else if(sSLevel == 4)
+					chargeCost = (int)(GetComponent<player>().chargeCap*0.7);
+				else if(sSLevel == 5)
+					chargeCost = (int)(GetComponent<player>().chargeCap*0.6);
+				if(Input.GetKeyDown(KeyCode.R) && canShadowStab == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					shadowStab();
 				}
 
 				// evade & attack speed();
 			}
+
 			if(GetComponent<player>().currBody.name == "Magus")
 			{
-				if(Input.GetMouseButtonDown (1) && canThrowFlame == true)
+				if(flameThrowerLevel == 0)
+					chargeCost = 50000;
+				else if(flameThrowerLevel == 1)
+					chargeCost = 30;
+				else if(flameThrowerLevel == 2)
+					chargeCost = 45;
+				else if(flameThrowerLevel == 3)
+					chargeCost = 50;
+				else if(flameThrowerLevel == 4)
+					chargeCost = 70;
+				else if(flameThrowerLevel == 5)
+					chargeCost = 100;
+				if(Input.GetMouseButtonDown (1) && canThrowFlame == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					flameThrower();
 				}
-				if(Input.GetKeyDown(KeyCode.R) && canShield == true)
+
+				if(shieldLevel == 0)
+					chargeCost = 50000;
+				else if(shieldLevel == 1)
+					chargeCost = 50;
+				else if(shieldLevel == 2)
+					chargeCost = 60;
+				else if(shieldLevel == 3)
+					chargeCost = 70;
+				else if(shieldLevel == 4)
+					chargeCost = 80;
+				else if(shieldLevel == 5)
+					chargeCost = 100;
+				if(Input.GetKeyDown(KeyCode.R) && canShield == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					absorb();
 				}
-				if(Input.GetKeyDown(KeyCode.F) && canPush == true)
+
+				if(knockbackLevel == 0)
+					chargeCost = 50000;
+				else if(knockbackLevel == 1)
+					chargeCost = 20;
+				else if(knockbackLevel == 2)
+					chargeCost = 30;
+				else if(knockbackLevel == 3)
+					chargeCost = 40;
+				else if(knockbackLevel == 4)
+					chargeCost = 45;
+				else if(knockbackLevel == 5)
+					chargeCost = 50;
+				if(Input.GetKeyDown(KeyCode.F) && canPush == true && GetComponent<player>().pCharge >= chargeCost)
 				{
+					GetComponent<player>().pCharge -= chargeCost;
 					knockback();
 				}
 			}
@@ -242,7 +339,6 @@ public class AbilHandler : MonoBehaviour
 	}
 	public void flameThrower()
 	{
-
 		flame.GetComponent<FlameAnim>().throwFire = true;
 		StartCoroutine("flameThrowerAttack");
 	}
@@ -308,7 +404,6 @@ public class AbilHandler : MonoBehaviour
 	{
 		Damage = GetComponent<player>().pDamage + (int)(GetComponent<player>().pDamage*0.1);
 		canShadowStab = false;
-		stabstab.GetComponent<Stab>().stabStabStab = true;
 		StartCoroutine("shadowStabDuration");
 	}
 
@@ -322,7 +417,6 @@ public class AbilHandler : MonoBehaviour
 		Damage = GetComponent<player>().pDamage;
 		Dodge = GetComponent<player>().dodge;
 		Debug.Log ("First "+GetComponent<player>().pHp);
-
 		if(rageLevel == 1)
 		{
 			hpMultiply = 0.03f;
@@ -334,6 +428,7 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<player>().HPCap = GetComponent<player>().pHp;
 			GetComponent<player>().pDamage += (int)(Damage*dmgMultiply);
 			GetComponent<player>().dodge -= (int)(Dodge*dodgeMultiply);
+			Debug.Log("RageDuration " + rageDuration);
 		}
 		else if(rageLevel == 2)
 		{
@@ -398,54 +493,55 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().StartCoroutine ("attackCooldown");
 			GetComponent<AnimHandler>().attackBool = true;
 			GetComponent<AnimHandler>().q = 0;
-		}
-		if(enemyFound.Length > 0)
-		{
-			float distanceToEnemy = 1;
-			List<GameObject> EnemiesList = new List<GameObject>();
-			foreach(GameObject e in enemyFound)
+			if(enemyFound.Length > 0)
 			{
-				distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
-				if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
+				float distanceToEnemy = 1;
+				List<GameObject> EnemiesList = new List<GameObject>();
+				foreach(GameObject e in enemyFound)
 				{
-					//Debug.Log ("Stun me please");
-					Debug.Log ("Enemy HP: "+ e.GetComponent<Enemy>().eHp);
-					EnemiesList.Add(e);
-					e.GetComponent<FollowPlayerAI>().isStunned = true;
-					int enemyHP = e.GetComponent<Enemy>().eHp;
-					if(groundSlamLevel == 1)
+					distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
+					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
 					{
-						e.GetComponent<Enemy>().eHp -= 5;
-						if(enemyHP-15 > 0)
-							StartCoroutine("stunDuration", EnemiesList);
-					}
-					else if(groundSlamLevel == 2)
-					{
-						e.GetComponent<Enemy>().eHp -= 10;
-						if(enemyHP-25 > 0)
-							StartCoroutine("stunDuration", EnemiesList);
-					}
-					else if(groundSlamLevel == 3)
-					{
-						e.GetComponent<Enemy>().eHp -= 15;
-						timeStunned = 2.0f;
-						if(enemyHP-35 > 0)
-							StartCoroutine("stunDuration", EnemiesList);
-					}
-					else if(groundSlamLevel == 4)
-					{
-						e.GetComponent<Enemy>().eHp -= 20;
-						if(enemyHP-45 > 0)
-							StartCoroutine("stunDuration", EnemiesList);
-					}
-					else if(groundSlamLevel == 5)
-					{
-						e.GetComponent<Enemy>().eHp -= 25;
-						timeStunned = 3.0f;
-						if(enemyHP-55 > 0)
-							StartCoroutine("stunDuration", EnemiesList);
-					}
+						//Debug.Log ("Stun me please");
+						Debug.Log ("Enemy HP: "+ e.GetComponent<Enemy>().eHp);
+						EnemiesList.Add(e);
+						e.GetComponent<FollowPlayerAI>().isStunned = true;
+						int enemyHP = e.GetComponent<Enemy>().eHp;
+						if(groundSlamLevel == 1)
+						{
+							e.GetComponent<Enemy>().eHp -= 5;
+							Debug.Log ("Charge " + GetComponent<player>().pCharge);
+							if(enemyHP-15 > 0)
+								StartCoroutine("stunDuration", EnemiesList);
+						}
+						else if(groundSlamLevel == 2)
+						{
+							e.GetComponent<Enemy>().eHp -= 10;
+							if(enemyHP-25 > 0)
+								StartCoroutine("stunDuration", EnemiesList);
+						}
+						else if(groundSlamLevel == 3)
+						{
+							e.GetComponent<Enemy>().eHp -= 15;
+							timeStunned = 2.0f;
+							if(enemyHP-35 > 0)
+								StartCoroutine("stunDuration", EnemiesList);
+						}
+						else if(groundSlamLevel == 4)
+						{
+							e.GetComponent<Enemy>().eHp -= 20;
+							if(enemyHP-45 > 0)
+								StartCoroutine("stunDuration", EnemiesList);
+						}
+						else if(groundSlamLevel == 5)
+						{
+							e.GetComponent<Enemy>().eHp -= 25;
+							timeStunned = 3.0f;
+							if(enemyHP-55 > 0)
+								StartCoroutine("stunDuration", EnemiesList);
+						}
 
+					}
 				}
 			}
 		}
@@ -492,6 +588,7 @@ public class AbilHandler : MonoBehaviour
 	IEnumerator stunDuration(List<GameObject> enemy)
 	{
 			yield return new WaitForSeconds (timeStunned);
+		canGroundSlam  = true;
 		foreach(GameObject e in enemy)
 		{
 			if(e != null)
@@ -503,15 +600,16 @@ public class AbilHandler : MonoBehaviour
 
 	IEnumerator rageDurationElapse()
 	{
-			yield return new WaitForSeconds (rageDuration);
-			GetComponent<player>().pHp -= (int)(HP*hpMultiply);
-			GetComponent<player>().pStr -= (int)(Str*strMultiply);
-			GetComponent<player>().HPCap = GetComponent<player>().pHp;
-			GetComponent<player>().pDamage -= (int)(Damage*dmgMultiply);
-			GetComponent<player>().dodge += (int)(Dodge*dodgeMultiply);
-			Debug.Log ("in coroutine "+GetComponent<player>().pHp);
-			canRage = true;
-			StopCoroutine("rageDurationElapse");
+		yield return new WaitForSeconds (rageDuration);
+		GetComponent<player>().pHp -= (int)(HP*hpMultiply);
+		GetComponent<player>().pStr -= (int)(Str*strMultiply);
+		GetComponent<player>().HPCap = GetComponent<player>().pHp;
+		GetComponent<player>().pDamage -= (int)(Damage*dmgMultiply);
+		GetComponent<player>().dodge += (int)(Dodge*dodgeMultiply);
+		rageDuration = 20.0f;
+		Debug.Log ("in coroutine "+GetComponent<player>().pHp);
+		canRage = true;
+		StopCoroutine("rageDurationElapse");
 	}
 
 	//Sneaky timers
@@ -543,7 +641,7 @@ public class AbilHandler : MonoBehaviour
 		yield return new WaitForSeconds(shadowStabTimer);
 		GetComponent<player>().pDamage = Damage;
 		canShadowStab = true;
-		stabstab.GetComponent<Stab>().stabStabStab = false;
+
 		StopCoroutine("shadowStabDuration");
 	}
 

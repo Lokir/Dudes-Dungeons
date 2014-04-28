@@ -10,6 +10,7 @@ public class CombatHandler : MonoBehaviour {
 	public GameObject shadeling;
 	GameObject player;
 	GameObject eToAttack = null;
+	GameObject stabstab;
 	public Transform death;
 	public bool canAttack;
 	public bool missedEnemy;
@@ -22,11 +23,12 @@ public class CombatHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		attackHitCap = 0;
+		attackHitCap = 2;
 		attackCount = 0;
 		canAttack = true;
 		missedEnemy = false;
 		player = GameObject.FindGameObjectWithTag("Player");
+		stabstab = GameObject.FindGameObjectWithTag("Stab");
 		hitChance = Random.Range(0, 101);
 	}
 	
@@ -34,7 +36,7 @@ public class CombatHandler : MonoBehaviour {
 	void Update () 
 	{
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		Debug.Log ("hitChance = " + hitChance + " Enemydodgeprocent = " + enemyDodgeProcent + " missedEnemy = " + missedEnemy);
+		//Debug.Log ("hitChance = " + hitChance + " Enemydodgeprocent = " + enemyDodgeProcent + " missedEnemy = " + missedEnemy);
 		if(enemies.Length > 0)
 			foreach(GameObject e in enemies)
 			{
@@ -46,10 +48,15 @@ public class CombatHandler : MonoBehaviour {
 					Destroy (e);
 				}
 			}
-
-
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
+			if(player.GetComponent<AbilHandler>().sSLevel == 1)
+				attackHitCap = 2;//every 4th stab
+			else if(player.GetComponent<AbilHandler>().sSLevel == 2)
+				attackHitCap = 1;//every 3rd stab
+			else if(player.GetComponent<AbilHandler>().sSLevel == 4)
+				attackHitCap = 0;//every 2nd stab
+
 			if(player.GetComponent<AbilHandler>().canUseAbilities && !player.GetComponent<AbilHandler>().canShadowStab)
 			{
 				if(attackCount <= attackHitCap)
@@ -63,6 +70,7 @@ public class CombatHandler : MonoBehaviour {
 						displacement = 1.0f;
 					Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
 					attackCount = 0;
+
 				}
 			}
 			if(player.GetComponent<AbilHandler>().canUseAbilities)
@@ -71,6 +79,7 @@ public class CombatHandler : MonoBehaviour {
 				player.GetComponent<AnimHandler>().attackBool = true;
 				player.GetComponent<AnimHandler>().q = 0;
 				StartCoroutine("attackCooldown");
+				stabstab.GetComponent<Stab>().stabStabStab = true;
 				if(enemies.Length > 0)
 				{
 
@@ -91,9 +100,8 @@ public class CombatHandler : MonoBehaviour {
 						playerAttack(eToAttack);
 				}
 			}
-
 		}
-
+	
 	}
 	void playerAttack(GameObject eToAttack)
 	{
@@ -109,7 +117,11 @@ public class CombatHandler : MonoBehaviour {
 		}
 
 		if(!missedEnemy)
+		{
 			eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
+			if(player.GetComponent<player>().pCharge +5 <= player.GetComponent<player>().chargeCap)
+			player.GetComponent<player>().pCharge +=5;
+		}
 		else
 		{
 			Debug.Log ("Enemy Missed");
@@ -120,6 +132,7 @@ public class CombatHandler : MonoBehaviour {
 		yield return new WaitForSeconds(attackSpeed);
 		canAttack = true;
 		player.GetComponent<AnimHandler>().isGroundSlam = false;
+		stabstab.GetComponent<Stab>().stabStabStab = false;
 		hitChance = Random.Range(0, 101);
 		Debug.Log("Im here");
 		StopCoroutine ("attackCooldown");

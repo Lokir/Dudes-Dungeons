@@ -59,7 +59,7 @@ public class GearHandler : MonoBehaviour
 
 
 		// Add bodies into the list.
-		Player.GetComponent<player>().currBody = GetComponent<GearHandler>().Bodies[1]; // make sure that current body is a default body..
+		Player.GetComponent<player>().currBody = GetComponent<GearHandler>().Bodies[2]; // make sure that current body is a default body..
 		Player.GetComponent<player>().loadGear = true; // load gear into player..
 
 	}

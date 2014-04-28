@@ -47,7 +47,7 @@ public class ShadowPartner : MonoBehaviour {
 			if(e != null)
 			{
 				spDistance = Vector3.Distance (transform.position, e.transform.position);
-				if(spDistance <= 3.0f && spDistance >= 0.5f)
+				if(spDistance <= 3.0f && spDistance >= 0.3f)
 				{
 					hasTarget = true;
 					shadowPartnerAIFollow(e);
@@ -123,7 +123,6 @@ public class ShadowPartner : MonoBehaviour {
 				attackCount++;
 			}
 		}
-
 	}
 	IEnumerator shadelingTimer()
 	{

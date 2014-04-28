@@ -6,7 +6,7 @@ public class player : MonoBehaviour
     public int pHp, pInte, pDex, pStr, pCharge, pDamage = 0; //current player stats
 	public int sHp, sInte, sDex, sStr, sCharge; // raw stats
 	public bool invulnerable = false;
-	public int HPCap; // HP max
+	public int HPCap, chargeCap; // HP max
 	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
 	public bool left; // moving left.
 	public float dodge, crit, skillBon;
@@ -24,6 +24,7 @@ public class player : MonoBehaviour
 		pStr = sStr = 10;
 		pCharge = sCharge = 100;
 		HPCap = pHp;
+		chargeCap = pCharge;
 		pDamage = 0;
 		canJump = true;
 
@@ -51,11 +52,12 @@ public class player : MonoBehaviour
 
 			dodge = (float)pDex;
 			crit = (float)(pDex/2);
-			skillBon = (float)(pInte/2);
-			pCharge += ((int)(pInte*3));
-			pDamage += ((int)(pStr*0.33))+1;
+			skillBon = ((float)(pInte*0.1)+1);
+			pCharge += ((int)(pInte*2));
+			pDamage += (((int)(pStr*0.33))+1);
 			pHp += ((int)(pStr*0.2))+1;
 			HPCap = pHp;
+			chargeCap = pCharge;
 		}
 		if(Input.GetKey(KeyCode.A)) // if key A move left.
 		{
