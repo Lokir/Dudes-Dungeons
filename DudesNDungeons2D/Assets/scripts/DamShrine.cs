@@ -12,11 +12,12 @@ public class DamShrine : MonoBehaviour {
 	GameObject player;
 	float buffDuration = 20.0f;
 	float Distance;
-
+	public AudioClip laugh;
 
 
 	// Use this for initialization
 	void Start () {
+		audio.clip = laugh;
 		DaemonDust = GameObject.FindGameObjectWithTag("DaemonDust");
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
@@ -25,7 +26,10 @@ public class DamShrine : MonoBehaviour {
 	void Update () {
 		Distance = Vector3.Distance(transform.position, player.transform.position);
 		if(Input.GetKeyDown(KeyCode.E) && !DaemonDust.GetComponent<DaemonAura>().activateAura && Distance <= 1.0f)
+		{
 		   buffPlayer();
+			audio.Play ();
+		}
 	}
 	void buffPlayer()
 	{

@@ -5,6 +5,7 @@ public class ShopCode : MonoBehaviour {
 
 	GameObject shop;
 	GameObject Player;
+	
 	public bool showDescription = false;
 
 	public Texture backpackSkin;

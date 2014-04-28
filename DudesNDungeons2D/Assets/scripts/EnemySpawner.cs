@@ -36,12 +36,14 @@ public class EnemySpawner : MonoBehaviour {
 	float x = 0.0f;
 	float Distance;
 	void Update () {
+
 		transform.Rotate (Vector3.forward * 1);
 		transform.localScale = new Vector3(x,x,x);
 		GetComponent<SpriteRenderer>().sprite = animList[i];
 		Distance = Vector3.Distance(player.transform.position, transform.position);
 		if(Distance < 2.0f && !hasAppeared || assault == true)
 		{
+
 			if(x >= 0.3)
 			{
 				assault = false;
