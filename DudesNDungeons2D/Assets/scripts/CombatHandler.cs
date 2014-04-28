@@ -12,9 +12,12 @@ public class CombatHandler : MonoBehaviour {
 	GameObject eToAttack = null;
 	public Transform death;
 	public bool canAttack;
-	public float attackSpeed = 0.5f;
+	public bool missedEnemy;
+	public float attackSpeed = 1.0f;
 	public int attackCount;
 	public int attackHitCap;
+	public int enemyDodgeProcent;
+	public int hitChance;
 
 	// Use this for initialization
 	void Start () 
@@ -22,17 +25,20 @@ public class CombatHandler : MonoBehaviour {
 		attackHitCap = 0;
 		attackCount = 0;
 		canAttack = true;
+		missedEnemy = false;
 		player = GameObject.FindGameObjectWithTag("Player");
+		hitChance = Random.Range(0, 101);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
+		Debug.Log ("hitChance = " + hitChance + " Enemydodgeprocent = " + enemyDodgeProcent + " missedEnemy = " + missedEnemy);
 		if(enemies.Length > 0)
 			foreach(GameObject e in enemies)
 			{
+				enemyDodgeProcent = e.GetComponent<Enemy>().eDex;
 				if(e.GetComponent<Enemy>().eHp <= 0)
 				{
 					player.GetComponent<LootHandler>().lootBody(e);
@@ -92,15 +98,29 @@ public class CombatHandler : MonoBehaviour {
 	void playerAttack(GameObject eToAttack)
 	{
 		//iniate Attack Animation.
-		eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
-		//Debug.Log ("Enemy HP in function: "+eToAttack.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
+		if(hitChance > enemyDodgeProcent){
+			missedEnemy = false;
+			Debug.Log ("Enemy not Missed");
+		}
+		else if(hitChance < enemyDodgeProcent)
+		{
+			missedEnemy = true;
+			Debug.Log ("Enemy Missed");
+		}
+
+		if(!missedEnemy)
+			eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
+		else
+		{
+			Debug.Log ("Enemy Missed");
+		}
 	}
 	public IEnumerator attackCooldown()
 	{
 		yield return new WaitForSeconds(attackSpeed);
 		canAttack = true;
 		player.GetComponent<AnimHandler>().isGroundSlam = false;
-
+		hitChance = Random.Range(0, 101);
 		Debug.Log("Im here");
 		StopCoroutine ("attackCooldown");
 	}

@@ -14,15 +14,20 @@ public class FollowPlayerAI : MonoBehaviour
 	public bool followingL = false;
 	public bool followingR = false;
 	public bool eCanAttack = true;
-	float eAttackSpeed = 0.9f;
+	float eAttackSpeed = 1.5f;
 	public bool eCanFollow = true;
 	public bool isStunned = false;
+	public bool missedPlayer;
+	public int eHitChance;
+	public int playerDodgeProcent;
 	
 	// Use this for initialization
 	void Start () 
 	{
 		fPlayer = GameObject.FindGameObjectWithTag("Player").transform; //locates an object with the tag Player
 		ePosition = transform.position; //saves the position of the object this script is attached to
+		missedPlayer = false;
+		eHitChance = Random.Range(0, 101);
 	}
 	// Update is called once per frame
 	public int eq = 0;
@@ -33,6 +38,7 @@ public class FollowPlayerAI : MonoBehaviour
 
 		eDistance = Vector3.Distance(transform.position, fPlayer.position); //This is the distance between the player and the enemy, it currently
 																			//isn't looking for any specific distance
+		playerDodgeProcent = (int)fPlayer.GetComponent<player>().dodge;
 		enemyAI();
 		if(eq >=29)
 			eq = 0;
@@ -44,11 +50,11 @@ public class FollowPlayerAI : MonoBehaviour
 			if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
 													//and stop if he comes to close to the player
 			{
-					enemyAIFollow();
+				enemyAIFollow();
 			}
 			else if(eDistance <= 0.3f) //If the enemy is close to the player he will call the attack function
 			{
-					enemyAIAttack();
+				enemyAIAttack();
 			}
 			else // return to origin
 			{
@@ -84,26 +90,48 @@ public class FollowPlayerAI : MonoBehaviour
 	}
 	void enemyAIAttack()
 	{
-		if(eCanAttack == true)
+
+		if(eHitChance > playerDodgeProcent)
 		{
+			missedPlayer = false;
+			//Debug.Log ("missedPlayer = " + missedPlayer + " eHitChance = " + eHitChance + " Damage dealt " + GetComponent<Enemy>().eDamage);
+		}
+		else if(eHitChance < playerDodgeProcent)
+		{
+			missedPlayer = true;
+			//Debug.Log ("missedPlayer = " + missedPlayer + " eHitChance = " + eHitChance);
+		}
+
+		if(eCanAttack == true && missedPlayer == false)
+		{
+			//Debug.Log ("Hitting player");
 			eCanAttack = false;
 			eAttackBool = true;
 			if(!fPlayer.GetComponent<player>().invulnerable)
 				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eDamage;
-			Debug.Log ("Damage = " + GetComponent<Enemy>().eDamage);
-			StartCoroutine("eAttackCooldown");
-		}
+			//Debug.Log ("Damage = " + GetComponent<Enemy>().eDamage);
+			StartCoroutine("eAttackCooldown"); 
+		
 
-		if(fPlayer.GetComponent<player>().pHp <= 0)
-		{
-			fPlayer.gameObject.collider2D.enabled = false;
+			if(fPlayer.GetComponent<player>().pHp <= 0)
+			{
+				fPlayer.gameObject.collider2D.enabled = false;
+			}
 		}
+		else
+		{
+			fighting ();
+			StartCoroutine("eAttackCooldown"); 
+		}
+		
 	}
 	IEnumerator eAttackCooldown()
 	{
 		yield return new WaitForSeconds(eAttackSpeed);
 		eCanAttack = true;
+		eHitChance = Random.Range(0, 101);
 		eAttackBool = false;
+		missedPlayer = false;
 		StopCoroutine ("eAttackCooldown");
 	}
 	void returnToStart()
