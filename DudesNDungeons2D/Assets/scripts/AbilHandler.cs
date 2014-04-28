@@ -29,15 +29,11 @@ public class AbilHandler : MonoBehaviour
 	float hpMultiply, strMultiply, dmgMultiply , dodgeMultiply = 0;
 	bool canRage;
 	bool canTeleport;
-	bool canShadowStab;
+	public bool canShadowStab;
 	bool canPush;
 	bool canShield;
 	bool canThrowFlame;
-<<<<<<< HEAD
-	public bool stabNow;
-=======
 	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
->>>>>>> 603dfeebfaf8da30a8fd45e47b7633bc290a0776
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
 	
@@ -70,7 +66,6 @@ public class AbilHandler : MonoBehaviour
 		canTeleport = true;
 		canPush = true;
 		canShield = true;
-		stabNow = false;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
 	}
@@ -78,7 +73,7 @@ public class AbilHandler : MonoBehaviour
 	void Update () 
 	{
 		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
-		if(canUseAbilities)
+		if(canUseAbilities == true)
 		{
 			if(Input.GetMouseButtonDown (1) && canRage == true)
 			{

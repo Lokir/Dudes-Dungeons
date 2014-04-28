@@ -6,7 +6,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect backpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
 	Rect equippedGear = new Rect(Screen.width/1.12f, Screen.height/100, Screen.width/11.4f/*177*/, Screen.height/4f/*220*/); // this is the box for the equipped box
 	Rect healthPot = new Rect(Screen.width/200, Screen.height-70, 110, 60);
-	Rect abilityArea = new Rect (Screen.width/1.12f, Screen.height/3, Screen.width/10.8f/*177*/, Screen.height/3.4f/*220*/);
+	Rect abilityArea = new Rect ((Screen.width/2f)-110, Screen.height-70, 220, 60);
 	float skillRectx, skillRecty;
 	//shop
 	Rect pBackpack = new Rect(Screen.width/200, Screen.height/100, Screen.width/5.5f/*350*/, Screen.height/2.5f/*450*/); // create the window box for the backpack.
@@ -124,19 +124,17 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		{	// rect = GUI.Window(ID , Rect, RunFunction, applyTexture);
 			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); //load GUI window for Backpack
 			equippedGear = GUI.Window(1, equippedGear,doEquip, equippedBody); // load GUI window for the equipped body.
-			abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
-
 			stringStr = GUI.TextField(new Rect((Screen.width/2)-100, 90, 200, 20), stringStr, 25); // load player stats
 			stringDex = GUI.TextField(new Rect((Screen.width/2)-100, 50, 200, 20), stringDex, 25);
 			stringInt = GUI.TextField(new Rect((Screen.width/2)-100, 70, 200, 20), stringInt, 25);
 			stringDam = GUI.TextField(new Rect((Screen.width/2)-100, 110, 200, 20), stringDam, 25);
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
+			Debug.Log (PlayStat.GetComponent<AbilHandler>().canUseAbilities);
 		}
-		else 
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 		stringHP = GUI.TextField(new Rect((Screen.width/2)-100, 10, 200, 20), stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
 		stringCharge = GUI.TextField(new Rect((Screen.width/2)-100, 30, 200, 20), stringCharge, 25);
 		healthPot = GUI.Window (2, healthPot, doHealth, potAmountString);
+		abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
 
 
 		if(GetComponent<ShopCode>().visiShop == true)
@@ -145,10 +143,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
 			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
 			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
-<<<<<<< HEAD
-			DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
-=======
+
 			if(GetComponent<ShopCode>().showDescription)
 			{
 				skillRectx = Screen.width/4f;
@@ -160,8 +156,11 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				skillRectx = (Screen.width/2f)-175;
 				skillRecty = (Screen.height/2f)-175;
 			}
->>>>>>> 603dfeebfaf8da30a8fd45e47b7633bc290a0776
 			//Render shop gui
+		}
+		if(!GetComponent<ShopCode>().visiShop && !visiGUI)
+		{
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 		}
 
 	}

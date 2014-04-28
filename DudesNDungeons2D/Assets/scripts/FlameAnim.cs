@@ -54,7 +54,7 @@ public class FlameAnim : MonoBehaviour {
 
 	void Update () 
 	{
-		if(player.GetComponent<player>().currBody.bruteAbil == true) // if player is wearing a mage body (only one who can use this abil)
+		if(player.GetComponent<player>().currBody.mageAbil == true) // if player is wearing a mage body (only one who can use this abil)
 		{
 			if(player.GetComponent<player>().left == true) // if player moving left
 			{
@@ -71,7 +71,7 @@ public class FlameAnim : MonoBehaviour {
 				C = 0;
 			}
 
-			if(throwFire == true) // if active, render animation.
+			if(throwFire == true && player.GetComponent<AbilHandler>().canUseAbilities) // if active, render animation.
 			{
 
 				if(player.GetComponent<player>().left == true) // if left, render inverse images in sequence.

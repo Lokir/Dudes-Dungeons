@@ -44,42 +44,46 @@ public class CombatHandler : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0) && canAttack == true)
 		{
-			if(attackCount <= attackHitCap)
-				attackCount++;
-			else
+			if(player.GetComponent<AbilHandler>().canUseAbilities && player.GetComponent<AbilHandler>().canShadowStab)
 			{
-				float displacement;
-				if(player.GetComponent<player>().left)
-					displacement = -1.0f;
+				if(attackCount <= attackHitCap)
+					attackCount++;
 				else
-					displacement = 1.0f;
-				Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
-				attackCount = 0;
-			}
-
-
-			canAttack = false;
-			player.GetComponent<AnimHandler>().attackBool = true;
-			player.GetComponent<AnimHandler>().q = 0;
-			StartCoroutine("attackCooldown");
-			if(enemies.Length > 0)
-			{
-
-				float lastDistance = 0.6f;
-				float currDistance = 1;
-				foreach(GameObject e in enemies)
 				{
-					currDistance = Vector3.Distance (e.transform.position, player.transform.position);
-					if(lastDistance > currDistance)
-					{
-						lastDistance = currDistance;
-						eToAttack = e;
-						Debug.Log ("Enemy HP in foreach: "+e.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
-					}
-
+					float displacement;
+					if(player.GetComponent<player>().left)
+						displacement = -1.0f;
+					else
+						displacement = 1.0f;
+					Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
+					attackCount = 0;
 				}
-				if(lastDistance != 0.6f)
-					playerAttack(eToAttack);
+			}
+			if(player.GetComponent<AbilHandler>().canUseAbilities)
+			{
+				canAttack = false;
+				player.GetComponent<AnimHandler>().attackBool = true;
+				player.GetComponent<AnimHandler>().q = 0;
+				StartCoroutine("attackCooldown");
+				if(enemies.Length > 0)
+				{
+
+					float lastDistance = 0.6f;
+					float currDistance = 1;
+					foreach(GameObject e in enemies)
+					{
+						currDistance = Vector3.Distance (e.transform.position, player.transform.position);
+						if(lastDistance > currDistance)
+						{
+							lastDistance = currDistance;
+							eToAttack = e;
+							Debug.Log ("Enemy HP in foreach: "+e.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
+						}
+
+					}
+					if(lastDistance != 0.6f)
+						playerAttack(eToAttack);
+				}
 			}
 
 		}
