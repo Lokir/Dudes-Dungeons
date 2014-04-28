@@ -64,86 +64,87 @@ public class ShopCode : MonoBehaviour {
 	public bool visiShop;
 
 	//buttonRects
-	Rect SellRect = new Rect(130, 175, 40, 40);
+	Rect SellRect = new Rect(130, 221, 40, 50.5f);
 
-	Rect rageRect = new Rect(25, 30, 80, 80);
-	Rect regenRect = new Rect(25, 140, 80, 80);
-	Rect slamRect = new Rect(25, 250, 80, 80);
+	Rect rageRect = new Rect(25, 37.9f, 80, 101);
+	Rect regenRect = new Rect(25, 176.8f, 80, 101);
+	Rect slamRect = new Rect(25, 315.8f, 80, 101);
 	
-	Rect tpRect = new Rect(140, 30, 80, 80);
-	Rect sSRect = new Rect( 140, 140, 80, 80);
-	Rect accuteBodyRect = new Rect(140, 250, 80, 80);
+	Rect tpRect = new Rect(140, 37.9f, 80, 101);
+	Rect sSRect = new Rect( 140, 176.8f, 80, 101);
+	Rect accuteBodyRect = new Rect(140, 315.8f, 80, 101);
 	
-	Rect FPRect = new Rect( 255, 30, 80, 80);
-	Rect StoneSkinRect = new Rect(255, 140, 80, 80);
-	Rect flameRect = new Rect(255, 250, 80, 80);
+	Rect FPRect = new Rect( 255, 37.9f, 80, 101);
+	Rect StoneSkinRect = new Rect(255, 176.8f, 80, 101);
+	Rect flameRect = new Rect(255, 315.8f, 80, 101);
 
-	Rect exitRect = new Rect(10,10,50,50);
-	Rect skillPlusRect = new Rect(420,130,50,50);
+	Rect exitRect = new Rect(10,12.6f,50,63);
+	Rect skillPlusRect = new Rect(420,164.2f,50,63);
 
 
 	//textRects
-	Rect nameTextRect = new Rect(10, 10, 100,23);
-	Rect textRect = new Rect(10, 30, 100, 23);
-	Rect textRect2 = new Rect(10, 50, 100, 23);
-	Rect textRect3 = new Rect(10, 70, 100, 23);
-	Rect textRect4 = new Rect(10, 90, 100, 23);
-	Rect textRect5 = new Rect(10, 110, 100, 23);
-	Rect textRect6 = new Rect(10, 130, 100, 23);
+	Rect nameTextRect = new Rect(10, 12.6f, 100,29);
+	Rect textRect = new Rect(10, 37.9f, 100, 29);
+	Rect textRect2 = new Rect(10, 63, 100, 29);
+	Rect textRect3 = new Rect(10, 88.4f, 100, 29);
+	Rect textRect4 = new Rect(10, 113.7f, 100, 29);
+	Rect textRect5 = new Rect(10, 138.9f, 100, 29);
+	Rect textRect6 = new Rect(10, 164.2f, 100, 29);
 
-	Rect rageNameRect = new Rect(15, 10, 100, 20);
-	Rect regenNameRect = new Rect(15, 120, 100, 20);
-	Rect slamNameRect = new Rect(15, 230, 100, 20);
-	Rect tpNameRect = new Rect(130, 10, 100, 20);
-	Rect sSNameRect = new Rect(130, 120, 100, 20);
-	Rect accuteBodyNameRect = new Rect(130, 230, 100, 20);
-	Rect FPNameRect = new Rect(235, 10, 100, 20);
-	Rect StoneSkinNameRect = new Rect(235, 120, 100, 20);
-	Rect flameNameRect = new Rect(235, 230, 100, 20);
+	Rect rageNameRect = new Rect(15, 12.6f, 100, 25.26f);
+	Rect regenNameRect = new Rect(15, 151.5f, 100, 25.26f);
+	Rect slamNameRect = new Rect(15, 290.5f, 100, 25.26f);
+	Rect tpNameRect = new Rect(130, 12.6f, 100, 25.26f);
+	Rect sSNameRect = new Rect(130, 151.5f, 100, 25.26f);
+	Rect accuteBodyNameRect = new Rect(130, 290.5f, 100, 25.26f);
+	Rect FPNameRect = new Rect(235, 12.6f, 100, 25.26f);
+	Rect StoneSkinNameRect = new Rect(235, 151.5f, 100, 25.26f);
+	Rect flameNameRect = new Rect(235, 290.5f, 100, 25.26f);
 
-	Rect currSkillLvlRect = new Rect(198, 40, 165, 20);
-	Rect costRect = new Rect(210, 70, 150, 20);
-	Rect ptsAvailRect = new Rect(210, 100, 150, 20);
+	Rect currSkillLvlRect = new Rect(198, 10, 165, 20);
+	Rect costRect = new Rect(198, 35, 150, 20);
+	Rect ptsAvailRect = new Rect(198, 60, 150, 20);
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		//Buttons
-		fitShopToScreen(ref SellRect, true);
-		fitShopToScreen(ref rageRect, true);
-		fitShopToScreen(ref regenRect, true);
-		fitShopToScreen(ref slamRect, true);
-		fitShopToScreen(ref tpRect, true);
-		fitShopToScreen(ref sSRect, true);
-		fitShopToScreen(ref accuteBodyRect, true);
-		fitShopToScreen(ref FPRect, true);
-		fitShopToScreen(ref StoneSkinRect, true);
-		fitShopToScreen(ref flameRect, true);
-		fitShopToScreen(ref exitRect, true);
-		fitShopToScreen(ref skillPlusRect, true);
+		fitShopToScreen(ref SellRect, true, true);
+		fitShopToScreen(ref rageRect, true, true);
+		fitShopToScreen(ref regenRect, true, true);
+		fitShopToScreen(ref slamRect, true, true);
+		fitShopToScreen(ref tpRect, true, true);
+		fitShopToScreen(ref sSRect, true, true);
+		fitShopToScreen(ref accuteBodyRect, true, true);
+		fitShopToScreen(ref FPRect, true, true);
+		fitShopToScreen(ref StoneSkinRect, true, true);
+		fitShopToScreen(ref flameRect, true, true);
+		fitShopToScreen(ref exitRect, true, true);
+		fitShopToScreen(ref skillPlusRect, true, true);
 
 		//Text
-		fitShopToScreen(ref nameTextRect, false);
-		fitShopToScreen(ref textRect, false);
-		fitShopToScreen(ref textRect2, false);
-		fitShopToScreen(ref textRect3, false);
-		fitShopToScreen(ref textRect4, false);
-		fitShopToScreen(ref textRect5, false);
-		fitShopToScreen(ref textRect6, false);
+		fitShopToScreen(ref nameTextRect, false, false);
+		fitShopToScreen(ref textRect, false, false);
+		fitShopToScreen(ref textRect2, false, false);
+		fitShopToScreen(ref textRect3, false, false);
+		fitShopToScreen(ref textRect4, false, false);
+		fitShopToScreen(ref textRect5, false, false);
+		fitShopToScreen(ref textRect6, false, false);
 		
-		fitShopToScreen(ref rageNameRect, false);
-		fitShopToScreen(ref regenNameRect, false);
-		fitShopToScreen(ref slamNameRect, false);
-		fitShopToScreen(ref tpNameRect, false);
-		fitShopToScreen(ref sSNameRect, false);
-		fitShopToScreen(ref accuteBodyNameRect, false);
-		fitShopToScreen(ref FPNameRect, false);
-		fitShopToScreen(ref StoneSkinNameRect, false);
-		fitShopToScreen(ref flameNameRect, false);
+		fitShopToScreen(ref rageNameRect, false, true);
+		fitShopToScreen(ref regenNameRect, false, true);
+		fitShopToScreen(ref slamNameRect, false, true);
+		fitShopToScreen(ref tpNameRect, false, true);
+		fitShopToScreen(ref sSNameRect, false, true);
+		fitShopToScreen(ref accuteBodyNameRect, false, true);
+		fitShopToScreen(ref FPNameRect, false, true);
+		fitShopToScreen(ref StoneSkinNameRect, false, true);
+		fitShopToScreen(ref flameNameRect, false, true);
 		
-		fitShopToScreen(ref currSkillLvlRect, false);
-		fitShopToScreen(ref ptsAvailRect, false);
+		fitShopToScreen(ref currSkillLvlRect, false, true);
+		fitShopToScreen(ref costRect, false, true);
+		fitShopToScreen(ref ptsAvailRect, false, true);
 
 
 
@@ -158,12 +159,18 @@ public class ShopCode : MonoBehaviour {
 
 		visiShop = false;
 	}
-	void fitShopToScreen(ref Rect rectToMod, bool fitSize)
+	void fitShopToScreen(ref Rect rectToMod, bool fitSize, bool adjustY)
 	{
-		rectToMod.width = ((rectToMod.width/1366)*Screen.width);
-		rectToMod.height = ((rectToMod.height/608)*Screen.height);
+		if(fitSize)
+		{
+			rectToMod.width = ((rectToMod.width/1366)*Screen.width);
+			rectToMod.height = ((rectToMod.height/768)*Screen.height);
+		}
 		rectToMod.x = ((rectToMod.x/1366)*Screen.width);
-		rectToMod.y = ((rectToMod.y/608)*Screen.height);
+		if(adjustY)
+		{
+			rectToMod.y = ((rectToMod.y/768)*Screen.height);
+		}
 	}
 	// Update is called once per frame
 	void Update () 
@@ -389,6 +396,7 @@ public class ShopCode : MonoBehaviour {
 	public void skillDescriptionload(int windowID)
 	{
 		currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
+		currSkillLvl = GUI.TextField(currSkillLvlRect, currSkillLvl, 100);
 		skillCost = skillLvl+1;
 		cost = "Point cost to increase: "+skillCost;
 		cost = GUI.TextField(costRect,cost,40);
@@ -455,8 +463,7 @@ public class ShopCode : MonoBehaviour {
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
-			currSkillLvl = GUI.TextField(currSkillLvlRect, currSkillLvl, 100);						
+						
 		}
 	}
 
