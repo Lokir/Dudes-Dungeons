@@ -143,8 +143,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
 			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
 			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
+<<<<<<< HEAD
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 
+=======
+			DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
+>>>>>>> 44a7e1543d8c3ef141b1489c3602b20f9c64f68c
 			if(GetComponent<ShopCode>().showDescription)
 			{
 				skillRectx = Screen.width/4f;
@@ -158,10 +163,15 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			}
 			//Render shop gui
 		}
+<<<<<<< HEAD
 		if(!GetComponent<ShopCode>().visiShop && !visiGUI)
 		{
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 		}
+=======
+		else
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
+>>>>>>> 44a7e1543d8c3ef141b1489c3602b20f9c64f68c
 
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
