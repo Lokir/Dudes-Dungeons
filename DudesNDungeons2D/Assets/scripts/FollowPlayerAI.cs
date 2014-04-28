@@ -18,12 +18,14 @@ public class FollowPlayerAI : MonoBehaviour
 	public bool eCanFollow = true;
 	public bool isStunned = false;
 	public bool missedPlayer;
+	public bool showMissedPlayer;
 	public int eHitChance;
 	public int playerDodgeProcent;
 	
 	// Use this for initialization
 	void Start () 
 	{
+		showMissedPlayer = false;
 		fPlayer = GameObject.FindGameObjectWithTag("Player").transform; //locates an object with the tag Player
 		ePosition = transform.position; //saves the position of the object this script is attached to
 		missedPlayer = false;
@@ -99,6 +101,8 @@ public class FollowPlayerAI : MonoBehaviour
 		else if(eHitChance < playerDodgeProcent)
 		{
 			missedPlayer = true;
+			showMissedPlayer = true;
+			StartCoroutine("showMissPlayerText");
 			//Debug.Log ("missedPlayer = " + missedPlayer + " eHitChance = " + eHitChance);
 		}
 
@@ -124,6 +128,13 @@ public class FollowPlayerAI : MonoBehaviour
 			StartCoroutine("eAttackCooldown"); 
 		}
 		
+	}
+	IEnumerator showMissPlayerText()
+	{
+		float displayTime = 0.8f;
+		yield return new WaitForSeconds(displayTime);
+			showMissedPlayer = false;
+		StopCoroutine("showMissPlayerText");
 	}
 	IEnumerator eAttackCooldown()
 	{

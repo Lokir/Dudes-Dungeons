@@ -56,6 +56,13 @@ public class ShopCode : MonoBehaviour {
 	Texture button5;
 	Texture button4;
 	Texture button6;
+
+	public Texture HPTex;
+	public Texture ChargeTex;
+	public Texture StrTex;
+	public Texture DexTex;
+	public Texture InteTex;
+
 	public Texture Sell;
 	public bool hasSold;
 	int posInBackpack;
@@ -80,6 +87,12 @@ public class ShopCode : MonoBehaviour {
 
 	Rect exitRect = new Rect(10,12.6f,50,63);
 	Rect skillPlusRect = new Rect(420,164.2f,50,63);
+
+	Rect BuyHPRect = new Rect(40, 430, 60, 60);
+	Rect BuyStrRect = new Rect(110, 430, 60, 60);
+	Rect BuyDexRect = new Rect(180, 430, 60, 60);
+	Rect BuyInteRect = new Rect(250, 430, 60, 60);
+
 
 
 	//textRects
@@ -110,6 +123,11 @@ public class ShopCode : MonoBehaviour {
 	void Start () 
 	{
 		//Buttons
+		fitShopToScreen(ref BuyHPRect, true, true);
+		fitShopToScreen(ref BuyDexRect, true, true);
+		fitShopToScreen(ref BuyInteRect, true, true);
+		fitShopToScreen(ref BuyStrRect, true, true);
+
 		fitShopToScreen(ref SellRect, true, true);
 		fitShopToScreen(ref rageRect, true, true);
 		fitShopToScreen(ref regenRect, true, true);
@@ -155,7 +173,7 @@ public class ShopCode : MonoBehaviour {
 		pressedBodyObject = new Body();
 		shop = GameObject.FindGameObjectWithTag("Shop");
 		Player = GameObject.FindGameObjectWithTag("Player");
-		Player.GetComponent<player>().SkillPoints = 5;
+		Player.GetComponent<player>().SkillPoints = 30;
 
 		visiShop = false;
 	}
@@ -318,6 +336,54 @@ public class ShopCode : MonoBehaviour {
 		stoneSkinName = GUI.TextField(StoneSkinNameRect, stoneSkinName, 25);
 		flameBurstName = GUI.TextField(flameNameRect, flameBurstName, 25);
 
+		if(GUI.Button (BuyHPRect, HPTex))
+		{
+			if(Player.GetComponent<player>().SkillPoints >= 1)
+			{
+				Player.GetComponent<player>().SkillPoints -= 1;
+				Player.GetComponent<player>().sHp += 10;
+				Player.GetComponent<player>().pHp = Player.GetComponent<player>().sHp + Player.GetComponent<player>().currBody.gHp;
+				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().pHp;
+			}
+		}
+		if(GUI.Button (BuyStrRect, StrTex))
+		{
+			if(Player.GetComponent<player>().SkillPoints >= 1)
+			{
+				Player.GetComponent<player>().SkillPoints -= 1;
+				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().HPCap-((int)(Player.GetComponent<player>().pStr*0.2))+1;
+				Player.GetComponent<player>().pDamage -= (((int)(Player.GetComponent<player>().pStr*0.33))+1);
+				Player.GetComponent<player>().sStr += 1;
+				Player.GetComponent<player>().pStr = Player.GetComponent<player>().sStr + Player.GetComponent<player>().currBody.gStr;
+				Player.GetComponent<player>().pHp = Player.GetComponent<player>().HPCap;
+				Player.GetComponent<player>().pHp += ((int)(Player.GetComponent<player>().pStr*0.2))+1;
+				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().pHp;
+				Player.GetComponent<player>().pDamage += (((int)(Player.GetComponent<player>().pStr*0.33))+1);
+			}
+		}
+		if(GUI.Button (BuyDexRect, DexTex))
+		{
+			if(Player.GetComponent<player>().SkillPoints >= 1)
+			{
+				Player.GetComponent<player>().SkillPoints -= 1;
+				Player.GetComponent<player>().sDex += 1;
+				Player.GetComponent<player>().pDex = Player.GetComponent<player>().sDex + Player.GetComponent<player>().currBody.gDex;
+				Player.GetComponent<player>().dodge = (float)Player.GetComponent<player>().pDex;
+				Player.GetComponent<AbilHandler>().canEandAS = true;
+			}
+		}
+		if(GUI.Button (BuyInteRect, InteTex))
+		{
+			if(Player.GetComponent<player>().SkillPoints >= 1)
+			{
+				Player.GetComponent<player>().SkillPoints -= 1;
+				Player.GetComponent<player>().sInte += 1;
+				Player.GetComponent<player>().pInte = Player.GetComponent<player>().sInte+Player.GetComponent<player>().currBody.gInte;
+				Player.GetComponent<player>().skillBon = ((float)(Player.GetComponent<player>().pInte*0.1)+1);
+				Player.GetComponent<player>().pCharge += 10;
+			}
+		}
+		
 
 		if(GUI.Button (rageRect, RageSkill))
 		{
@@ -398,7 +464,10 @@ public class ShopCode : MonoBehaviour {
 		currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
 		currSkillLvl = GUI.TextField(currSkillLvlRect, currSkillLvl, 100);
 		skillCost = skillLvl+1;
-		cost = "Point cost to increase: "+skillCost;
+		if(skillCost < 5)
+		{
+			cost = "Point cost to increase: "+skillCost;
+		}
 		cost = GUI.TextField(costRect,cost,40);
 		string pointsAvailable = "points to spend: "+ Player.GetComponent<player>().SkillPoints;
 		pointsAvailable = GUI.TextField (ptsAvailRect, pointsAvailable, 40);
@@ -408,62 +477,66 @@ public class ShopCode : MonoBehaviour {
 		}
 		if(GUI.Button (skillPlusRect, skillInc))
 		{
-			if(skillOpen == rageName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			if(skillOpen == rageName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().rageLevel < 5)
 			{
 				skillLvl = ++Player.GetComponent<AbilHandler>().rageLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 
 			}
-			else if(skillOpen == regenName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == regenName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().regenerateLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().regenerateLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == slamName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == slamName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().groundSlamLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().groundSlamLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == teleportName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == teleportName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().tpLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().tpLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == shadowStabName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == shadowStabName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().sSLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().sSLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == accDexName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == accDexName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().eAndASLevel < 5)
 			{
 				skillLvl = ++Player.GetComponent<AbilHandler>().eAndASLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
+				Player.GetComponent<AbilHandler>().canEandAS = true;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == forcePushName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == forcePushName && Player.GetComponent<player>().SkillPoints >= skillCost&& Player.GetComponent<AbilHandler>().knockbackLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().knockbackLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == stoneSkinName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == stoneSkinName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().shieldLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().shieldLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-			else if(skillOpen == flameBurstName && Player.GetComponent<player>().SkillPoints >= skillCost)
+			else if(skillOpen == flameBurstName && Player.GetComponent<player>().SkillPoints >= skillCost && Player.GetComponent<AbilHandler>().flameThrowerLevel < 5)
 			{
 				skillLvl= ++Player.GetComponent<AbilHandler>().flameThrowerLevel;
 				Player.GetComponent<player>().SkillPoints -= skillCost;
 				GetComponent<GuiTest>().bodyChange = true;
 			}
-						
+			if(skillLvl == 5)
+			{
+				cost =" Skill is MAXED out";
+			}		
 		}
 	}
 

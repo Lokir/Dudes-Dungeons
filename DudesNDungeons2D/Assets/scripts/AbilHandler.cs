@@ -18,6 +18,7 @@ public class AbilHandler : MonoBehaviour
 	float distanceToEnemy;
 	GameObject[] enemyFound;
 	GameObject flame;
+	GameObject camera;
 
 	int HP;
 	int Str;
@@ -34,6 +35,7 @@ public class AbilHandler : MonoBehaviour
 	bool canShield;
 	bool canThrowFlame;
 	bool canGroundSlam;
+	public bool canEandAS;
 	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
 	public int tpLevel, sSLevel, eAndASLevel;
 	public int knockbackLevel, shieldLevel, flameThrowerLevel;
@@ -41,24 +43,25 @@ public class AbilHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		canEandAS = true;
 		canUseAbilities = true;
 		canGroundSlam  = true;
 		canShadowStab  = true;
 		canThrowFlame = true;
 		//Brutes ability levels
-		regenerateLevel = 1;
-		rageLevel = 1;
-		groundSlamLevel = 1;
+		regenerateLevel = 0;
+		rageLevel = 0;
+		groundSlamLevel = 0;
 
 		//Sneaky ability levels
-		tpLevel = 1;
-		sSLevel = 1;
-		eAndASLevel = 1;
+		tpLevel = 0;
+		sSLevel = 0;
+		eAndASLevel = 0;
 
 		//Mages ability levels
-		knockbackLevel = 1;
-		shieldLevel = 1;
-		flameThrowerLevel = 1;
+		knockbackLevel = 0;
+		shieldLevel = 0;
+		flameThrowerLevel = 0;
 
 		hpMultiply= 0;
 		strMultiply = 0;
@@ -71,7 +74,7 @@ public class AbilHandler : MonoBehaviour
 		canShield = true;
 
 		flame = GameObject.FindGameObjectWithTag("Flame");
-
+		camera = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	// Update is called once per frame
 	void Update () 
@@ -160,7 +163,11 @@ public class AbilHandler : MonoBehaviour
 					shadowStab();
 				}
 
-				// evade & attack speed();
+				if(canEandAS)
+				{
+					eAndAs();
+					canEandAS = false;
+				}
 			}
 
 			if(GetComponent<player>().currBody.name == "Magus")
@@ -406,6 +413,30 @@ public class AbilHandler : MonoBehaviour
 		canShadowStab = false;
 		StartCoroutine("shadowStabDuration");
 	}
+	void eAndAs()
+	{
+		if(eAndASLevel == 1)
+		{
+			camera.GetComponent<CombatHandler>().attackSpeed = 0.9f;
+		}
+		else if(eAndASLevel == 2)
+		{
+			GetComponent<player>().dodge +=5;
+		}
+		else if(eAndASLevel == 3)
+		{
+			camera.GetComponent<CombatHandler>().attackSpeed = 0.7f;
+			GetComponent<player>().dodge +=5;
+		}
+		else if(eAndASLevel == 4)
+		{
+			GetComponent<player>().dodge +=5;
+		}
+		else if(eAndASLevel == 5)
+		{
+			camera.GetComponent<CombatHandler>().attackSpeed = 0.6f;
+		}
+	}
 
 	//Brute abilities
 	public void rage()
@@ -484,6 +515,7 @@ public class AbilHandler : MonoBehaviour
 		StartCoroutine("rageDurationElapse");
 		Debug.Log ("After Coroutine "+GetComponent<player>().pHp);
 	}
+
 	public void groundSlam(int groundSlamLevel)
 	{
 		if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true)

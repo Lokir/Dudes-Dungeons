@@ -14,6 +14,7 @@ public class CombatHandler : MonoBehaviour {
 	public Transform death;
 	public bool canAttack;
 	public bool missedEnemy;
+	public bool showMiss;
 	public float attackSpeed = 1.0f;
 	public int attackCount;
 	public int attackHitCap;
@@ -108,12 +109,12 @@ public class CombatHandler : MonoBehaviour {
 		//iniate Attack Animation.
 		if(hitChance > enemyDodgeProcent){
 			missedEnemy = false;
-			Debug.Log ("Enemy not Missed");
 		}
 		else if(hitChance < enemyDodgeProcent)
 		{
 			missedEnemy = true;
-			Debug.Log ("Enemy Missed");
+			showMiss = true;
+			StartCoroutine("showMissText");
 		}
 
 		if(!missedEnemy)
@@ -122,10 +123,12 @@ public class CombatHandler : MonoBehaviour {
 			if(player.GetComponent<player>().pCharge +5 <= player.GetComponent<player>().chargeCap)
 			player.GetComponent<player>().pCharge +=5;
 		}
-		else
-		{
-			Debug.Log ("Enemy Missed");
-		}
+	}
+	public IEnumerator showMissText()
+	{
+		float textTime = 0.8f;
+		yield return new WaitForSeconds(textTime);
+		showMiss = false;
 	}
 	public IEnumerator attackCooldown()
 	{
