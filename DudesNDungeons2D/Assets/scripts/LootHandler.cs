@@ -10,9 +10,12 @@ public class LootHandler : MonoBehaviour {
 	int lootChance = 0;
 	int potionChance = 0;
 	public bool hasLooted = false;
+	float displayTime = 0.8f;
+	public bool DisplayText;
 
 	// Use this for initialization
 	void Start () {
+		DisplayText = false;
 		camFound = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	
@@ -38,12 +41,14 @@ public class LootHandler : MonoBehaviour {
 				{
 					GetComponent<GearHandler>().Backpack[h] = lootedBody;
 					hasLooted = true;
+					DisplayText = true;
+					StartCoroutine("displayLootText");
 				}
 				h++;
 			}
 			if(hasLooted == true)
 				Debug.Log ("Loot");
-			else if(!hasLooted && lootChance > 75)
+			else if(!hasLooted && lootChance > 50)
 				Debug.Log ("backpack full");
 		}
 		else
@@ -60,5 +65,10 @@ public class LootHandler : MonoBehaviour {
 		{
 			Debug.Log ("Damn, no potion");
 		}
+	}
+	IEnumerator displayLootText()
+	{
+		yield return new WaitForSeconds(displayTime);
+		DisplayText = false;
 	}
 }

@@ -114,7 +114,7 @@ public class Stab : MonoBehaviour {
 				C = 0; // reset animation.
 			}
 			
-			if(stabStabStab == true) // if active load animation.
+			if(stabStabStab == true && !PlayStat.GetComponent<AbilHandler>().canShadowStab) // if active load animation.
 			{
 				if(PlayStat.GetComponent<player>().left == true) // moving left laod inverse.
 					GetComponent<SpriteRenderer>().sprite = RConeStab[C];

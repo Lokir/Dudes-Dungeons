@@ -27,6 +27,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringIntRect = new Rect(583, 90, 200, 25.26f);
 	Rect stringStrRect = new Rect(583, 50, 200, 25.26f);
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
+	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
 
 
 	Rect abilityRect1 = new Rect(15,82.1f,50,25.3f);
@@ -40,10 +41,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect pBackpack = new Rect(10, 12.6f, 250, 290); // create the window box for the backpack.
 	Rect pressedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect pressedBodyStats = new Rect (1180, 303, 177, 290);
-	Rect SkillRect = new Rect(341.5f,284.44f, 350, 442);
+	Rect SkillRect = new Rect(341.5f,264.44f, 350, 500);
 	Rect DescriptionRect = new Rect(688, 12.6f, 530, 700);
 
-
+	GameObject[] enemies;
 
 	GameObject PlayStat;
 	string abilLvl1;
@@ -94,6 +95,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void Start () // Use this for initialization
 	{
 		//Inventory GUI Windows
+		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 		fitGUIToScreen(ref backpack, true, true);
 		fitGUIToScreen(ref equippedGear, true, true);
@@ -127,6 +129,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		fitGUIToScreen(ref stringDamRect, false, false);
 		fitGUIToScreen(ref stringHPRect, false, false);
 		fitGUIToScreen(ref stringChargeRect, false, false);
+
+		fitGUIToScreen(ref lootTextRect, false, true);
 
 		fitGUIToScreen(ref abilityRect1, true, true);
 		fitGUIToScreen(ref abilityRect2, true, true);
@@ -271,7 +275,28 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		stringCharge = GUI.TextField(stringChargeRect, stringCharge, 25);
 		healthPot = GUI.Window (2, healthPot, doHealth, potAmountString);
 		abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
-
+		if(PlayStat.GetComponent<LootHandler>().DisplayText)
+		{
+			string loot = "Body Looted";
+			loot = GUI.TextField(lootTextRect, loot, 20);
+		}
+		if(GetComponent<CombatHandler>().showMiss)
+		{
+			string loot = "Missed";
+			loot = GUI.TextField(lootTextRect, loot, 20);
+		}
+		foreach(GameObject e in enemies)
+		{if(e != null)
+			{
+				if(e.GetComponent<FollowPlayerAI>().showMissedPlayer)
+				{
+					string miss = "Missed Player";
+					float displacement = e.transform.localScale.x;
+					Vector2 x = Camera.main.WorldToScreenPoint(new Vector3((e.transform.position.x-displacement),e.transform.position.y,e.transform.position.z));
+					miss = GUI.TextField(new Rect ((x.x), (442.1f/768)*Screen.height, 80,20), miss, 50);
+				}
+			}
+		}
 
 		if(GetComponent<ShopCode>().visiShop == true)
 		{
@@ -279,6 +304,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
 			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
 			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
+			stringStr = GUI.TextField(stringStrRect, stringStr, 25); // load player stats
+			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
+			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
+			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 
 			if(GetComponent<ShopCode>().showDescription)
