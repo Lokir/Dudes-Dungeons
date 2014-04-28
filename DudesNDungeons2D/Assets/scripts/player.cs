@@ -50,7 +50,7 @@ public class player : MonoBehaviour
 			HPCap = sHp + currBody.gHp;
 			loadGear = false; // set to false so we don't continously load gear when it is unnecessary.
 
-			dodge = (float)pDex;
+			dodge = (float)(pDex/2);
 			skillBon = ((float)(pInte*0.1)+1);
 			pCharge += ((int)(pInte*2));
 			pDamage += (((int)(pStr*0.33))+1);
