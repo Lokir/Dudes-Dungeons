@@ -197,11 +197,11 @@ public class ShopCode : MonoBehaviour {
 	void Update () 
 	{
 		Distance = Vector3.Distance(Player.transform.position, shop.transform.position);
-		if(Distance <= 3.0f && Input.GetKeyDown (KeyCode.E))
+		if(Distance <= 1.0f && Input.GetKeyDown (KeyCode.E))
 		{
 			visiShop = !visiShop;
 		}
-		if(Distance > 3.0f)
+		if(Distance > 1.0f)
 		{
 			visiShop = false;
 		}

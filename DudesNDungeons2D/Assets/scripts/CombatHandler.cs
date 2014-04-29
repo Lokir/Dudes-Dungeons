@@ -60,6 +60,7 @@ public class CombatHandler : MonoBehaviour {
 
 			if(player.GetComponent<AbilHandler>().canUseAbilities && !player.GetComponent<AbilHandler>().canShadowStab)
 			{
+				Debug.Log (player.GetComponent<AbilHandler>().canShadowStab);
 				if(attackCount <= attackHitCap)
 					attackCount++;
 				else
