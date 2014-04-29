@@ -32,14 +32,18 @@ public class TutorialHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		exploShrineDistance = Vector3.Distance(exploShrine.transform.position, player.transform.position);
+		if(exploShrine != null)
+			exploShrineDistance = Vector3.Distance(exploShrine.transform.position, player.transform.position);
+
 		dmgShrineDistance = Vector3.Distance(dmgShrine.transform.position, player.transform.position);
 		invulShrineDistance = Vector3.Distance(invulShrine.transform.position, player.transform.position);
 		healShrineDistance = Vector3.Distance(healShrine.transform.position, player.transform.position);
 		shopDistance = Vector3.Distance(shopGO.transform.position, player.transform.position);
-		firstEnemyDistance = Vector3.Distance(firstEnemy.transform.position, player.transform.position);
 
-		if(exploShrineDistance <= 0.5f)
+		if(firstEnemy != null)
+			firstEnemyDistance = Vector3.Distance(firstEnemy.transform.position, player.transform.position);
+
+		if(exploShrineDistance <= 0.5f && exploShrine != null)
 		{
 			exploClose = true;
 		}
@@ -48,7 +52,7 @@ public class TutorialHandler : MonoBehaviour {
 			exploClose = false;
 		}
 
-		if(healShrineDistance <= 0.5f)
+		if(healShrineDistance <= 0.5f && healShrine != null)
 		{
 			healClose = true;
 		}
@@ -57,7 +61,7 @@ public class TutorialHandler : MonoBehaviour {
 			healClose = false;
 		}
 
-		if(dmgShrineDistance <= 0.5f)
+		if(dmgShrineDistance <= 0.5f && dmgShrine != null)
 		{
 			dmgClose = true;
 		}
@@ -66,7 +70,7 @@ public class TutorialHandler : MonoBehaviour {
 			dmgClose = false;
 		}
 
-		if(invulShrineDistance <= 0.5f)
+		if(invulShrineDistance <= 0.5f && invulShrine != null)
 		{
 			invulClose = true;
 		}
@@ -75,7 +79,7 @@ public class TutorialHandler : MonoBehaviour {
 			invulClose = false;
 		}
 
-		if(shopDistance <= 1.0f)
+		if(shopDistance <= 1.0f && shopGO != null)
 		{
 			shopClose = true;
 		}
@@ -84,14 +88,19 @@ public class TutorialHandler : MonoBehaviour {
 			shopClose = false;
 		}
 
-		if(firstEnemyDistance <= 0.5f)
+		if(firstEnemyDistance <= 0.5f && firstEnemy != null)
 		{
-			Debug.Log ("Enemy close!");
 			enemyClose = true;
 		}
 		else
 		{
 			enemyClose = false;
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.LoadLevel(0);
+		}
 	}
+	
 }
