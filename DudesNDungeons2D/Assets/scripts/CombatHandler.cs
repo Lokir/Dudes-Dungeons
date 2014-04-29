@@ -49,34 +49,31 @@ public class CombatHandler : MonoBehaviour {
 					Destroy (e);
 				}
 			}
-		if(Input.GetMouseButtonDown(0) && canAttack == true)
+		if(Input.GetMouseButtonDown(0) && canAttack == true && player.GetComponent<AbilHandler>().canUseAbilities)
 		{
-			if(player.GetComponent<AbilHandler>().sSLevel == 1)
-				attackHitCap = 2;//every 4th stab
-			else if(player.GetComponent<AbilHandler>().sSLevel == 2)
-				attackHitCap = 1;//every 3rd stab
-			else if(player.GetComponent<AbilHandler>().sSLevel == 4)
-				attackHitCap = 0;//every 2nd stab
-
-			if(player.GetComponent<AbilHandler>().canUseAbilities && !player.GetComponent<AbilHandler>().canShadowStab)
+			if(!player.GetComponent<AbilHandler>().canShadowStab)
 			{
-				Debug.Log (player.GetComponent<AbilHandler>().canShadowStab);
-				if(attackCount <= attackHitCap)
-					attackCount++;
-				else
-				{
-					float displacement;
-					if(player.GetComponent<player>().left)
-						displacement = -1.0f;
+				if(player.GetComponent<AbilHandler>().sSLevel == 1)
+					attackHitCap = 2;//every 4th stab
+				else if(player.GetComponent<AbilHandler>().sSLevel == 2)
+					attackHitCap = 1;//every 3rd stab
+				else if(player.GetComponent<AbilHandler>().sSLevel == 4)
+					attackHitCap = 0;//every 2nd stab
+
+					if(attackCount <= attackHitCap)
+						attackCount++;
 					else
-						displacement = 1.0f;
-					Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
-					attackCount = 0;
+					{
+						float displacement;
+						if(player.GetComponent<player>().left)
+							displacement = -1.0f;
+						else
+							displacement = 1.0f;
+						Instantiate(shadeling, new Vector3((player.transform.position.x+displacement),player.transform.position.y,player.transform.position.z), Quaternion.identity);
+						attackCount = 0;
 
-				}
+					}
 			}
-			if(player.GetComponent<AbilHandler>().canUseAbilities)
-			{
 				canAttack = false;
 				player.GetComponent<AnimHandler>().attackBool = true;
 				player.GetComponent<AnimHandler>().q = 0;
@@ -85,7 +82,7 @@ public class CombatHandler : MonoBehaviour {
 				if(enemies.Length > 0)
 				{
 
-					float lastDistance = 0.6f;
+					float lastDistance = 0.8f;
 					float currDistance = 1;
 					foreach(GameObject e in enemies)
 					{
@@ -98,10 +95,9 @@ public class CombatHandler : MonoBehaviour {
 						}
 
 					}
-					if(lastDistance != 0.6f)
+					if(lastDistance != 0.8f)
 						playerAttack(eToAttack);
 				}
-			}
 		}
 	
 	}

@@ -47,20 +47,21 @@ public class ShadowPartner : MonoBehaviour {
 			if(e != null)
 			{
 				spDistance = Vector3.Distance (transform.position, e.transform.position);
-				if(spDistance <= 3.0f && spDistance >= 0.3f)
+				if(spDistance <= 3.0f && spDistance >= 0.5f)
 				{
 					hasTarget = true;
 					shadowPartnerAIFollow(e);
-				}
-				else if(spDistance <= 1.0f) //If the enemy is close to the player he will call the attack function
-				{
-					shadowPartnerAIAttack(e);
-					StartCoroutine ("shadelingTimer");
-					spFighting();
+					if(hasTarget == true && spDistance <=0.6f)
+					{
+						shadowPartnerAIAttack(e);
+						StartCoroutine ("shadelingTimer");
+						spFighting();
+					}
 				}
 			}
 			if(!hasTarget)
 			{
+				Debug.Log("has no target "+spDistance);
 				StartCoroutine ("shadelingTimer");
 			}
 		}

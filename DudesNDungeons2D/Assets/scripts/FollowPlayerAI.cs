@@ -49,13 +49,14 @@ public class FollowPlayerAI : MonoBehaviour
 	void enemyAI(){
 		if(!isStunned)
 		{
-			if(eDistance <= 2 && eDistance >= 0.3f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
+			if(eDistance <= 2 && eDistance >= 0.7f) //here we use the eDistance to make the enemy follow the player if he is within a certain range
 													//and stop if he comes to close to the player
 			{
 				enemyAIFollow();
 			}
-			else if(eDistance <= 0.3f) //If the enemy is close to the player he will call the attack function
+			else if(eDistance <= 0.7f) //If the enemy is close to the player he will call the attack function
 			{
+
 				enemyAIAttack();
 			}
 			else // return to origin

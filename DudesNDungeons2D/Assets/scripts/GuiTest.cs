@@ -7,7 +7,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect equippedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect healthPot = new Rect(10, 669.47f, 60, 88.42f);
 	Rect abilityArea = new Rect (573, 627.21f, 220, 180.68f);
-
+	public bool inTutorial = false;
 	public AudioClip backpackSound;
 	//Rects for buttons
 	public Rect doBackpackBtn1 = new Rect(10, 10.1f, 75, 127.58f);
@@ -30,14 +30,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringStrRect = new Rect(583, 50, 200, 25.26f);
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
 	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
-<<<<<<< HEAD
-
 	Rect abilRect1 = new Rect(10, 6.3f, 60, 25.26f);
 	Rect abilRect2 = new Rect(80, 6.3f, 60, 25.26f);
 	Rect abilRect3 = new Rect(150, 6.3f, 60, 25.26f);
-=======
 	Rect shrineTextRect = new Rect(Screen.width/2-65, 442.1f, 130, 25.26f);
->>>>>>> f5237b901316750cabc9dd1a38d7c35fe6fb5d48
 
 
 	Rect abilityRect1 = new Rect(15,112.1f,50,25.3f);
@@ -300,7 +296,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			string loot = "Missed";
 			loot = GUI.TextField(lootTextRect, loot, 20);
 		}
-
+	if(inTutorial)
+		{
 		//Tutorial components to tell to press e to actiavte shrines or shop
 		if(GetComponent<TutorialHandler>().dmgClose)
 		{
@@ -332,7 +329,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			string firstEnemy = "Left click to attack";
 			firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 50);
 		}
-
+	}
 		//Each time a enemy misses he will get a box above him saying "Missed Player"
 		foreach(GameObject e in enemies)
 		{
