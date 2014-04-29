@@ -40,10 +40,17 @@ public class TutorialHandler : MonoBehaviour {
 			if(exploShrine != null)
 				exploShrineDistance = Vector3.Distance(exploShrine.transform.position, player.transform.position);
 
-			dmgShrineDistance = Vector3.Distance(dmgShrine.transform.position, player.transform.position);
-			invulShrineDistance = Vector3.Distance(invulShrine.transform.position, player.transform.position);
-			healShrineDistance = Vector3.Distance(healShrine.transform.position, player.transform.position);
-			shopDistance = Vector3.Distance(shopGO.transform.position, player.transform.position);
+			if(dmgShrine != null)
+				dmgShrineDistance = Vector3.Distance(dmgShrine.transform.position, player.transform.position);
+
+			if(invulShrine != null)
+				invulShrineDistance = Vector3.Distance(invulShrine.transform.position, player.transform.position);
+
+			if(healShrine != null)
+				healShrineDistance = Vector3.Distance(healShrine.transform.position, player.transform.position);
+
+			if(shopGO != null)
+				shopDistance = Vector3.Distance(shopGO.transform.position, player.transform.position);
 
 			if(firstEnemy != null)
 				firstEnemyDistance = Vector3.Distance(firstEnemy.transform.position, player.transform.position);
@@ -66,7 +73,7 @@ public class TutorialHandler : MonoBehaviour {
 				healClose = false;
 			}
 
-			if(dmgShrineDistance <= 0.5f && dmgShrine != null)
+			if(dmgShrineDistance <= 1.0f && dmgShrine != null)
 			{
 				dmgClose = true;
 			}
