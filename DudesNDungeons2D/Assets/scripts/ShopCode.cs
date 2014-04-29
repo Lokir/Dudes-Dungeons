@@ -172,6 +172,7 @@ public class ShopCode : MonoBehaviour {
 		hasSold = false;
 		posInBackpack = 0;
 		pressedBodyObject = new Body();
+		pressedBodyObject.name = "null";
 		Player = GameObject.FindGameObjectWithTag("Player");
 		Player.GetComponent<player>().SkillPoints = 30;
 
@@ -226,20 +227,23 @@ public class ShopCode : MonoBehaviour {
 	}
 	public void showBodyStats(int windowID)
 	{
-		string nameText = "name: "+pressedBodyObject.name;
-		nameText = GUI.TextField(nameTextRect, nameText, 25);
-		string text = "HP: "+pressedBodyObject.gHp;
-		text = GUI.TextField(textRect, text, 25);
-		string text2 = "Str: "+pressedBodyObject.gStr;
-		text2 = GUI.TextField(textRect2, text2, 25);
-		string text3 = "Dex: "+pressedBodyObject.gDex;
-		text3 = GUI.TextField(textRect3, text3, 25);
-		string text4 = "Int: "+pressedBodyObject.gInte;
-		text4 = GUI.TextField(textRect4, text4, 25);
-		string text5 = "Charge: "+pressedBodyObject.gCharge;
-		text5 = GUI.TextField(textRect5, text5, 25);
-		string text6 = "Damage: "+pressedBodyObject.gDamage;
-		text6 = GUI.TextField(textRect6, text6, 25);
+		if(pressedBodyObject.name != "null")
+		{
+			string nameText = "name: "+pressedBodyObject.name;
+			nameText = GUI.TextField(nameTextRect, nameText, 25);
+			string text = "HP: "+pressedBodyObject.gHp;
+			text = GUI.TextField(textRect, text, 25);
+			string text2 = "Str: "+pressedBodyObject.gStr;
+			text2 = GUI.TextField(textRect2, text2, 25);
+			string text3 = "Dex: "+pressedBodyObject.gDex;
+			text3 = GUI.TextField(textRect3, text3, 25);
+			string text4 = "Int: "+pressedBodyObject.gInte;
+			text4 = GUI.TextField(textRect4, text4, 25);
+			string text5 = "Charge: "+pressedBodyObject.gCharge;
+			text5 = GUI.TextField(textRect5, text5, 25);
+			string text6 = "Damage: "+pressedBodyObject.gDamage;
+			text6 = GUI.TextField(textRect6, text6, 25);
+		}
 
 	}
 	public void displaySkills(int windowID)

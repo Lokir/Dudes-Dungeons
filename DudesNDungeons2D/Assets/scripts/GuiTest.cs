@@ -196,7 +196,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		SkillRect.y = skillRecty;
 		foreach(GameObject s in Shops)
 		{
-			if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold) // everyTime we loot or sell an object this list should be updated.
+			if(PlayStat.GetComponent<LootHandler>().hasLooted || s.GetComponent<ShopCode>().hasSold) // everyTime we loot or sell an object this list should be updated.
 			{
 				if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 					button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
@@ -224,7 +224,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
 					button6 = defaultTex;
 				PlayStat.GetComponent<LootHandler>().hasLooted = false;
-				GetComponent<ShopCode>().hasSold = false;
+				s.GetComponent<ShopCode>().hasSold = false;
 			}
 
 			if(bodyChange) // if a change in bodies ocurr, update the ability textures as per written below.
