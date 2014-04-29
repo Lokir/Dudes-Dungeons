@@ -13,13 +13,13 @@ public class StartMenuHandler : MonoBehaviour {
 	
 	void OnMouseEnter()
 	{
-		//change the color of the text
+		//change the color of the text when the mouse enters the box-collider around the text
 		renderer.material.color = Color.red;
 	}
 
 	void OnMouseExit()
 	{
-		//change color back to white
+		//change color back to white when the mouse exits the box-collider around the text
 		renderer.material.color = Color.white;
 	}
 

@@ -196,7 +196,8 @@ public class ShopCode : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		Distance = Vector3.Distance(Player.transform.position, shop.transform.position);
+		if(shop != null)
+			Distance = Vector3.Distance(Player.transform.position, shop.transform.position);
 		if(Distance <= 1.0f && Input.GetKeyDown (KeyCode.E))
 		{
 			visiShop = !visiShop;
