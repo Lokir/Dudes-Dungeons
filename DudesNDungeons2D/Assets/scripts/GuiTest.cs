@@ -56,12 +56,10 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect SkillRect = new Rect(341.5f,264.44f, 350, 500);
 	Rect DescriptionRect = new Rect(688, 12.6f, 530, 700);
 
-<<<<<<< HEAD
-	GameObject[] enemies;
-	GameObject[] Shops;
-=======
+
 	GameObject[] enemies; // creates an array for finding enemies.
->>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
+	GameObject[] Shops; // creates and array for finding shops, this is crucial for the shop GUI.
+
 	
 	GameObject PlayStat;
 	//User interface related text.
@@ -196,46 +194,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 		SkillRect.x = skillRectx; // always update these to detect changes.
 		SkillRect.y = skillRecty;
-<<<<<<< HEAD
 		foreach(GameObject s in Shops)
 		{
-			if(PlayStat.GetComponent<LootHandler>().hasLooted || s.GetComponent<ShopCode>().hasSold)
-=======
-		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold) // everyTime we loot or sell an object this list should be updated.
-		{
-			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
-				button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
-				button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
-				button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
-				button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
-				button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex; // if null then the object has been deleted/sold 
-			if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
-				button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex; // if not null the system should render textures.
-
-			if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
-				button1 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
-				button2 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
-				button3 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
-				button4 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
-				button5 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
-				button6 = defaultTex;
-			PlayStat.GetComponent<LootHandler>().hasLooted = false;
-			GetComponent<ShopCode>().hasSold = false;
-		}
-
-		if(bodyChange) // if a change in bodies ocurr, update the ability textures as per written below.
-		{
-			if(PlayStat.GetComponent<player>().currBody.name == "Default")
->>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
+			if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold) // everyTime we loot or sell an object this list should be updated.
 			{
 				if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 					button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
@@ -246,9 +207,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
 					button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
 				if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
-					button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
+					button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex; // if null then the object has been deleted/sold 
 				if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
-					button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
+					button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex; // if not null the system should render textures.
 
 				if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
 					button1 = defaultTex;
@@ -263,11 +224,42 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
 					button6 = defaultTex;
 				PlayStat.GetComponent<LootHandler>().hasLooted = false;
-				s.GetComponent<ShopCode>().hasSold = false;
+				GetComponent<ShopCode>().hasSold = false;
 			}
-		
-			if(bodyChange)
+
+			if(bodyChange) // if a change in bodies ocurr, update the ability textures as per written below.
 			{
+				if(PlayStat.GetComponent<player>().currBody.name == "Default")
+				{
+					if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
+						button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+						button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+						button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+						button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+						button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+						button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
+
+					if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
+						button1 = defaultTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
+						button2 = defaultTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
+						button3 = defaultTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
+						button4 = defaultTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
+						button5 = defaultTex;
+					if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
+						button6 = defaultTex;
+
+					PlayStat.GetComponent<LootHandler>().hasLooted = false;
+					s.GetComponent<ShopCode>().hasSold = false;
+				}
 				if(PlayStat.GetComponent<player>().currBody.name == "Default")
 				{
 					abilityTexture1 = defaultTex;
@@ -354,7 +346,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			loot = GUI.TextField(lootTextRect, loot, 20);
 		}
 
-	if(inTutorial) // only relevant if the player is in the tutorial.
+		if(inTutorial) // only relevant if the player is in the tutorial.
 		{
 		//Tutorial components to tell to press e to actiavte shrines or shop
 		if(GetComponent<TutorialHandler>().dmgClose)
@@ -402,27 +394,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				}
 			}
 		}
-
-<<<<<<< HEAD
 		foreach(GameObject s in Shops)
 		{
-			if(s.GetComponent<ShopCode>().visiShop == true)
-=======
-
-		if(GetComponent<ShopCode>().visiShop == true) // like visiGUI this handles the Shop.
-		{
-			pressedBodyStats = GUI.Window(6,pressedBodyStats, GetComponent<ShopCode>().showBodyStats, GetComponent<ShopCode>().backpackSkin); // loads stats for specific bodies.
-			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
-			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the chosen body
-			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin); //shows equipped gear.
-			stringStr = GUI.TextField(stringStrRect, stringStr, 25); // load player stats
-			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
-			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
-			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false; // make sure the player doesn't attack or use abilities in shop or inventory screen.
-
-			if(GetComponent<ShopCode>().showDescription) // shows ability description.
->>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
+			if(s.GetComponent<ShopCode>().visiShop == true) // like visiGUI this handles the Shop.
 			{
 				pressedBodyStats = GUI.Window(6,pressedBodyStats, s.GetComponent<ShopCode>().showBodyStats, s.GetComponent<ShopCode>().backpackSkin);
 				pBackpack = GUI.Window(4, pBackpack, DoBackPack, s.GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
@@ -440,32 +414,22 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 					skillRecty = Screen.height/2f-(SkillRect.height/2);
 					DescriptionRect = GUI.Window (8, DescriptionRect, s.GetComponent<ShopCode>().skillDescriptionload, s.GetComponent<ShopCode>().SkillDescription);
 				}
-				else
+				else// modifies the skillRect's position based on the DescriptionRect being on or of.
 				{
 					skillRectx = (Screen.width/2f)-(SkillRect.width/2);
 					skillRecty = (Screen.height/2f)-(SkillRect.height/2);
 				}
 				//Render shop gui
 			}
-<<<<<<< HEAD
 		
 			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI)
-=======
-			else // modifies the skillRect's position based on the DescriptionRect being on or of.
->>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
-			{
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
+			else 
+			{
+				PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 			}
-<<<<<<< HEAD
-=======
-			//Render shop gui
 		}
 		///------------------------------------------------------------------------------------------
-		if(!GetComponent<ShopCode>().visiShop && !visiGUI)
-		{
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
->>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
-		}
 
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().

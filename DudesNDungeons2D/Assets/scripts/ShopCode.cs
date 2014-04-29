@@ -94,8 +94,6 @@ public class ShopCode : MonoBehaviour {
 	Rect BuyDexRect = new Rect(180, 430, 60, 60);
 	Rect BuyInteRect = new Rect(250, 430, 60, 60);
 
-
-
 	//textRects
 	Rect nameTextRect = new Rect(10, 12.6f, 100,29);
 	Rect textRect = new Rect(10, 37.9f, 100, 29);
