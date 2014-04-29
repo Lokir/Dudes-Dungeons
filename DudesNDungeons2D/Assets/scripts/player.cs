@@ -47,7 +47,7 @@ public class player : MonoBehaviour
 			audio.loop = false;
 			audio.Stop();
 		}
-		if(transform.position.y < -3.6f) // again this system will be remade.
+		if(transform.position.y < -2.9f) // again this system will be remade.
 		{
 			canJump = true;
 		}

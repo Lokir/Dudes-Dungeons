@@ -36,14 +36,17 @@ public class ExplosionShrine : MonoBehaviour {
 
 		foreach (GameObject e in Enemies)
 		{
-			float eDistance = Vector3.Distance (transform.position, e.transform.position);
-			if(eDistance <= 2.0)
+			if(e!=null)
 			{
-				if(e.transform.position.x < transform.position.x)
-					e.rigidbody2D.AddForce(new Vector2(-20,0));
-				if(e.transform.position.x > transform.position.x)
-					e.rigidbody2D.AddForce(new Vector2(20,0));
-					e.GetComponent<Enemy>().eHp -= 30;
+				float eDistance = Vector3.Distance (transform.position, e.transform.position);
+				if(eDistance <= 2.0)
+				{
+					if(e.transform.position.x < transform.position.x)
+						e.rigidbody2D.AddForce(new Vector2(-20,0));
+					if(e.transform.position.x > transform.position.x)
+						e.rigidbody2D.AddForce(new Vector2(20,0));
+						e.GetComponent<Enemy>().eHp -= 30;
+				}
 			}
 		}
 		Instantiate (Explosion, new Vector3(transform.position.x ,transform.position.y, transform.position.z), Quaternion.identity);

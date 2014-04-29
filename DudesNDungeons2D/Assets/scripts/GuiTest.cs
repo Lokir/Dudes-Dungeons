@@ -30,10 +30,14 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringStrRect = new Rect(583, 50, 200, 25.26f);
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
 	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
+<<<<<<< HEAD
 
 	Rect abilRect1 = new Rect(10, 6.3f, 60, 25.26f);
 	Rect abilRect2 = new Rect(80, 6.3f, 60, 25.26f);
 	Rect abilRect3 = new Rect(150, 6.3f, 60, 25.26f);
+=======
+	Rect shrineTextRect = new Rect(Screen.width/2-65, 442.1f, 130, 25.26f);
+>>>>>>> f5237b901316750cabc9dd1a38d7c35fe6fb5d48
 
 
 	Rect abilityRect1 = new Rect(15,112.1f,50,25.3f);
@@ -51,7 +55,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect DescriptionRect = new Rect(688, 12.6f, 530, 700);
 
 	GameObject[] enemies;
-
+	
 	GameObject PlayStat;
 	string abilLvl1;
 	string abilLvl2;
@@ -101,9 +105,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	void Start () // Use this for initialization
 	{
-		//Inventory GUI Windows
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+		//Inventory GUI Windows
 		fitGUIToScreen(ref backpack, true, true);
 		fitGUIToScreen(ref equippedGear, true, true);
 		fitGUIToScreen(ref healthPot, true, true);
@@ -116,7 +120,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		fitGUIToScreen(ref SkillRect, true, true);
 		fitGUIToScreen(ref DescriptionRect, true, true);
 
-	//Rects for buttons
+		//Rects for buttons
 		fitGUIToScreen(ref doBackpackBtn1, true, true);
 		fitGUIToScreen(ref doBackpackBtn2, true, true);
 		fitGUIToScreen(ref doBackpackBtn3, true, true);
@@ -129,7 +133,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		fitGUIToScreen(ref abilityBtnRect2, true, true);
 		fitGUIToScreen(ref abilityBtnRect3, true, true);
 		
-	//Rects for text.
+		//Rects for text.
 		fitGUIToScreen(ref stringStrRect, false, false);
 		fitGUIToScreen(ref stringDexRect, false, false);
 		fitGUIToScreen(ref stringIntRect, false, false);
@@ -296,18 +300,54 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			string loot = "Missed";
 			loot = GUI.TextField(lootTextRect, loot, 20);
 		}
+
+		//Tutorial components to tell to press e to actiavte shrines or shop
+		if(GetComponent<TutorialHandler>().dmgClose)
+		{
+			string shrine = "Press E to activate";
+			shrine = GUI.TextField(shrineTextRect, shrine, 50);
+		}
+		if(GetComponent<TutorialHandler>().healClose)
+		{
+			string shrine = "Press E to activate";
+			shrine = GUI.TextField(shrineTextRect, shrine, 50);
+		}
+		if(GetComponent<TutorialHandler>().shopClose)
+		{
+			string shrine = "Press E to activate";
+			shrine = GUI.TextField(shrineTextRect, shrine, 50);
+		}
+		if(GetComponent<TutorialHandler>().exploClose)
+		{
+			string shrine = "Press E to activate";
+			shrine = GUI.TextField(shrineTextRect, shrine, 50);
+		}
+		if(GetComponent<TutorialHandler>().invulClose)
+		{
+			string shrine = "Press E to activate";
+			shrine = GUI.TextField(shrineTextRect, shrine, 50);
+		}
+		if(GetComponent<TutorialHandler>().enemyClose)
+		{
+			string firstEnemy = "Left click to attack";
+			firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 50);
+		}
+
+		//Each time a enemy misses he will get a box above him saying "Missed Player"
 		foreach(GameObject e in enemies)
-		{if(e != null)
+		{
+			if(e != null)
 			{
 				if(e.GetComponent<FollowPlayerAI>().showMissedPlayer)
 				{
 					string miss = "Missed Player";
 					float displacement = e.transform.localScale.x;
 					Vector2 x = Camera.main.WorldToScreenPoint(new Vector3((e.transform.position.x-displacement),e.transform.position.y,e.transform.position.z));
-					miss = GUI.TextField(new Rect ((x.x), (442.1f/768)*Screen.height, 80,20), miss, 50);
+					miss = GUI.TextField(new Rect ((x.x), (442.1f/768)*Screen.height, 90, 20), miss, 50);
 				}
 			}
 		}
+
 
 		if(GetComponent<ShopCode>().visiShop == true)
 		{
