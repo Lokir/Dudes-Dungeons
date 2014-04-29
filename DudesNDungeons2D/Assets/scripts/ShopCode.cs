@@ -174,7 +174,7 @@ public class ShopCode : MonoBehaviour {
 		pressedBodyObject = new Body();
 		pressedBodyObject.name = "null";
 		Player = GameObject.FindGameObjectWithTag("Player");
-		Player.GetComponent<player>().SkillPoints = 30;
+		Player.GetComponent<player>().SkillPoints = 10;
 
 		visiShop = false;
 	}
@@ -222,7 +222,7 @@ public class ShopCode : MonoBehaviour {
 		Player.GetComponent<GearHandler>().Backpack[pos] = null;
 		Player.GetComponent<player>().SkillPoints++;
 		hasSold = true;
-		GetComponent<GuiTest>().bodyChange = true;
+		Camera.main.GetComponent<GuiTest>().bodyChange = true;
 		Debug.Log (Player.GetComponent<player>().SkillPoints);
 	}
 	public void showBodyStats(int windowID)

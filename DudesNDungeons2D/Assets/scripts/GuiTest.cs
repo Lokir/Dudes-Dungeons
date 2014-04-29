@@ -33,6 +33,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringStrRect = new Rect(583, 50, 200, 25.26f);
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
 	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
+	Rect SkillText = new Rect (583, 136, 200, 25.26f);
 
 	// rects for user interface
 	Rect abilRect1 = new Rect(10, 6.3f, 60, 25.26f);
@@ -149,6 +150,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		fitGUIToScreen(ref stringDamRect, false, false);
 		fitGUIToScreen(ref stringHPRect, false, false);
 		fitGUIToScreen(ref stringChargeRect, false, false);
+		fitGUIToScreen(ref SkillText, false, false);
 
 		fitGUIToScreen(ref lootTextRect, false, true);
 
@@ -321,6 +323,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	}
 	void OnGUI() // this is like the update function but for GUI's, use this for all GUI related matters.
 	{
+		string SkillPointsToSpend = "Skill Points: "+PlayStat.GetComponent<player>().SkillPoints;
 		if(visiGUI == true) //if true, run code, revealing the GUI.
 		{	// rect = GUI.Window(ID , Rect, RunFunction, applyTexture);
 			backpack = GUI.Window(0, backpack, DoBackPack, backpackSkin); //load GUI window for Backpack
@@ -329,6 +332,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
 			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
 			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
+			SkillPointsToSpend = GUI.TextField (SkillText, SkillPointsToSpend, 25);
 			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false; // makes sure the player doesn't do weird things when in inventory or shop.
 		}
 		stringHP = GUI.TextField(stringHPRect, stringHP, 25); // these are excluded from if(visiGUI) because charge, potions and HP should always be visible.
@@ -348,37 +352,37 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 		if(inTutorial) // only relevant if the player is in the tutorial.
 		{
-		//Tutorial components to tell to press e to actiavte shrines or shop
-		if(GetComponent<TutorialHandler>().dmgClose)
-		{
-			string shrine = "Press E to activate";
-			shrine = GUI.TextField(shrineTextRect, shrine, 50);
-		}
-		if(GetComponent<TutorialHandler>().healClose)
-		{
-			string shrine = "Press E to activate";
-			shrine = GUI.TextField(shrineTextRect, shrine, 50);
-		}
-		if(GetComponent<TutorialHandler>().shopClose)
-		{
-			string shrine = "Press E to activate";
-			shrine = GUI.TextField(shrineTextRect, shrine, 50);
-		}
-		if(GetComponent<TutorialHandler>().exploClose)
-		{
-			string shrine = "Press E to activate";
-			shrine = GUI.TextField(shrineTextRect, shrine, 50);
-		}
-		if(GetComponent<TutorialHandler>().invulClose)
-		{
-			string shrine = "Press E to activate";
-			shrine = GUI.TextField(shrineTextRect, shrine, 50);
-		}
-		if(GetComponent<TutorialHandler>().enemyClose)
-		{
-			string firstEnemy = "Left click to attack, right click to use ability(only if skill lvl > 0)";
-			firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 150);
-		}
+			//Tutorial components to tell to press e to actiavte shrines or shop
+			if(GetComponent<TutorialHandler>().dmgClose)
+			{
+				string shrine = "Press E to activate";
+				shrine = GUI.TextField(shrineTextRect, shrine, 50);
+			}
+			if(GetComponent<TutorialHandler>().healClose)
+			{
+				string shrine = "Press E to activate";
+				shrine = GUI.TextField(shrineTextRect, shrine, 50);
+			}
+			if(GetComponent<TutorialHandler>().shopClose)
+			{
+				string shrine = "Press E to activate";
+				shrine = GUI.TextField(shrineTextRect, shrine, 50);
+			}
+			if(GetComponent<TutorialHandler>().exploClose)
+			{
+				string shrine = "Press E to activate";
+				shrine = GUI.TextField(shrineTextRect, shrine, 50);
+			}
+			if(GetComponent<TutorialHandler>().invulClose)
+			{
+				string shrine = "Press E to activate";
+				shrine = GUI.TextField(shrineTextRect, shrine, 50);
+			}
+			if(GetComponent<TutorialHandler>().enemyClose)
+			{
+				string firstEnemy = "Left click to attack, right click to use ability(only if skill lvl > 0)";
+				firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 150);
+			}
 	}
 		//Each time a enemy misses he will get a box above him saying "Missed Player"
 		foreach(GameObject e in enemies)
@@ -411,6 +415,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				stringDex = GUI.TextField(stringDexRect, stringDex, 25);
 				stringInt = GUI.TextField(stringIntRect, stringInt, 25);
 				stringDam = GUI.TextField(stringDamRect, stringDam, 25);
+				SkillPointsToSpend = GUI.TextField (SkillText, SkillPointsToSpend, 25);
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 
 				if(s.GetComponent<ShopCode>().showDescription)
@@ -429,10 +434,6 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		
 			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI) // if inventory or shop is open make sure we can't attack or use abilities.
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
-			else 
-			{
-				PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
-			}
 		}
 
 	}
@@ -450,6 +451,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(doBackpackBtn1, button1) && button1 != defaultTex) // button for loading Body 1 (default)
 		{
+			Debug.Log (visiGUI +" "+ currentShop.GetComponent<ShopCode>().visiShop);
 			if(visiGUI) // if visigui is active, have inventory properties available.
 			{
 				audio.clip = clickSound;
@@ -460,7 +462,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
 				bodyChange = true;
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop) // if shop is open have shop properties available.
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null) // if shop is open have shop properties available.
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -489,7 +491,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				bodyChange = true;
 
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null)
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -517,7 +519,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				bodyChange = true;
 
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null)
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -545,7 +547,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				bodyChange = true;
 
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null)
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -574,7 +576,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				bodyChange = true;
 
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null)
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -601,7 +603,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 				bodyChange = true;
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop && currentShop != null)
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -649,19 +651,19 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
 		{
 			abilBtn1 = "RightMB";
-			abilBtn2 = " E ";
+			abilBtn2 = " R ";
 			abilBtn3 = "Passive";
 		}
 		else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
 		{
 			abilBtn1 = "RightMB";
-			abilBtn2 = " E ";
+			abilBtn2 = " R ";
 			abilBtn3 = "Passive";
 		}
 		else if(PlayStat.GetComponent<player>().currBody.name == "Magus")
 		{
 			abilBtn1 = "RightMB";
-			abilBtn2 = " E ";
+			abilBtn2 = " R ";
 			abilBtn3 = " F ";
 		}
 

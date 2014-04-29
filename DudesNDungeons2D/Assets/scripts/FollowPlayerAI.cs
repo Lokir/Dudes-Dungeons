@@ -35,6 +35,9 @@ public class FollowPlayerAI : MonoBehaviour
 	public int eq = 0;
 	void Update () 
 	{
+		if(Input.GetKeyDown (KeyCode.Escape))
+			Application.LoadLevel(0);
+
 		if(eAttackBool && !isStunned)
 			fighting();
 

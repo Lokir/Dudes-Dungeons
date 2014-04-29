@@ -65,6 +65,7 @@ public class AbilHandler : MonoBehaviour
 		canGroundSlam  = true;
 		canShadowStab  = true;
 		canThrowFlame = true;
+
 		//Brutes ability levels
 		regenerateLevel = 0;
 		rageLevel = 0;
@@ -78,7 +79,7 @@ public class AbilHandler : MonoBehaviour
 		//Mages ability levels
 		knockbackLevel = 0;
 		shieldLevel = 0;
-		flameThrowerLevel = 1;
+		flameThrowerLevel = 0;
 
 		hpMultiply= 0;
 		strMultiply = 0;
@@ -122,17 +123,17 @@ public class AbilHandler : MonoBehaviour
 					Debug.Log("fisk");
 				}
 
-				if(groundSlamLevel == 0)
+				if(rageLevel == 0)
 					chargeCost = 50000;
-				else if(groundSlamLevel == 1)
+				else if(rageLevel == 1)
 					chargeCost = GetComponent<player>().chargeCap;
-				else if(groundSlamLevel == 2)
+				else if(rageLevel == 2)
 					chargeCost = GetComponent<player>().chargeCap;
-				else if(groundSlamLevel == 3)
+				else if(rageLevel == 3)
 					chargeCost = GetComponent<player>().chargeCap;
-				else if(groundSlamLevel == 4)
+				else if(rageLevel == 4)
 					chargeCost = GetComponent<player>().chargeCap;
-				else if(groundSlamLevel == 5)
+				else if(rageLevel == 5)
 					chargeCost = GetComponent<player>().chargeCap;
 				if(Input.GetKeyDown(KeyCode.R) && canRage == true && GetComponent<player>().pCharge == chargeCost)
 				{
@@ -161,7 +162,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					teleport();
-					abilitySounds[5].Play();
+					abilitySounds[6].Play();
 				}
 
 				if(sSLevel == 0)
@@ -180,7 +181,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					shadowStab();
-					abilitySounds[6].Play();
+					abilitySounds[5].Play();
 				}
 
 				if(canEandAS)
@@ -230,7 +231,7 @@ public class AbilHandler : MonoBehaviour
 				{
 					GetComponent<player>().pCharge -= chargeCost;
 					absorb();
-					abilitySounds[6].Play ();
+					abilitySounds[5].Play ();
 				}	
 
 
