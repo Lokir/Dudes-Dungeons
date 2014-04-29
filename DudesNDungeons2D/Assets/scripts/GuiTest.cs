@@ -273,11 +273,11 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
 				{
 					abilityTexture1 = s.GetComponent<ShopCode>().GroundSlamSkill;
-					abilityTexture2 = s.GetComponent<ShopCode>().RegenSkill;
-					abilityTexture3 = s.GetComponent<ShopCode>().RageSkill;
+					abilityTexture2 = s.GetComponent<ShopCode>().RageSkill;
+					abilityTexture3 = s.GetComponent<ShopCode>().RegenSkill;
 					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().groundSlamLevel;
-					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().regenerateLevel;
-					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().rageLevel;
+					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().rageLevel;
+					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().regenerateLevel;
 				}
 
 				else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
@@ -295,9 +295,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 					abilityTexture1 = s.GetComponent<ShopCode>().ForcePush;
 					abilityTexture2 = s.GetComponent<ShopCode>().StoneSkin;
 					abilityTexture3 = s.GetComponent<ShopCode>().FlameBurst;
-					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().knockbackLevel;
+					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().flameThrowerLevel;
 					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().shieldLevel;
-					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().flameThrowerLevel;
+					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().knockbackLevel;
 				}
 				bodyChange = false;
 			}
@@ -396,8 +396,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		foreach(GameObject s in Shops)
 		{
+			if(s != null && visiGUI) // make sure you can't have both shop and inventory active at the same time.
+			{
+				s.GetComponent<ShopCode>().visiShop = false;
+			}
 			if(s.GetComponent<ShopCode>().visiShop == true) // like visiGUI this handles the Shop.
 			{
+				visiGUI = false; // make sure you can't have both inventory and shop open at the same time.
 				pressedBodyStats = GUI.Window(6,pressedBodyStats, s.GetComponent<ShopCode>().showBodyStats, s.GetComponent<ShopCode>().backpackSkin);
 				pBackpack = GUI.Window(4, pBackpack, DoBackPack, s.GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
 				pressedGear = GUI.Window(5,pressedGear, s.GetComponent<ShopCode>().pressedEquip, s.GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
@@ -422,14 +427,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				//Render shop gui
 			}
 		
-			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI)
+			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI) // if inventory or shop is open make sure we can't attack or use abilities.
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 			else 
 			{
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 			}
 		}
-		///------------------------------------------------------------------------------------------
 
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
@@ -446,7 +450,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(doBackpackBtn1, button1) && button1 != defaultTex) // button for loading Body 1 (default)
 		{
-			if(visiGUI)
+			if(visiGUI) // if visigui is active, have inventory properties available.
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -456,7 +460,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
 				bodyChange = true;
 			}
-			if(currentShop.GetComponent<ShopCode>().visiShop)
+			if(currentShop.GetComponent<ShopCode>().visiShop) // if shop is open have shop properties available.
 			{
 				audio.clip = clickSound;
 				audio.Play ();
@@ -483,6 +487,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				equippedBody = button2;
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 				bodyChange = true;
+
 			}
 			if(currentShop.GetComponent<ShopCode>().visiShop)
 			{
@@ -510,6 +515,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				equippedBody = button3;
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 				bodyChange = true;
+
 			}
 			if(currentShop.GetComponent<ShopCode>().visiShop)
 			{
@@ -537,6 +543,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				equippedBody = button4; 
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 				bodyChange = true;
+
 			}
 			if(currentShop.GetComponent<ShopCode>().visiShop)
 			{
@@ -551,6 +558,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[3].gCharge;
 				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[3].gDamage;
 				currentShop.GetComponent<ShopCode>().posInBackpack = 3;
+
 			}
 		}
 		if (GUI.Button(doBackpackBtn5, button5)&& button5 != defaultTex) // same as first.
@@ -564,6 +572,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				equippedBody = button5; 
 				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
 				bodyChange = true;
+
 			}
 			if(currentShop.GetComponent<ShopCode>().visiShop)
 			{
@@ -620,7 +629,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 
 	}
-	void doAbility(int windowID)
+	void doAbility(int windowID) // this is the UI that shows what abilities are available and on what buttons.
 	{	
 		abilLvl1 = GUI.TextField(abilityRect1,abilLvl1,20);
 		abilLvl2 = GUI.TextField(abilityRect2,abilLvl2,20);
