@@ -3,13 +3,15 @@ using System.Collections;
 
 public class GuiTest : MonoBehaviour // This system handles the Interactive User Interface part
 {
-	Rect backpack = new Rect(10, 12.6f, 250, 230); // create the window box for the backpack.
-	Rect equippedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
+	Rect backpack = new Rect(10, 12.6f, 250, 230); // create the window boxes for inventory screen.
+	Rect equippedGear = new Rect(1180, 12.6f, 177, 277.9f);
 	Rect healthPot = new Rect(10, 669.47f, 60, 88.42f);
 	Rect abilityArea = new Rect (573, 627.21f, 220, 180.68f);
-	public bool inTutorial = false;
-	public AudioClip backpackSound;
-	//Rects for buttons
+
+	public bool inTutorial = false; // if in tutorial some stuff should happen, this boolean makes sure we can control it.
+	public AudioClip backpackSound; // this is the sound of the backpack opening.
+
+	//Rects for buttons in GUI and Shop screen.
 	public Rect doBackpackBtn1 = new Rect(10, 10.1f, 75, 127.58f);
 	public Rect doBackpackBtn2 = new Rect(88, 10.1f, 75, 127.58f);
 	public Rect doBackpackBtn3 = new Rect(166, 10.1f, 75, 127.58f);
@@ -17,12 +19,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Rect doBackpackBtn5 = new Rect(88, 151.57f, 75, 127.58f);
 	public Rect doBackpackBtn6 = new Rect(166, 151.57f, 75, 127.58f);
 
+	// always rendered GUI's for user interface.
 	Rect potionRect = new Rect(10,25.26f,40,50.5f);
 	Rect abilityBtnRect1 = new Rect(10,34.32f, 60, 75.8f);
 	Rect abilityBtnRect2 = new Rect(80, 34.32f, 60,75.8f);
 	Rect abilityBtnRect3 = new Rect(150,34.32f, 60, 75.8f);
 
-	//Rects for text.
+	//Rects for text both user interface and inventory screen.
 	Rect stringHPRect = new Rect(583, 10, 200, 25.26f);
 	Rect stringChargeRect = new Rect(583, 30, 200, 25.26f);
 	Rect stringDexRect = new Rect(583, 70, 200, 25.26f);
@@ -30,50 +33,58 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringStrRect = new Rect(583, 50, 200, 25.26f);
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
 	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
+
+	// rects for user interface
 	Rect abilRect1 = new Rect(10, 6.3f, 60, 25.26f);
 	Rect abilRect2 = new Rect(80, 6.3f, 60, 25.26f);
 	Rect abilRect3 = new Rect(150, 6.3f, 60, 25.26f);
-	Rect shrineTextRect = new Rect(Screen.width/2-65, 442.1f, 130, 25.26f);
 
+	Rect shrineTextRect = new Rect(Screen.width/2-65, 442.1f, 130, 25.26f); // for tutorial.
 
+	//For user interface.
 	Rect abilityRect1 = new Rect(15,112.1f,50,25.3f);
 	Rect abilityRect2 = new Rect(85,112.1f,50,25.3f);
 	Rect abilityRect3 = new Rect(155,112.1f,50,25.3f);
 
 
 
-	float skillRectx, skillRecty;
-	//shop GUI
+	float skillRectx, skillRecty; // modifies some shop interface based on skill descriptions menu open or closed
+	//shop GUI windows.
 	Rect pBackpack = new Rect(10, 12.6f, 250, 230); // create the window box for the backpack.
 	Rect pressedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect pressedBodyStats = new Rect (1180, 303, 177, 290);
 	Rect SkillRect = new Rect(341.5f,264.44f, 350, 500);
 	Rect DescriptionRect = new Rect(688, 12.6f, 530, 700);
 
+<<<<<<< HEAD
 	GameObject[] enemies;
 	GameObject[] Shops;
+=======
+	GameObject[] enemies; // creates an array for finding enemies.
+>>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
 	
 	GameObject PlayStat;
+	//User interface related text.
 	string abilLvl1;
 	string abilLvl2;
 	string abilLvl3;
 
-	public int potionAmount = 3; // temporary potion counter.
+	public int potionAmount = 3; // potion counter.
 	string potAmountString = ""; // amount of potions in string.
 
-	public string stringHP = "HP: "; // these will display the player Stats in text boxes on screen.
-	public string stringStr = "Str: ";
+	public string stringHP = "HP: "; // these will display the player Stats in text boxes on inventory screen. 
+	public string stringStr = "Str: "; // HP and charge always present.
 	public string stringDex = "Dex: ";
 	public string stringInt = "Int: ";
 	public string stringCharge = "Charge: ";
 	public string stringDam = "Damage: ";	
 	
-	public Texture Body1; // These textures allow for visual confirmation of what body type the player is selecting.
+	public Texture Body1; // These textures allow for user feedback of what body type the player is selecting.
 	public Texture Body2;
 	public Texture Body3;
 	public Texture Body4;
 
-	public Texture backpackSkin; // this is currently irrelevant.
+	public Texture backpackSkin; // this is just to allow for a none texture on some windows.
 	public Texture potion;
 
 	public Texture mageTex; // these textures are ability textures.
@@ -81,16 +92,18 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Texture sneakyTex;
 
 	public Texture defaultTex;
+	//Button textures to be loaded in and out.
 	public Texture button1;
 	public Texture button2;
 	public Texture button3;
 	public Texture button4;
 	public Texture button5;
 	public Texture button6;
-	
+	//User interface related textures.
 	public Texture abilityTexture1;
 	public Texture abilityTexture2;
 	public Texture abilityTexture3;
+
 	public bool bodyChange = true;
 
 	public AudioClip clickSound;
@@ -106,8 +119,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		Shops = GameObject.FindGameObjectsWithTag("Shop");
 
 		//Inventory GUI Windows
-		fitGUIToScreen(ref backpack, true, true);
-		fitGUIToScreen(ref equippedGear, true, true);
+		fitGUIToScreen(ref backpack, true, true); // this function fits the GUI 
+		fitGUIToScreen(ref equippedGear, true, true); // to screen based on the concept of homographic coordinates.
 		fitGUIToScreen(ref healthPot, true, true);
 		fitGUIToScreen(ref abilityArea, true, true);
 		
@@ -154,22 +167,25 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		button4 = defaultTex;
 		button5 = defaultTex;
 		button6 = defaultTex;
+
 		PlayStat = GameObject.FindGameObjectWithTag("Player"); // find player.
 		visiGUI = false; // initialization as false.
 
-		abilLvl1 = "NA";
+		abilLvl1 = "NA"; // if default, there should be no abilities.
      	abilLvl2 = "NA";
     	abilLvl3 = "NA";
 	}
-	void fitGUIToScreen(ref Rect rectToMod, bool fitSize, bool adjustY)
+	void fitGUIToScreen(ref Rect rectToMod, bool fitSize, bool adjustY) // game made on a computer with 1366x768 res,
+																		//unit remade this into 1366x608, all rects have been recalculated 
+																		//from Y 608 to Y 768 to keep the stretch proportions.
 	{
-		if(fitSize)
+		if(fitSize) // some objects like text does not need to be size changed.
 		{
 			rectToMod.width = ((rectToMod.width/1366)*Screen.width);
 			rectToMod.height = ((rectToMod.height/768)*Screen.height);
 		}
 		rectToMod.x = ((rectToMod.x/1366)*Screen.width);
-		if(adjustY)
+		if(adjustY) // some objects does not need to be adjusted on the Y scale.
 		{
 			rectToMod.y = ((rectToMod.y/768)*Screen.height);
 		}
@@ -178,11 +194,48 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void Update () 
 	{
 
-		SkillRect.x = skillRectx;
+		SkillRect.x = skillRectx; // always update these to detect changes.
 		SkillRect.y = skillRecty;
+<<<<<<< HEAD
 		foreach(GameObject s in Shops)
 		{
 			if(PlayStat.GetComponent<LootHandler>().hasLooted || s.GetComponent<ShopCode>().hasSold)
+=======
+		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold) // everyTime we loot or sell an object this list should be updated.
+		{
+			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
+				button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+				button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+				button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+				button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+				button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex; // if null then the object has been deleted/sold 
+			if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+				button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex; // if not null the system should render textures.
+
+			if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
+				button1 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
+				button2 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
+				button3 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
+				button4 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
+				button5 = defaultTex;
+			if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
+				button6 = defaultTex;
+			PlayStat.GetComponent<LootHandler>().hasLooted = false;
+			GetComponent<ShopCode>().hasSold = false;
+		}
+
+		if(bodyChange) // if a change in bodies ocurr, update the ability textures as per written below.
+		{
+			if(PlayStat.GetComponent<player>().currBody.name == "Default")
+>>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
 			{
 				if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
 					button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
@@ -284,14 +337,13 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
 			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
 			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
-			Debug.Log (PlayStat.GetComponent<AbilHandler>().canUseAbilities);
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false; // makes sure the player doesn't do weird things when in inventory or shop.
 		}
-		stringHP = GUI.TextField(stringHPRect, stringHP, 25); // these are excluded because charge, potions and HP should always be visible.
+		stringHP = GUI.TextField(stringHPRect, stringHP, 25); // these are excluded from if(visiGUI) because charge, potions and HP should always be visible.
 		stringCharge = GUI.TextField(stringChargeRect, stringCharge, 25);
 		healthPot = GUI.Window (2, healthPot, doHealth, potAmountString);
-		abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin);
-		if(PlayStat.GetComponent<LootHandler>().DisplayText)
+		abilityArea = GUI.Window (3,abilityArea, doAbility, backpackSkin); // informs the player what his skills are, what lvls they are and what buttons they are.
+		if(PlayStat.GetComponent<LootHandler>().DisplayText) // UI info for if loot or miss.
 		{
 			string loot = "Body Looted";
 			loot = GUI.TextField(lootTextRect, loot, 20);
@@ -302,7 +354,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			loot = GUI.TextField(lootTextRect, loot, 20);
 		}
 
-	if(inTutorial)
+	if(inTutorial) // only relevant if the player is in the tutorial.
 		{
 		//Tutorial components to tell to press e to actiavte shrines or shop
 		if(GetComponent<TutorialHandler>().dmgClose)
@@ -332,8 +384,8 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		}
 		if(GetComponent<TutorialHandler>().enemyClose)
 		{
-			string firstEnemy = "Left click to attack";
-			firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 50);
+			string firstEnemy = "Left click to attack, right click to use ability(only if skill lvl > 0)";
+			firstEnemy = GUI.TextField(shrineTextRect, firstEnemy, 150);
 		}
 	}
 		//Each time a enemy misses he will get a box above him saying "Missed Player"
@@ -351,9 +403,26 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			}
 		}
 
+<<<<<<< HEAD
 		foreach(GameObject s in Shops)
 		{
 			if(s.GetComponent<ShopCode>().visiShop == true)
+=======
+
+		if(GetComponent<ShopCode>().visiShop == true) // like visiGUI this handles the Shop.
+		{
+			pressedBodyStats = GUI.Window(6,pressedBodyStats, GetComponent<ShopCode>().showBodyStats, GetComponent<ShopCode>().backpackSkin); // loads stats for specific bodies.
+			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
+			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the chosen body
+			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin); //shows equipped gear.
+			stringStr = GUI.TextField(stringStrRect, stringStr, 25); // load player stats
+			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
+			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
+			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false; // make sure the player doesn't attack or use abilities in shop or inventory screen.
+
+			if(GetComponent<ShopCode>().showDescription) // shows ability description.
+>>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
 			{
 				pressedBodyStats = GUI.Window(6,pressedBodyStats, s.GetComponent<ShopCode>().showBodyStats, s.GetComponent<ShopCode>().backpackSkin);
 				pBackpack = GUI.Window(4, pBackpack, DoBackPack, s.GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
@@ -378,11 +447,24 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 				}
 				//Render shop gui
 			}
+<<<<<<< HEAD
 		
 			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI)
+=======
+			else // modifies the skillRect's position based on the DescriptionRect being on or of.
+>>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
 			{
 				PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 			}
+<<<<<<< HEAD
+=======
+			//Render shop gui
+		}
+		///------------------------------------------------------------------------------------------
+		if(!GetComponent<ShopCode>().visiShop && !visiGUI)
+		{
+			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
+>>>>>>> 20b2f6175fa42e7c9e3e47f5f819c9e0ba3f5256
 		}
 
 	}
