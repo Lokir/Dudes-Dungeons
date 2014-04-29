@@ -41,7 +41,7 @@ public class CombatHandler : MonoBehaviour {
 		if(enemies.Length > 0)
 			foreach(GameObject e in enemies)
 			{
-				enemyDodgeProcent = e.GetComponent<Enemy>().eDex;
+				enemyDodgeProcent = e.GetComponent<Enemy>().eDex;//Enemy dogdechance
 				if(e.GetComponent<Enemy>().eHp <= 0)
 				{
 					player.GetComponent<LootHandler>().lootBody(e);
@@ -54,16 +54,18 @@ public class CombatHandler : MonoBehaviour {
 			if(!player.GetComponent<AbilHandler>().canShadowStab)
 			{
 				if(player.GetComponent<AbilHandler>().sSLevel == 1)
-					attackHitCap = 2;//every 4th stab
+					attackHitCap = 2;//every 4th stab - for the shadowstab ability
 				else if(player.GetComponent<AbilHandler>().sSLevel == 2)
-					attackHitCap = 1;//every 3rd stab
+					attackHitCap = 1;//every 3rd stab - for the shadowstab ability
 				else if(player.GetComponent<AbilHandler>().sSLevel == 4)
-					attackHitCap = 0;//every 2nd stab
+					attackHitCap = 0;//every 2nd stab - for the shadowstab ability
 
-					if(attackCount <= attackHitCap)
+					if(attackCount <= attackHitCap)//if the player has not hit the cap before spawning a shardling, then add one to the counter
 						attackCount++;
 					else
 					{
+					//a bit buggy at the moment since the ability it self wont work, but this should spawn a shardling that would come from behind
+					//and stab the enemy in the back once or twice, depending on the level of the skill
 						float displacement;
 						if(player.GetComponent<player>().left)
 							displacement = -1.0f;
@@ -77,25 +79,24 @@ public class CombatHandler : MonoBehaviour {
 				canAttack = false;
 				player.GetComponent<AnimHandler>().attackBool = true;
 				player.GetComponent<AnimHandler>().q = 0;
-				StartCoroutine("attackCooldown");
+				StartCoroutine("attackCooldown");//do the attack animation for the player
 				stabstab.GetComponent<Stab>().stabStabStab = true;
 				if(enemies.Length > 0)
 				{
-
 					float lastDistance = 0.8f;
 					float currDistance = 1;
 					foreach(GameObject e in enemies)
 					{
-						currDistance = Vector3.Distance (e.transform.position, player.transform.position);
+						currDistance = Vector3.Distance (e.transform.position, player.transform.position);//take the distace between the player and 
+																										  //enemy
 						if(lastDistance > currDistance)
 						{
 							lastDistance = currDistance;
 							eToAttack = e;
-							Debug.Log ("Enemy HP in foreach: "+e.GetComponent<Enemy>().eHp+"name: "+eToAttack.GetComponent<Enemy>().eCurrBody.name);
 						}
 
 					}
-					if(lastDistance != 0.8f)
+					if(lastDistance != 0.8f)//if in this range, the attack function is called
 						playerAttack(eToAttack);
 				}
 		}
@@ -103,8 +104,9 @@ public class CombatHandler : MonoBehaviour {
 	}
 	void playerAttack(GameObject eToAttack)
 	{
-		//iniate Attack Animation.
-		if(hitChance > enemyDodgeProcent){
+		//see if the player misses or not, if miss show that he/she missed in a certain amount of time
+		if(hitChance > enemyDodgeProcent)
+		{
 			missedEnemy = false;
 		}
 		else if(hitChance < enemyDodgeProcent)
@@ -114,7 +116,8 @@ public class CombatHandler : MonoBehaviour {
 			StartCoroutine("showMissText");
 		}
 
-		if(!missedEnemy)
+		if(!missedEnemy)//if not missed take the damage of the player from the enemy's health and then the player gains 5 in charge, which he/she
+						//can use for abilities
 		{
 			eToAttack.GetComponent<Enemy>().eHp -= player.GetComponent<player>().pDamage;
 			if(player.GetComponent<player>().pCharge +5 <= player.GetComponent<player>().chargeCap)
@@ -127,7 +130,7 @@ public class CombatHandler : MonoBehaviour {
 		yield return new WaitForSeconds(textTime);
 		showMiss = false;
 	}
-	public IEnumerator attackCooldown()
+	public IEnumerator attackCooldown()//attack cooldown such that the player cannot attack at all time and instantly kill the enemy
 	{
 		yield return new WaitForSeconds(attackSpeed);
 		canAttack = true;

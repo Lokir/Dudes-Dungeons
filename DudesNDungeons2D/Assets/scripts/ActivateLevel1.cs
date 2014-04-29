@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ActivateLevel1 : MonoBehaviour {
-
+	//This script is not used
 	GameObject cam;
 
 	// Use this for initialization

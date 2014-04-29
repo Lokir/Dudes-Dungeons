@@ -35,7 +35,7 @@ public class LootHandler : MonoBehaviour {
 		{
 			int h = 0;
 
-			foreach (Body l in GetComponent<GearHandler>().Backpack)
+			foreach (Body l in GetComponent<GearHandler>().Backpack)//if a body is dropped the player gets it into his/her backpack
 			{
 				if(l == null && !hasLooted)
 				{
@@ -46,27 +46,14 @@ public class LootHandler : MonoBehaviour {
 				}
 				h++;
 			}
-			if(hasLooted == true)
-				Debug.Log ("Loot");
-			else if(!hasLooted && lootChance > 50)
-				Debug.Log ("backpack full");
-		}
-		else
-		{
-			Debug.Log ("Burn Body");
 		}
 
-		if(potionChance <= 25)
+		if(potionChance <= 25)//adds another potion if it drops, it has 25% chance of dropping
 		{
-			Debug.Log("Yay, potion");
 			camFound.GetComponent<GuiTest>().potionAmount++;
 		}
-		else
-		{
-			Debug.Log ("Damn, no potion");
-		}
 	}
-	IEnumerator displayLootText()
+	IEnumerator displayLootText()//timer to show if you got a body in your backpack
 	{
 		yield return new WaitForSeconds(displayTime);
 		DisplayText = false;

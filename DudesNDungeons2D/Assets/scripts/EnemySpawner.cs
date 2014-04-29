@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
-
+	//This script is never used, as it kept bugging - was planning to use later on but didn't have the time to implement
 	GameObject player;
 	public GameObject Spawn;
 	bool canSpawn = false;

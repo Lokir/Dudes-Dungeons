@@ -762,5 +762,4 @@ public class AbilHandler : MonoBehaviour
 		flame.GetComponent<FlameAnim>().throwFire = false;
 		StopCoroutine("flameThrowerAttack");
 	}
-	
 }

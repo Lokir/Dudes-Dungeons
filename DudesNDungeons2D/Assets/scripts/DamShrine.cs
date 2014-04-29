@@ -36,11 +36,11 @@ public class DamShrine : MonoBehaviour {
 		int tmp;
 		tmp = player.GetComponent<player>().pDamage;
 		DaemonDust.GetComponent<DaemonAura>().activateAura = true;
-		GetComponent<SpriteRenderer>().sprite = Daemon;
+		GetComponent<SpriteRenderer>().sprite = Daemon;//make the sprites that illustrate that the player has the damage buff
 		player.GetComponent<player>().pDamage += (int)(player.GetComponent<player>().pDamage*0.3)+1;
 		StartCoroutine("removeBuff", tmp);
 	}
-	IEnumerator removeBuff(int damage)
+	IEnumerator removeBuff(int damage)//timer for when to remove the buff again
 	{
 		yield return new WaitForSeconds(buffDuration);
 		player.GetComponent<player>().pDamage = damage;
