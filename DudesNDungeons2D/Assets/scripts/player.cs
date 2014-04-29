@@ -7,12 +7,13 @@ public class player : MonoBehaviour
 	public int sHp, sInte, sDex, sStr, sCharge; // raw stats
 	public bool invulnerable = false;
 	public int HPCap, chargeCap; // HP max
-	bool canJump; // canJump, this system will be remade in to a ray trace to make if more diverse and reliable.
+	bool canJump; 
 	public bool left; // moving left.
 	public float dodge, crit, skillBon;
 	public int SkillPoints;
 	public AudioClip heartBeat;
 	public Body currBody = new Body(); // this body is the current body that we can load other bodies into.
+	int jump = 0;
 	// Use this for initialization
 	void Start () 
 	{
@@ -36,6 +37,23 @@ public class player : MonoBehaviour
 	public bool loadGear = true; // if this is true then we load the gear.
 	void Update () 
 	{
+		RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.3f);
+		Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), -Vector2.up, Color.blue);
+		if(hit != null)
+		{
+			if(hit.collider != null) 
+			{
+				if(hit.collider.tag != null && hit.collider.tag == "Floor") 
+				{
+					if(canJump == false)
+					{
+						canJump = true;
+						jump = 0;
+					}
+				}
+			}
+		}
+
 		if(pHp < HPCap/2 && !audio.isPlaying)
 		{
 			audio.clip = heartBeat;
@@ -46,10 +64,6 @@ public class player : MonoBehaviour
 		{
 			audio.loop = false;
 			audio.Stop();
-		}
-		if(transform.position.y < -2.9f) // again this system will be remade.
-		{
-			canJump = true;
 		}
 		if(loadGear == true)// load gear.
 		{
@@ -74,17 +88,25 @@ public class player : MonoBehaviour
 		{
 			transform.position -= new Vector3(0.05f,0,0);
 			GetComponent<AnimHandler>().leftBool = true; // allow run of animation left.
+			GetComponent<AnimHandler>().rightBool = false;
 		}
-
-		if(Input.GetKey(KeyCode.D)) // move right.
+		else if(Input.GetKey(KeyCode.D)) // move right.
 		{
 			transform.position += new Vector3(0.05f,0,0);
 			GetComponent<AnimHandler>().rightBool = true;
+			GetComponent<AnimHandler>().leftBool = false;
 		}
-		if(Input.GetKeyDown(KeyCode.W) && canJump == true) // system to be remade (jump again)
+		if(jump >= 2)
 		{
-			rigidbody2D.AddForce(new Vector2 (0,200));
-			canJump = false;
+			canJump = false; 
+		}
+		if(Input.GetKeyDown(KeyCode.W) && canJump == true) 
+		{
+			rigidbody2D.AddForce(new Vector2 (0,180));
+			if(jump != 2)
+			{
+				jump ++;
+			}
 		}
 	}
 
