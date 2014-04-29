@@ -3,10 +3,11 @@ using System.Collections;
 
 public class enemyHPBarControl : MonoBehaviour {
 
+	// this code funtions just like the HPBar Code, with few differences.. We needed this to function independently for each enemy...
+	// so we find the parent of the enemy gameObject and use that as a basis for coordinates instead of the original(HPBar script) where we just found the player.
 	GameObject Player;
 	float startingSize;
 	Transform enemyParent;
-	GameObject enemyParent2;
 	float minSize;
 	float scaleY;
 	float scaleZ;

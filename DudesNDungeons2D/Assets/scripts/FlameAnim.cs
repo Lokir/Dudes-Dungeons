@@ -71,7 +71,7 @@ public class FlameAnim : MonoBehaviour {
 				C = 0;
 			}
 
-			if(throwFire == true && player.GetComponent<AbilHandler>().canUseAbilities) // if active, render animation.
+			if(throwFire == true && player.GetComponent<AbilHandler>().canUseAbilities) // if active, render animation. And only render if can use the ability.
 			{
 
 				if(player.GetComponent<player>().left == true) // if left, render inverse images in sequence.

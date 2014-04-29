@@ -8,7 +8,7 @@ public class ActivateTutorial : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
-		cam.GetComponent<GuiTest>().inTutorial = true;
+		cam.GetComponent<GuiTest>().inTutorial = true; // we added this variable to control the elements of Tutorial
 	}
 	
 	// Update is called once per frame

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class AbilHandler : MonoBehaviour 
 {
-	AudioSource[] abilitySounds;
+	AudioSource[] abilitySounds; // sounds for the game.
 	public AudioClip RageSound;
 	public AudioClip GroundSlamSound;
 	public AudioClip WindSound;
@@ -14,7 +14,7 @@ public class AbilHandler : MonoBehaviour
 
 	Vector3 mousePos;
 	Vector3 wantedPos;
-	float rageDuration = 20.0f; // adjust this for rage duration.
+	float rageDuration = 20.0f; // Skill Durations and stun durations.
 	float shadowStabTimer = 20.0f;
 	float regenTimer = 1.0f;
 	float timeStunned = 1.0f;
@@ -35,8 +35,8 @@ public class AbilHandler : MonoBehaviour
 	int Damage;
 	float Dodge;
 
-	float hpMultiply, strMultiply, dmgMultiply , dodgeMultiply = 0;
-	bool canRage;
+	float hpMultiply, strMultiply, dmgMultiply , dodgeMultiply = 0; // intended to be modifiers to stats, never got implemented, left for future work.
+	bool canRage;	// can activate ability or not.
 	bool canTeleport;
 	public bool canShadowStab;
 	bool canPush;
@@ -52,7 +52,7 @@ public class AbilHandler : MonoBehaviour
 	void Start () 
 	{
 		abilitySounds = GetComponents<AudioSource>();
-		abilitySounds[0].audio.clip = GetComponent<player>().heartBeat;
+		abilitySounds[0].audio.clip = GetComponent<player>().heartBeat; // load ability sounds.
 		abilitySounds[1].audio.clip = RageSound;
 		abilitySounds[2].audio.clip = GroundSlamSound;
 		abilitySounds[3].audio.clip = WindSound;
@@ -98,12 +98,12 @@ public class AbilHandler : MonoBehaviour
 	void Update () 
 	{
 		enemyFound = GameObject.FindGameObjectsWithTag("Enemy");
-		if(canUseAbilities == true)
+		if(canUseAbilities == true) // this encompasses all abilities so if false, no abilities will be active.
 		{
 			int chargeCost = 0;
-			if(GetComponent<player>().currBody.name == "Brute")
+			if(GetComponent<player>().currBody.name == "Brute") // brute ability calls.
 			{
-				if(groundSlamLevel == 0)
+				if(groundSlamLevel == 0) // define chargecost for skill level.
 					chargeCost = 50000;
 				else if(groundSlamLevel == 1)
 					chargeCost = 40;
@@ -115,15 +115,14 @@ public class AbilHandler : MonoBehaviour
 					chargeCost = 100;
 				else if(groundSlamLevel == 5)
 					chargeCost = 120;
-				if(Input.GetMouseButtonDown (1) && GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true && GetComponent<player>().pCharge >= chargeCost)
+				if(Input.GetMouseButtonDown (1) && GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true && GetComponent<player>().pCharge >= chargeCost) // if can use ability
 				{
-					GetComponent<player>().pCharge -= chargeCost;
-					groundSlam(groundSlamLevel);
-					abilitySounds[2].Play();
-					Debug.Log("fisk");
+					GetComponent<player>().pCharge -= chargeCost; // deduct costs.
+					groundSlam(groundSlamLevel); // slam the ground function.
+					abilitySounds[2].Play(); // play sound.
 				}
 
-				if(rageLevel == 0)
+				if(rageLevel == 0) // same procedure as all the others.
 					chargeCost = 50000;
 				else if(rageLevel == 1)
 					chargeCost = GetComponent<player>().chargeCap;
@@ -138,13 +137,13 @@ public class AbilHandler : MonoBehaviour
 				if(Input.GetKeyDown(KeyCode.R) && canRage == true && GetComponent<player>().pCharge == chargeCost)
 				{
 					GetComponent<player>().pCharge -= chargeCost;
-					rageDuration += (float)GetComponent<player>().skillBon;
-					rage ();
+					rageDuration += (float)GetComponent<player>().skillBon; // modify duration by skillBon
+					rage (); // call ability
 					abilitySounds[1].Play();
 				}
 				regenerate();
 			}
-			if(GetComponent<player>().currBody.name == "Sneaky")
+			if(GetComponent<player>().currBody.name == "Sneaky") // same procedure as brute and mage
 			{
 				if(tpLevel == 0)
 					chargeCost = 50000;
@@ -184,7 +183,7 @@ public class AbilHandler : MonoBehaviour
 					abilitySounds[5].Play();
 				}
 
-				if(canEandAS)
+				if(canEandAS) // this is passive and only need updating when it is levelled.
 				{
 					eAndAs();
 					canEandAS = false;
@@ -265,20 +264,19 @@ public class AbilHandler : MonoBehaviour
 		mousePos = Input.mousePosition;
 		wantedPos = Camera.main.ScreenToWorldPoint (new Vector3 (mousePos.x, mousePos.y, 3.54f));
 
-		foreach(GameObject e in enemyFound)
+		foreach(GameObject e in enemyFound) // this is AOE so it needs to find all enemies within range and blast the,.
 		{
 			distanceToEnemy = Vector3.Distance(transform.position, e.transform.position);
 
 			if(distanceToEnemy <= 2.0f)
 			{
 				enemyList.Add(e);
-				if(transform.position.x > wantedPos.x && canPush == true) //left
+				if(transform.position.x > wantedPos.x && canPush == true) //push left
 				{
 					if(knockbackLevel == 1)
 					{
-						e.rigidbody2D.AddForce(new Vector2(-20,0));
-						e.GetComponent<Enemy>().eHp -= 6;
-						Debug.Log (e.GetComponent<Enemy>().eHp);
+						e.rigidbody2D.AddForce(new Vector2(-20,0)); // push.
+						e.GetComponent<Enemy>().eHp -= 6; // damage.
 					}
 					else if(knockbackLevel == 2)
 					{
@@ -302,7 +300,7 @@ public class AbilHandler : MonoBehaviour
 					}
 					canPush = false;
 				}
-				else if(transform.position.x < wantedPos.x && canPush == true) //right
+				else if(transform.position.x < wantedPos.x && canPush == true) //push right
 				{
 					if(knockbackLevel == 1)
 					{
@@ -334,14 +332,14 @@ public class AbilHandler : MonoBehaviour
 
 			}
 		}
-		StartCoroutine("pushbackCD");
+		StartCoroutine("pushbackCD"); // start cooldown.
 	}
 	public void absorb()
 	{
 		List<GameObject> EnemyList = new List<GameObject>();
 		if(canShield)
 		{
-			foreach(GameObject e in enemyFound)
+			foreach(GameObject e in enemyFound) // find all enemies damaging me and remove percentages from it.
 			{
 				Damage = e.GetComponent<Enemy>().eDamage;
 				EnemyList.Add(e);
@@ -370,9 +368,9 @@ public class AbilHandler : MonoBehaviour
 				canShield = false;
 			}
 		}
-		StartCoroutine("absorbDuration", EnemyList);
+		StartCoroutine("absorbDuration", EnemyList); // start absorbDuration
 	}
-	public void flameThrower()
+	public void flameThrower() 
 	{
 		canThrowFlame = false;
 		flame.GetComponent<FlameAnim>().throwFire = true;
@@ -381,15 +379,14 @@ public class AbilHandler : MonoBehaviour
 			float distanceToEnemy = 1;
 			foreach(GameObject e in enemyFound)
 			{
-				if( e != null)
+				if( e != null) // make sure you are not null referencing.
 				{
 					distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
-					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
+					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f) // find position.
 					{
 						if(flameThrowerLevel == 1)
 						{
-							e.GetComponent<Enemy>().eHp -= 20;
-							Debug.Log(e.GetComponent<Enemy>().eHp);
+							e.GetComponent<Enemy>().eHp -= 20;  // damage
 						}
 						else if(flameThrowerLevel == 2)
 						{
@@ -412,7 +409,7 @@ public class AbilHandler : MonoBehaviour
 				}
 			}
 		}
-		StartCoroutine("flameThrowerAttack");
+		StartCoroutine("flameThrowerAttack"); // attack speed.
 	}
 
 	//Sneaky abilities
@@ -425,7 +422,7 @@ public class AbilHandler : MonoBehaviour
 
 			if(canTeleport == true)
 			{
-				transform.position = wantedPos;
+				transform.position = wantedPos; // teleport to the current position of the mouse.
 				List<GameObject> EnemyList = new List<GameObject>();
 
 				foreach(GameObject e in enemyFound)
@@ -436,7 +433,7 @@ public class AbilHandler : MonoBehaviour
 						EnemyList.Add(e);
 						if(tpLevel == 1)
 						{
-							TPCD = 10;
+							TPCD = 10; // cooldown
 						}
 						else if(tpLevel == 2)
 						{
@@ -445,9 +442,9 @@ public class AbilHandler : MonoBehaviour
 						else if(tpLevel == 3)
 						{
 							TPCD = 6;
-							EnemyList[z].GetComponent<Enemy>().eHp -= 10;
-							tpStunTime = 1;
-							EnemyList[z].GetComponent<FollowPlayerAI>().isStunned = true;
+							EnemyList[z].GetComponent<Enemy>().eHp -= 10; // damage 
+							tpStunTime = 1; // stun time
+							EnemyList[z].GetComponent<FollowPlayerAI>().isStunned = true; // if true, enemy is stunned.
 						}
 						else if(tpLevel == 4)
 						{
@@ -467,26 +464,26 @@ public class AbilHandler : MonoBehaviour
 					}
 					
 				}
-			StartCoroutine("teleportStun", EnemyList);
+			StartCoroutine("teleportStun", EnemyList); // stun duration
 		}
 		canTeleport = false;
-		StartCoroutine("teleportCooldown");
+		StartCoroutine("teleportCooldown"); // cool down.
 	}
 	void shadowStab()
 	{
-		Damage = GetComponent<player>().pDamage + (int)(GetComponent<player>().pDamage*0.1);
-		canShadowStab = false;
-		StartCoroutine("shadowStabDuration");
+		Damage = GetComponent<player>().pDamage + (int)(GetComponent<player>().pDamage*0.1); // + 10% damage while active.
+		canShadowStab = false; // this initiates the ability to summon shadelings, in the combatHandler
+		StartCoroutine("shadowStabDuration"); // duration of spell.
 	}
-	void eAndAs()
+	void eAndAs() // pasive increase to dodge and ATK Speed
 	{
 		if(eAndASLevel == 1)
 		{
-			camera.GetComponent<CombatHandler>().attackSpeed = 0.9f;
+			camera.GetComponent<CombatHandler>().attackSpeed = 0.9f; // attack speed lessens.
 		}
 		else if(eAndASLevel == 2)
 		{
-			GetComponent<player>().dodge +=5;
+			GetComponent<player>().dodge +=5; // dodge increases.
 		}
 		else if(eAndASLevel == 3)
 		{
@@ -504,16 +501,15 @@ public class AbilHandler : MonoBehaviour
 	}
 
 	//Brute abilities
-	public void rage()
+	public void rage() // RAAAGE!
 	{
-		HP = GetComponent<player>().pHp;
+		HP = GetComponent<player>().pHp; // keep stats so we can return them to origin when duration is out.
 		Str = GetComponent<player>().pStr;
 		Charge = GetComponent<player>().pCharge;
 		HPCap = GetComponent<player>().HPCap;
 		Damage = GetComponent<player>().pDamage;
 		Dodge = GetComponent<player>().dodge;
-		Debug.Log ("First "+GetComponent<player>().pHp);
-		if(rageLevel == 1)
+		if(rageLevel == 1) // modify by rage level.
 		{
 			hpMultiply = 0.03f;
 			strMultiply = 0.05f;
@@ -524,7 +520,6 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<player>().HPCap = GetComponent<player>().pHp;
 			GetComponent<player>().pDamage += (int)(Damage*dmgMultiply);
 			GetComponent<player>().dodge -= (int)(Dodge*dodgeMultiply);
-			Debug.Log("RageDuration " + rageDuration);
 		}
 		else if(rageLevel == 2)
 		{
@@ -574,37 +569,34 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<player>().pDamage += (int)(Damage*dmgMultiply);
 			GetComponent<player>().dodge -= (int)(Dodge*dodgeMultiply);
 		}
-		Debug.Log ("Second "+GetComponent<player>().pHp);
-
 		canRage = false;
-		StartCoroutine("rageDurationElapse");
-		Debug.Log ("After Coroutine "+GetComponent<player>().pHp);
+		StartCoroutine("rageDurationElapse"); // duration
 	}
 
-	public void groundSlam(int groundSlamLevel)
+	public void groundSlam(int groundSlamLevel) // ground slam
 	{
 		if(GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack == true)
 		{
-			GetComponent<AnimHandler>().isGroundSlam = true;
-			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack = false;
-			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().StartCoroutine ("attackCooldown");
-			GetComponent<AnimHandler>().attackBool = true;
-			GetComponent<AnimHandler>().q = 0;
-			if(enemyFound.Length > 0)
+			GetComponent<AnimHandler>().isGroundSlam = true; //initiate groundslam img sequence instead of attack.
+			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().canAttack = false; // make sure you can't attack out of cycle.
+			GetComponent<LootHandler>().camFound.GetComponent<CombatHandler>().StartCoroutine ("attackCooldown"); // cooldown.
+			GetComponent<AnimHandler>().attackBool = true; // initiates attack sequence
+			GetComponent<AnimHandler>().q = 0; // sets img sequence to beginning and then runs.
+			if(enemyFound.Length > 0) // make sure you aren't trying to hit nothing.
 			{
 				List<GameObject> EnemiesList = new List<GameObject>();
 				float distanceToEnemy = 1;
-				foreach(GameObject e in enemyFound)
+				foreach(GameObject e in enemyFound) // get all enemies.
 				{
 					distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
-					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
+					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f) // if within range.
 					{
 						EnemiesList.Add(e);
-						e.GetComponent<FollowPlayerAI>().isStunned = true;
+						e.GetComponent<FollowPlayerAI>().isStunned = true; // stun for a duration
 						int enemyHP = e.GetComponent<Enemy>().eHp;
-						if(groundSlamLevel == 1)
+						if(groundSlamLevel == 1) // lvl 1
 						{
-							e.GetComponent<Enemy>().eHp -= 5;
+							e.GetComponent<Enemy>().eHp -= 5; // damage
 							if(enemyHP-15 > 0)
 								StartCoroutine("stunDuration", EnemiesList);
 						}
@@ -642,7 +634,7 @@ public class AbilHandler : MonoBehaviour
 	}
 	public void regenerate()
 	{
-		int regen = 0;
+		int regen = 0; // regeneration.
 		if(regenerateLevel == 1)
 		{
 			regen = 1;
@@ -664,12 +656,12 @@ public class AbilHandler : MonoBehaviour
 			regen = 16;
 		}
 		if(GetComponent<player>().pHp > GetComponent<player>().HPCap)
-			GetComponent<player>().pHp = GetComponent<player>().HPCap;
-		StartCoroutine("regenPerSecond", regen);
+			GetComponent<player>().pHp = GetComponent<player>().HPCap; // add regen to life.
+		StartCoroutine("regenPerSecond", regen); // make sure it times.
 	}
 
 	//Brute timers
-	IEnumerator regenPerSecond(int regen)
+	IEnumerator regenPerSecond(int regen) // IEnumerators used as timers.
 	{
 		while(true)
 		{

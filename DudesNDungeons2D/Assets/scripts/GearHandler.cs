@@ -24,7 +24,7 @@ public class GearHandler : MonoBehaviour
 	public Sprite mage;
 	public Sprite myDefault;
 
-	public Texture bruteTex;
+	public Texture bruteTex; // textures to load into skins.
 	public Texture sneakyTex;
 	public Texture mageTex;
 	public Texture myDefaultTex;
@@ -35,7 +35,7 @@ public class GearHandler : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Backpack.Add (null);
+		Backpack.Add (null); // define 6 spots in the Backpack list.
 		Backpack.Add (null);
 		Backpack.Add (null);
 		Backpack.Add (null);

@@ -20,7 +20,7 @@ public class ExplosionShrine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Distance = Vector3.Distance(transform.position, player.transform.position);
+		Distance = Vector3.Distance(transform.position, player.transform.position); // distance between 
 		if(Input.GetKeyDown(KeyCode.E) && Distance <= 1.0f)
 		{
 			explode();
@@ -30,7 +30,7 @@ public class ExplosionShrine : MonoBehaviour {
 	void explode()
 	{
 		if(player.transform.position.x < transform.position.x)
-			player.rigidbody2D.AddForce (new Vector2(-300,0));
+			player.rigidbody2D.AddForce (new Vector2(-300,0)); // add force of the explosion.
 		if(player.transform.position.x > transform.position.x)
 			player.rigidbody2D.AddForce (new Vector2(300,0));
 
@@ -38,10 +38,10 @@ public class ExplosionShrine : MonoBehaviour {
 		{
 			if(e!=null)
 			{
-				float eDistance = Vector3.Distance (transform.position, e.transform.position);
+				float eDistance = Vector3.Distance (transform.position, e.transform.position); // get distance between player and object.
 				if(eDistance <= 2.0)
 				{
-					if(e.transform.position.x < transform.position.x)
+					if(e.transform.position.x < transform.position.x) // addforce differently from player because mass is different.
 						e.rigidbody2D.AddForce(new Vector2(-20,0));
 					if(e.transform.position.x > transform.position.x)
 						e.rigidbody2D.AddForce(new Vector2(20,0));
@@ -49,8 +49,8 @@ public class ExplosionShrine : MonoBehaviour {
 				}
 			}
 		}
-		Instantiate (Explosion, new Vector3(transform.position.x ,transform.position.y, transform.position.z), Quaternion.identity);
-		GetComponent<SpriteRenderer>().sprite = None;
+		Instantiate (Explosion, new Vector3(transform.position.x ,transform.position.y, transform.position.z), Quaternion.identity); // explode
+		GetComponent<SpriteRenderer>().sprite = None; // remove the sprite but keep the gameObject until sound is finished playing.
 		Destroy(gameObject, audio.clip.length);
 	}
 }

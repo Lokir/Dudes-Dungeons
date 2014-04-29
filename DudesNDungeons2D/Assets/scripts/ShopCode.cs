@@ -6,13 +6,13 @@ public class ShopCode : MonoBehaviour {
 	GameObject shop;
 	GameObject Player;
 	
-	public bool showDescription = false;
+	public bool showDescription = false; // if true the system will render the skill Description Box.
 
 	public Texture backpackSkin;
 	public Texture pressedBodyTex;
-	public Body pressedBodyObject;
+	public Body pressedBodyObject; // this object is used to render stats in the right side of the screen.
 
-	public Texture RageSkill;
+	public Texture RageSkill; //skill textures.
 	public Texture RegenSkill;
 	public Texture GroundSlamSkill;
 	public Texture TeleportSkill;
@@ -23,9 +23,9 @@ public class ShopCode : MonoBehaviour {
 	public Texture FlameBurst;
 	public Texture exitTex;
 	public Texture skillInc;
-	string skillOpen;
+	string skillOpen; // this is updated with the name of a skill to make it easy to load skill description textures.
 
-	public Texture SkillDescription;
+	public Texture SkillDescription; // skill description textures.
 	public Texture RageSkillDescription;
 	public Texture RegenDescription;
 	public Texture GroundSlamDescription;
@@ -36,7 +36,7 @@ public class ShopCode : MonoBehaviour {
 	public Texture StoneSkinDescription;
 	public Texture FlameBurstDescription;
 
-	string rageName = "Rage";
+	string rageName = "Rage"; // skill names used for both updating skillOpen and naming the skills in the skillRect
 	string regenName = "Regeneration";
 	string slamName = "Groundslam";
 	string teleportName = "step in shadows";
@@ -46,19 +46,19 @@ public class ShopCode : MonoBehaviour {
 	string stoneSkinName = "Stoneskin";
 	string flameBurstName = "Cone of Fire";
 
-	int skillLvl;
+	int skillLvl; // this helps us control the buying and selling of bodies/skills/stats.
 	int skillCost;
 	string currSkillLvl;
 	string cost;
 
-	Texture button1;
+	Texture button1; // button textures for the GUI
 	Texture button3;
 	Texture button2;
 	Texture button5;
 	Texture button4;
 	Texture button6;
 
-	public Texture HPTex;
+	public Texture HPTex; // textures for the buy stat buttons.
 	public Texture ChargeTex;
 	public Texture StrTex;
 	public Texture DexTex;
@@ -72,7 +72,7 @@ public class ShopCode : MonoBehaviour {
 	public bool visiShop;
 
 	//buttonRects
-	Rect SellRect = new Rect(130, 221, 40, 50.5f);
+	Rect SellRect = new Rect(130, 221, 40, 50.5f); // rects to generate GUI.
 
 	Rect rageRect = new Rect(25, 37.9f, 80, 101);
 	Rect regenRect = new Rect(25, 176.8f, 80, 101);
@@ -95,7 +95,7 @@ public class ShopCode : MonoBehaviour {
 	Rect BuyInteRect = new Rect(250, 430, 60, 60);
 
 	//textRects
-	Rect nameTextRect = new Rect(10, 12.6f, 100,29);
+	Rect nameTextRect = new Rect(10, 12.6f, 100,29); // Rects generate GUI text
 	Rect textRect = new Rect(10, 37.9f, 100, 29);
 	Rect textRect2 = new Rect(10, 63, 100, 29);
 	Rect textRect3 = new Rect(10, 88.4f, 100, 29);
@@ -116,7 +116,7 @@ public class ShopCode : MonoBehaviour {
 	Rect currSkillLvlRect = new Rect(198, 10, 165, 20);
 	Rect costRect = new Rect(198, 35, 150, 20);
 	Rect ptsAvailRect = new Rect(198, 60, 150, 20);
-	public AudioClip clickSound;
+	public AudioClip clickSound; // sound.
 	public AudioClip coinSound;
 
 	// Use this for initialization
@@ -124,7 +124,7 @@ public class ShopCode : MonoBehaviour {
 	{
 
 		//Buttons
-		fitShopToScreen(ref BuyHPRect, true, true);
+		fitShopToScreen(ref BuyHPRect, true, true); // these fits the GUI based on the concept of Homography
 		fitShopToScreen(ref BuyDexRect, true, true);
 		fitShopToScreen(ref BuyInteRect, true, true);
 		fitShopToScreen(ref BuyStrRect, true, true);
@@ -174,11 +174,11 @@ public class ShopCode : MonoBehaviour {
 		pressedBodyObject = new Body();
 		pressedBodyObject.name = "null";
 		Player = GameObject.FindGameObjectWithTag("Player");
-		Player.GetComponent<player>().SkillPoints = 10;
+		Player.GetComponent<player>().SkillPoints = 10; // starting skillPoints
 
 		visiShop = false;
 	}
-	void fitShopToScreen(ref Rect rectToMod, bool fitSize, bool adjustY)
+	void fitShopToScreen(ref Rect rectToMod, bool fitSize, bool adjustY) // as above, fits the GUI based on Screen size.
 	{
 		if(fitSize)
 		{
@@ -205,27 +205,26 @@ public class ShopCode : MonoBehaviour {
 		}
 	}
 	
-	public void pressedEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
+	public void pressedEquip(int windowID)
 	{
-		if (GUI.Button(SellRect, Sell) && Player.GetComponent<GearHandler>().Backpack[posInBackpack] != null) // same as first.
+		if (GUI.Button(SellRect, Sell) && Player.GetComponent<GearHandler>().Backpack[posInBackpack] != null) // this sells the chosen object to sell.
 		{
-			Player.GetComponent<player>().currBody = Player.GetComponent<GearHandler>().Bodies[0];
-			Player.GetComponent<player>().loadGear = true;
-			pressedBodyTex = Camera.main.GetComponent<GuiTest>().defaultTex;
-			sellBody(posInBackpack);
+			Player.GetComponent<player>().currBody = Player.GetComponent<GearHandler>().Bodies[0]; // reset to default body (else you might sell the body you are wearing)
+			Player.GetComponent<player>().loadGear = true; //load gear to make sure stats are updated.
+			pressedBodyTex = Camera.main.GetComponent<GuiTest>().defaultTex; // make the chosen body window into default.
+			sellBody(posInBackpack); // run sellBody which handles the actual selling.
 		}
 	}
 	void sellBody(int pos)
 	{
 		audio.clip = coinSound;
 		audio.Play ();
-		Player.GetComponent<GearHandler>().Backpack[pos] = null;
-		Player.GetComponent<player>().SkillPoints++;
-		hasSold = true;
-		Camera.main.GetComponent<GuiTest>().bodyChange = true;
-		Debug.Log (Player.GetComponent<player>().SkillPoints);
+		Player.GetComponent<GearHandler>().Backpack[pos] = null; // if sold set the position as null so that the gui will reset to default.
+		Player.GetComponent<player>().SkillPoints++; // update skill points to get paid for selling the body.
+		hasSold = true; // has sold, allows for GUI to be updated.
+		Camera.main.GetComponent<GuiTest>().bodyChange = true; // BodyChange, allows for GUI to be Updated.
 	}
-	public void showBodyStats(int windowID)
+	public void showBodyStats(int windowID) // shows body stats of current chosen body (in shop not inventory)
 	{
 		if(pressedBodyObject.name != "null")
 		{
@@ -246,7 +245,7 @@ public class ShopCode : MonoBehaviour {
 		}
 
 	}
-	public void displaySkills(int windowID)
+	public void displaySkills(int windowID) // displays all the skills with textures & names.
 	{
 
 		rageName = GUI.TextField(rageNameRect, rageName, 25);
@@ -259,19 +258,19 @@ public class ShopCode : MonoBehaviour {
 		stoneSkinName = GUI.TextField(StoneSkinNameRect, stoneSkinName, 25);
 		flameBurstName = GUI.TextField(flameNameRect, flameBurstName, 25);
 
-		if(GUI.Button (BuyHPRect, HPTex))
+		if(GUI.Button (BuyHPRect, HPTex)) // Buy Stat HP
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
 				audio.clip = coinSound;
 				audio.Play ();
-				Player.GetComponent<player>().SkillPoints -= 1;
-				Player.GetComponent<player>().sHp += 10;
-				Player.GetComponent<player>().pHp = Player.GetComponent<player>().sHp + Player.GetComponent<player>().currBody.gHp;
-				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().pHp;
+				Player.GetComponent<player>().SkillPoints -= 1; // deduct costs
+				Player.GetComponent<player>().sHp += 10; // add to stat
+				Player.GetComponent<player>().pHp = Player.GetComponent<player>().sHp + Player.GetComponent<player>().currBody.gHp;  // update player values
+				Player.GetComponent<player>().HPCap = Player.GetComponent<player>().pHp; // update HPCap
 			}
 		}
-		if(GUI.Button (BuyStrRect, StrTex))
+		if(GUI.Button (BuyStrRect, StrTex)) // Buy stat Strength
 		{
 			if(Player.GetComponent<player>().SkillPoints >= 1)
 			{
@@ -316,13 +315,13 @@ public class ShopCode : MonoBehaviour {
 		}
 		
 
-		if(GUI.Button (rageRect, RageSkill))
+		if(GUI.Button (rageRect, RageSkill)) // the following code shows the curr skillLevel, Skill Description, Name and so on.
 		{
 			audio.clip = clickSound;
 			audio.Play ();
 			skillOpen = rageName;
 			skillLvl = Player.GetComponent<AbilHandler>().rageLevel;
-			SkillDescription = RageSkillDescription;
+			SkillDescription = RageSkillDescription; // show descript
 			showDescription = true;
 		}
 
@@ -408,7 +407,7 @@ public class ShopCode : MonoBehaviour {
 			showDescription = true;
 		}
 	}
-	public void skillDescriptionload(int windowID)
+	public void skillDescriptionload(int windowID) // loads skill description texture as well as GUI buttons for buying skill points and text to display points available, needed and so on.
 	{
 		currSkillLvl = "Current skill lvl = "+skillLvl+" out of 5";
 		currSkillLvl = GUI.TextField(currSkillLvlRect, currSkillLvl, 100);
