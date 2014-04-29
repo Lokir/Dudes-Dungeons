@@ -5,7 +5,7 @@ public class HealingShrine : MonoBehaviour {
 
 	GameObject player;
 	GameObject healingParticle;
-	GameObject HealingOnTent;
+	Transform HealingOnTent;
 	bool canHeal = true;
 	float Distance;
 	
@@ -13,7 +13,7 @@ public class HealingShrine : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		healingParticle = GameObject.FindGameObjectWithTag ("Healing");
-		HealingOnTent = GameObject.FindGameObjectWithTag("HealingOnTent");
+		HealingOnTent = transform.FindChild("Healing");
 	}
 	
 	// Update is called once per frame

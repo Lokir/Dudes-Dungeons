@@ -66,7 +66,7 @@ public class ShopCode : MonoBehaviour {
 
 	public Texture Sell;
 	public bool hasSold;
-	int posInBackpack;
+	public int posInBackpack;
 
 	float Distance;
 	public bool visiShop;
@@ -174,7 +174,6 @@ public class ShopCode : MonoBehaviour {
 		hasSold = false;
 		posInBackpack = 0;
 		pressedBodyObject = new Body();
-		shop = GameObject.FindGameObjectWithTag("Shop");
 		Player = GameObject.FindGameObjectWithTag("Player");
 		Player.GetComponent<player>().SkillPoints = 30;
 
@@ -196,8 +195,7 @@ public class ShopCode : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(shop != null)
-			Distance = Vector3.Distance(Player.transform.position, shop.transform.position);
+			Distance = Vector3.Distance(Player.transform.position, transform.position);
 		if(Distance <= 1.0f && Input.GetKeyDown (KeyCode.E))
 		{
 			visiShop = !visiShop;
@@ -207,109 +205,14 @@ public class ShopCode : MonoBehaviour {
 			visiShop = false;
 		}
 	}
-
-	public void pDoBackPack(int windowID) // this function handles backpack buttons
-	{
-		button1 = camera.GetComponent<GuiTest>().button1;
-		button2 = camera.GetComponent<GuiTest>().button2;
-		button3 = camera.GetComponent<GuiTest>().button3;
-		button4 = camera.GetComponent<GuiTest>().button4;
-		button5 = camera.GetComponent<GuiTest>().button5;
-		button6 = camera.GetComponent<GuiTest>().button6;
-
-		// if ( create Gui Button, new rect(x,y,W,H),Texture);
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn1, button1) && button1 !=camera.GetComponent<GuiTest>().defaultTex) // button for loading Body 1 (default)
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button1;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[0].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[0].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[0].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[0].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[0].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[0].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[0].gDamage;
-			posInBackpack = 0;
-		}
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn2, button2)&& button2 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button2;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[1].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[1].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[1].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[1].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[1].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[1].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[1].gDamage;
-			posInBackpack = 1;
-		}
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn3, button3)&& button3 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button3;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[2].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[2].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[2].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[2].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[2].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[2].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[2].gDamage;
-			posInBackpack = 2;
-		}
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn4, button4)&& button4!=camera.GetComponent<GuiTest>().defaultTex) // same as first.
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button4;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[3].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[3].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[3].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[3].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[3].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[3].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[3].gDamage;
-			posInBackpack = 3;
-		}
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn5, button5)&& button5 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button5;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[4].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[4].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[4].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[4].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[4].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[4].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[4].gDamage;
-			posInBackpack = 4;
-		}
-		if (GUI.Button(GetComponent<GuiTest>().doBackpackBtn6, button6)&& button6 !=camera.GetComponent<GuiTest>().defaultTex) // same as first.
-		{
-			audio.clip = clickSound;
-			audio.Play ();
-			pressedBodyTex = button6;
-			pressedBodyObject.name = Player.GetComponent<GearHandler>().Backpack[5].name;
-			pressedBodyObject.gHp = Player.GetComponent<GearHandler>().Backpack[5].gHp;
-			pressedBodyObject.gStr = Player.GetComponent<GearHandler>().Backpack[5].gStr;
-			pressedBodyObject.gDex = Player.GetComponent<GearHandler>().Backpack[5].gDex;
-			pressedBodyObject.gInte = Player.GetComponent<GearHandler>().Backpack[5].gInte;
-			pressedBodyObject.gCharge = Player.GetComponent<GearHandler>().Backpack[5].gCharge;
-			pressedBodyObject.gDamage = Player.GetComponent<GearHandler>().Backpack[5].gDamage;
-			posInBackpack = 5;
-		}
-	}
+	
 	public void pressedEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
 	{
 		if (GUI.Button(SellRect, Sell) && Player.GetComponent<GearHandler>().Backpack[posInBackpack] != null) // same as first.
 		{
 			Player.GetComponent<player>().currBody = Player.GetComponent<GearHandler>().Bodies[0];
 			Player.GetComponent<player>().loadGear = true;
-			pressedBodyTex = camera.GetComponent<GuiTest>().defaultTex;
+			pressedBodyTex = Camera.main.GetComponent<GuiTest>().defaultTex;
 			sellBody(posInBackpack);
 		}
 	}

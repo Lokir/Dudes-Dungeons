@@ -51,6 +51,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect DescriptionRect = new Rect(688, 12.6f, 530, 700);
 
 	GameObject[] enemies;
+	GameObject[] Shops;
 	
 	GameObject PlayStat;
 	string abilLvl1;
@@ -102,6 +103,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	void Start () // Use this for initialization
 	{
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		Shops = GameObject.FindGameObjectsWithTag("Shop");
 
 		//Inventory GUI Windows
 		fitGUIToScreen(ref backpack, true, true);
@@ -178,79 +180,82 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 		SkillRect.x = skillRectx;
 		SkillRect.y = skillRecty;
-		if(PlayStat.GetComponent<LootHandler>().hasLooted || GetComponent<ShopCode>().hasSold)
+		foreach(GameObject s in Shops)
 		{
-			if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
-				button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
-				button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
-				button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
-				button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
-				button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
-				button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
-
-			if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
-				button1 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
-				button2 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
-				button3 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
-				button4 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
-				button5 = defaultTex;
-			if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
-				button6 = defaultTex;
-			PlayStat.GetComponent<LootHandler>().hasLooted = false;
-			GetComponent<ShopCode>().hasSold = false;
-		}
-
-		if(bodyChange)
-		{
-			if(PlayStat.GetComponent<player>().currBody.name == "Default")
+			if(PlayStat.GetComponent<LootHandler>().hasLooted || s.GetComponent<ShopCode>().hasSold)
 			{
-				abilityTexture1 = defaultTex;
-				abilityTexture2 = defaultTex;
-				abilityTexture3 = defaultTex;
-				abilLvl1 = "NA";
-				abilLvl2 = "NA";
-				abilLvl3 = "NA";
-			}
+				if(PlayStat.GetComponent<GearHandler>().Backpack[0] != null)
+					button1 = PlayStat.GetComponent<GearHandler>().Backpack[0].skinTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[1] != null)
+					button2 = PlayStat.GetComponent<GearHandler>().Backpack[1].skinTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[2] != null)
+					button3 = PlayStat.GetComponent<GearHandler>().Backpack[2].skinTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[3] != null)
+					button4 = PlayStat.GetComponent<GearHandler>().Backpack[3].skinTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[4] != null)
+					button5 = PlayStat.GetComponent<GearHandler>().Backpack[4].skinTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[5] != null)
+					button6 = PlayStat.GetComponent<GearHandler>().Backpack[5].skinTex;
 
-			else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
-			{
-				abilityTexture1 = GetComponent<ShopCode>().GroundSlamSkill;
-				abilityTexture2 = GetComponent<ShopCode>().RegenSkill;
-				abilityTexture3 = GetComponent<ShopCode>().RageSkill;
-				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().groundSlamLevel;
-				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().regenerateLevel;
-				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().rageLevel;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[0] == null)
+					button1 = defaultTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[1] == null)
+					button2 = defaultTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[2] == null)
+					button3 = defaultTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[3] == null)
+					button4 = defaultTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[4] == null)
+					button5 = defaultTex;
+				if(PlayStat.GetComponent<GearHandler>().Backpack[5] == null)
+					button6 = defaultTex;
+				PlayStat.GetComponent<LootHandler>().hasLooted = false;
+				s.GetComponent<ShopCode>().hasSold = false;
 			}
+		
+			if(bodyChange)
+			{
+				if(PlayStat.GetComponent<player>().currBody.name == "Default")
+				{
+					abilityTexture1 = defaultTex;
+					abilityTexture2 = defaultTex;
+					abilityTexture3 = defaultTex;
+					abilLvl1 = "NA";
+					abilLvl2 = "NA";
+					abilLvl3 = "NA";
+				}
 
-			else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
-			{
-				abilityTexture1 = GetComponent<ShopCode>().TeleportSkill;
-				abilityTexture2 = GetComponent<ShopCode>().ShadowStabSkill;
-				abilityTexture3 = GetComponent<ShopCode>().AccuteDexterity;
-				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().tpLevel;
-				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().sSLevel;
-				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().eAndASLevel;
-			}
+				else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
+				{
+					abilityTexture1 = s.GetComponent<ShopCode>().GroundSlamSkill;
+					abilityTexture2 = s.GetComponent<ShopCode>().RegenSkill;
+					abilityTexture3 = s.GetComponent<ShopCode>().RageSkill;
+					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().groundSlamLevel;
+					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().regenerateLevel;
+					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().rageLevel;
+				}
 
-			else if(PlayStat.GetComponent<player>().currBody.name == "Magus")
-			{
-				abilityTexture1 = GetComponent<ShopCode>().ForcePush;
-				abilityTexture2 = GetComponent<ShopCode>().StoneSkin;
-				abilityTexture3 = GetComponent<ShopCode>().FlameBurst;
-				abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().knockbackLevel;
-				abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().shieldLevel;
-				abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().flameThrowerLevel;
+				else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
+				{
+					abilityTexture1 = s.GetComponent<ShopCode>().TeleportSkill;
+					abilityTexture2 = s.GetComponent<ShopCode>().ShadowStabSkill;
+					abilityTexture3 = s.GetComponent<ShopCode>().AccuteDexterity;
+					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().tpLevel;
+					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().sSLevel;
+					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().eAndASLevel;
+				}
+
+				else if(PlayStat.GetComponent<player>().currBody.name == "Magus")
+				{
+					abilityTexture1 = s.GetComponent<ShopCode>().ForcePush;
+					abilityTexture2 = s.GetComponent<ShopCode>().StoneSkin;
+					abilityTexture3 = s.GetComponent<ShopCode>().FlameBurst;
+					abilLvl1 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().knockbackLevel;
+					abilLvl2 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().shieldLevel;
+					abilLvl3 = "Lvl: "+PlayStat.GetComponent<AbilHandler>().flameThrowerLevel;
+				}
+				bodyChange = false;
 			}
-			bodyChange = false;
 		}
 
 		potAmountString = ""+potionAmount; // update potion amount with current potion amount.
@@ -346,102 +351,215 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			}
 		}
 
-
-		if(GetComponent<ShopCode>().visiShop == true)
+		foreach(GameObject s in Shops)
 		{
-			pressedBodyStats = GUI.Window(6,pressedBodyStats, GetComponent<ShopCode>().showBodyStats, GetComponent<ShopCode>().backpackSkin);
-			pBackpack = GUI.Window(4, pBackpack, GetComponent<ShopCode>().pDoBackPack, GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
-			pressedGear = GUI.Window(5,pressedGear,GetComponent<ShopCode>().pressedEquip, GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
-			SkillRect = GUI.Window (7, SkillRect, GetComponent<ShopCode>().displaySkills, GetComponent<ShopCode>().backpackSkin);
-			stringStr = GUI.TextField(stringStrRect, stringStr, 25); // load player stats
-			stringDex = GUI.TextField(stringDexRect, stringDex, 25);
-			stringInt = GUI.TextField(stringIntRect, stringInt, 25);
-			stringDam = GUI.TextField(stringDamRect, stringDam, 25);
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
+			if(s.GetComponent<ShopCode>().visiShop == true)
+			{
+				pressedBodyStats = GUI.Window(6,pressedBodyStats, s.GetComponent<ShopCode>().showBodyStats, s.GetComponent<ShopCode>().backpackSkin);
+				pBackpack = GUI.Window(4, pBackpack, DoBackPack, s.GetComponent<ShopCode>().backpackSkin); //load GUI window for Backpack
+				pressedGear = GUI.Window(5,pressedGear, s.GetComponent<ShopCode>().pressedEquip, s.GetComponent<ShopCode>().pressedBodyTex); // load GUI window for the equipped body.
+				SkillRect = GUI.Window (7, SkillRect, s.GetComponent<ShopCode>().displaySkills, s.GetComponent<ShopCode>().backpackSkin);
+				stringStr = GUI.TextField(stringStrRect, stringStr, 25); // load player stats
+				stringDex = GUI.TextField(stringDexRect, stringDex, 25);
+				stringInt = GUI.TextField(stringIntRect, stringInt, 25);
+				stringDam = GUI.TextField(stringDamRect, stringDam, 25);
+				PlayStat.GetComponent<AbilHandler>().canUseAbilities = false;
 
-			if(GetComponent<ShopCode>().showDescription)
-			{
-				skillRectx = Screen.width/2f-(SkillRect.width);
-				skillRecty = Screen.height/2f-(SkillRect.height/2);
-				DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
+				if(s.GetComponent<ShopCode>().showDescription)
+				{
+					skillRectx = Screen.width/2f-(SkillRect.width);
+					skillRecty = Screen.height/2f-(SkillRect.height/2);
+					DescriptionRect = GUI.Window (8, DescriptionRect, s.GetComponent<ShopCode>().skillDescriptionload, s.GetComponent<ShopCode>().SkillDescription);
+				}
+				else
+				{
+					skillRectx = (Screen.width/2f)-(SkillRect.width/2);
+					skillRecty = (Screen.height/2f)-(SkillRect.height/2);
+				}
+				//Render shop gui
 			}
-			else
+		
+			if(!s.GetComponent<ShopCode>().visiShop && !visiGUI)
 			{
-				skillRectx = (Screen.width/2f)-(SkillRect.width/2);
-				skillRecty = (Screen.height/2f)-(SkillRect.height/2);
+				PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 			}
-			//Render shop gui
-		}
-		if(!GetComponent<ShopCode>().visiShop && !visiGUI)
-		{
-			PlayStat.GetComponent<AbilHandler>().canUseAbilities = true;
 		}
 
 	}
 	// this is the RunFunction, it is run whenever it is called in OnGUI().
 	void DoBackPack(int windowID) // this function handles backpack buttons
 	{
+		GameObject currentShop = null;
+		foreach(GameObject s in Shops)
+		{
+			if(s.GetComponent<ShopCode>().visiShop == true)
+			{
+				currentShop = s;
+			}
+		}
 		// if ( create Gui Button, new rect(x,y,W,H),Texture);
 		if (GUI.Button(doBackpackBtn1, button1) && button1 != defaultTex) // button for loading Body 1 (default)
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
-			PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
-			equippedBody = button1; // swap button's body into the equipped body. 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[0]; // load default stats into currBody.
+				PlayStat.GetComponent<player>().loadGear = true; // make sure that the gear is loaded.
+				equippedBody = button1; // swap button's body into the equipped body. 
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin; // render the equipped body sprite.
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[0].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[0].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[0].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[0].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[0].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[0].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[0].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 0;
+			}
 
 		}
 		if (GUI.Button(doBackpackBtn2, button2)&& button2 != defaultTex) // same as first.
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[1]; // brute
-			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = button2;
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[1]; // brute
+				PlayStat.GetComponent<player>().loadGear = true;
+				equippedBody = button2;
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[1].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[1].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[1].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[1].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[1].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[1].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[1].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 1;
+			}
 		}
 		if (GUI.Button(doBackpackBtn3, button3)&& button3 != defaultTex) // same as first.
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[2]; // sneaky
-			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = button3;
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[2]; // sneaky
+				PlayStat.GetComponent<player>().loadGear = true;
+				equippedBody = button3;
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[2].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[2].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[2].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[2].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[2].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[2].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[2].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 2;
+			}
 		}
 		if (GUI.Button(doBackpackBtn4, button4) && button4 != defaultTex) // same as first.
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
-			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = button4; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[3]; //mage
+				PlayStat.GetComponent<player>().loadGear = true;
+				equippedBody = button4; 
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[3].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[3].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[3].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[3].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[3].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[3].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[3].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 3;
+			}
 		}
 		if (GUI.Button(doBackpackBtn5, button5)&& button5 != defaultTex) // same as first.
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[4]; //mage
-			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = button5; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[4]; //mage
+				PlayStat.GetComponent<player>().loadGear = true;
+				equippedBody = button5; 
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[4].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[4].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[4].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[4].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[4].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[4].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[4].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 4;
+			}
 		}
 		if (GUI.Button(doBackpackBtn6, button6)&& button6 != defaultTex) // same as first.
 		{
-			audio.clip = clickSound;
-			audio.Play ();
-			PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[5]; //mage
-			PlayStat.GetComponent<player>().loadGear = true;
-			equippedBody = button6; 
-			PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
-			bodyChange = true;
+			if(visiGUI)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				PlayStat.GetComponent<player>().currBody = PlayStat.GetComponent<GearHandler>().Backpack[5]; //mage
+				PlayStat.GetComponent<player>().loadGear = true;
+				equippedBody = button6; 
+				PlayStat.GetComponent<SpriteRenderer>().sprite = PlayStat.GetComponent<player>().currBody.skin;
+				bodyChange = true;
+			}
+			if(currentShop.GetComponent<ShopCode>().visiShop)
+			{
+				audio.clip = clickSound;
+				audio.Play ();
+				currentShop.GetComponent<ShopCode>().pressedBodyTex = button1;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.name = PlayStat.GetComponent<GearHandler>().Backpack[5].name;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gHp = PlayStat.GetComponent<GearHandler>().Backpack[5].gHp;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gStr = PlayStat.GetComponent<GearHandler>().Backpack[5].gStr;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDex = PlayStat.GetComponent<GearHandler>().Backpack[5].gDex;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gInte = PlayStat.GetComponent<GearHandler>().Backpack[5].gInte;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gCharge = PlayStat.GetComponent<GearHandler>().Backpack[5].gCharge;
+				currentShop.GetComponent<ShopCode>().pressedBodyObject.gDamage = PlayStat.GetComponent<GearHandler>().Backpack[5].gDamage;
+				currentShop.GetComponent<ShopCode>().posInBackpack = 5;
+			}
 		}
 	}
 	void doEquip(int windowID) // this needs to be there for the GUI window, but we currently don't want it to do anything.
