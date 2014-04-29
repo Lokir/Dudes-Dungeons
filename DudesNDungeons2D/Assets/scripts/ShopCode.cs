@@ -87,7 +87,7 @@ public class ShopCode : MonoBehaviour {
 	Rect flameRect = new Rect(255, 315.8f, 80, 101);
 
 	Rect exitRect = new Rect(10,12.6f,50,63);
-	Rect skillPlusRect = new Rect(420,164.2f,50,63);
+	Rect skillPlusRect = new Rect(420,114.2f,50,63);
 
 	Rect BuyHPRect = new Rect(40, 430, 60, 60);
 	Rect BuyStrRect = new Rect(110, 430, 60, 60);
@@ -316,7 +316,7 @@ public class ShopCode : MonoBehaviour {
 	{
 		audio.clip = coinSound;
 		audio.Play ();
-		Player.GetComponent<GearHandler>().Backpack[0] = null;
+		Player.GetComponent<GearHandler>().Backpack[pos] = null;
 		Player.GetComponent<player>().SkillPoints++;
 		hasSold = true;
 		GetComponent<GuiTest>().bodyChange = true;

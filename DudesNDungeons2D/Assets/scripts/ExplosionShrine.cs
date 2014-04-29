@@ -47,7 +47,6 @@ public class ExplosionShrine : MonoBehaviour {
 			}
 		}
 		Instantiate (Explosion, new Vector3(transform.position.x ,transform.position.y, transform.position.z), Quaternion.identity);
-
 		GetComponent<SpriteRenderer>().sprite = None;
 		Destroy(gameObject, audio.clip.length);
 	}

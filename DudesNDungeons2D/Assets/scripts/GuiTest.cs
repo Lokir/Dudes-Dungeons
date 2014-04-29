@@ -6,7 +6,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect backpack = new Rect(10, 12.6f, 250, 230); // create the window box for the backpack.
 	Rect equippedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect healthPot = new Rect(10, 669.47f, 60, 88.42f);
-	Rect abilityArea = new Rect (573, 644.21f, 220, 113.68f);
+	Rect abilityArea = new Rect (573, 627.21f, 220, 180.68f);
 
 	public AudioClip backpackSound;
 	//Rects for buttons
@@ -18,9 +18,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	public Rect doBackpackBtn6 = new Rect(166, 151.57f, 75, 127.58f);
 
 	Rect potionRect = new Rect(10,25.26f,40,50.5f);
-	Rect abilityBtnRect1 = new Rect(10,6.32f, 60, 75.8f);
-	Rect abilityBtnRect2 = new Rect(80, 6.32f, 60,75.8f);
-	Rect abilityBtnRect3 = new Rect(150,6.32f, 60, 75.8f);
+	Rect abilityBtnRect1 = new Rect(10,34.32f, 60, 75.8f);
+	Rect abilityBtnRect2 = new Rect(80, 34.32f, 60,75.8f);
+	Rect abilityBtnRect3 = new Rect(150,34.32f, 60, 75.8f);
 
 	//Rects for text.
 	Rect stringHPRect = new Rect(583, 10, 200, 25.26f);
@@ -31,16 +31,20 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 	Rect stringDamRect = new Rect(583, 110, 200, 25.26f);
 	Rect lootTextRect = new Rect(650, 442.1f, 80, 25.26f);
 
+	Rect abilRect1 = new Rect(10, 6.3f, 60, 25.26f);
+	Rect abilRect2 = new Rect(80, 6.3f, 60, 25.26f);
+	Rect abilRect3 = new Rect(150, 6.3f, 60, 25.26f);
 
-	Rect abilityRect1 = new Rect(15,82.1f,50,25.3f);
-	Rect abilityRect2 = new Rect(85,82.1f,50,25.3f);
-	Rect abilityRect3 = new Rect(155,82.1f,50,25.3f);
+
+	Rect abilityRect1 = new Rect(15,112.1f,50,25.3f);
+	Rect abilityRect2 = new Rect(85,112.1f,50,25.3f);
+	Rect abilityRect3 = new Rect(155,112.1f,50,25.3f);
 
 
 
 	float skillRectx, skillRecty;
 	//shop GUI
-	Rect pBackpack = new Rect(10, 12.6f, 250, 290); // create the window box for the backpack.
+	Rect pBackpack = new Rect(10, 12.6f, 250, 230); // create the window box for the backpack.
 	Rect pressedGear = new Rect(1180, 12.6f, 177, 277.9f); // this is the box for the equipped box
 	Rect pressedBodyStats = new Rect (1180, 303, 177, 290);
 	Rect SkillRect = new Rect(341.5f,264.44f, 350, 500);
@@ -138,7 +142,9 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 		fitGUIToScreen(ref abilityRect1, true, true);
 		fitGUIToScreen(ref abilityRect2, true, true);
 		fitGUIToScreen(ref abilityRect3, true, true);
-
+		fitGUIToScreen(ref abilRect1, true, true);
+		fitGUIToScreen(ref abilRect2, true, true);
+		fitGUIToScreen(ref abilRect3, true, true);
 
 		button1 = defaultTex;
 		button2 = defaultTex;
@@ -317,14 +323,14 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 			if(GetComponent<ShopCode>().showDescription)
 			{
-				skillRectx = Screen.width/4f;
-				skillRecty = Screen.height/2.7f;
+				skillRectx = Screen.width/2f-(SkillRect.width);
+				skillRecty = Screen.height/2f-(SkillRect.height/2);
 				DescriptionRect = GUI.Window (8, DescriptionRect, GetComponent<ShopCode>().skillDescriptionload, GetComponent<ShopCode>().SkillDescription);
 			}
 			else
 			{
 				skillRectx = (Screen.width/2f)-(SkillRect.width/2);
-				skillRecty = (Screen.height/2f)-(SkillRect.width/2);
+				skillRecty = (Screen.height/2f)-(SkillRect.height/2);
 			}
 			//Render shop gui
 		}
@@ -413,9 +419,45 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 
 	}
 	void doAbility(int windowID)
-	{	abilLvl1 = GUI.TextField(abilityRect1,abilLvl1,20);
+	{	
+		abilLvl1 = GUI.TextField(abilityRect1,abilLvl1,20);
 		abilLvl2 = GUI.TextField(abilityRect2,abilLvl2,20);
 		abilLvl3 = GUI.TextField(abilityRect3,abilLvl3,20);
+
+		string abilBtn1 = " ";
+		string abilBtn2 = " ";
+		string abilBtn3 = " ";
+
+
+		if(PlayStat.GetComponent<player>().currBody.name == "Default")
+		{
+			abilBtn1 = "No Abil";
+			abilBtn2 = "No Abil";
+			abilBtn3 = "No Abil";
+		}
+		else if(PlayStat.GetComponent<player>().currBody.name == "Brute")
+		{
+			abilBtn1 = "RightMB";
+			abilBtn2 = " E ";
+			abilBtn3 = "Passive";
+		}
+		else if(PlayStat.GetComponent<player>().currBody.name == "Sneaky")
+		{
+			abilBtn1 = "RightMB";
+			abilBtn2 = " E ";
+			abilBtn3 = "Passive";
+		}
+		else if(PlayStat.GetComponent<player>().currBody.name == "Magus")
+		{
+			abilBtn1 = "RightMB";
+			abilBtn2 = " E ";
+			abilBtn3 = " F ";
+		}
+
+		abilBtn1 = GUI.TextField(abilRect1,abilBtn1,20);
+		abilBtn2 = GUI.TextField(abilRect2, abilBtn2,20);
+		abilBtn3 = GUI.TextField(abilRect3,abilBtn3,20);
+
 		if(GUI.Button (abilityBtnRect1,abilityTexture1))
 		{
 		}

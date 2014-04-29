@@ -41,7 +41,7 @@ public class AbilHandler : MonoBehaviour
 	public bool canShadowStab;
 	bool canPush;
 	bool canShield;
-	bool canThrowFlame;
+	public bool canThrowFlame;
 	bool canGroundSlam;
 	public bool canEandAS;
 	public int regenerateLevel, rageLevel, groundSlamLevel = 0;
@@ -373,8 +373,44 @@ public class AbilHandler : MonoBehaviour
 	}
 	public void flameThrower()
 	{
-		flame.GetComponent<FlameAnim>().throwFire = true;
 		canThrowFlame = false;
+		flame.GetComponent<FlameAnim>().throwFire = true;
+		if(enemyFound.Length > 0)
+		{
+			float distanceToEnemy = 1;
+			foreach(GameObject e in enemyFound)
+			{
+				if( e != null)
+				{
+					distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
+					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
+					{
+						if(flameThrowerLevel == 1)
+						{
+							e.GetComponent<Enemy>().eHp -= 20;
+							Debug.Log(e.GetComponent<Enemy>().eHp);
+						}
+						else if(flameThrowerLevel == 2)
+						{
+							e.GetComponent<Enemy>().eHp -= 30;
+						}
+						else if(flameThrowerLevel == 3)
+						{
+							e.GetComponent<Enemy>().eHp -= 35;
+						}
+						else if(flameThrowerLevel == 4)
+						{
+							e.GetComponent<Enemy>().eHp -= 40;
+						}
+						else if(flameThrowerLevel == 5)
+						{
+							e.GetComponent<Enemy>().eHp -= 50;
+						}
+						
+					}
+				}
+			}
+		}
 		StartCoroutine("flameThrowerAttack");
 	}
 
@@ -555,22 +591,19 @@ public class AbilHandler : MonoBehaviour
 			GetComponent<AnimHandler>().q = 0;
 			if(enemyFound.Length > 0)
 			{
-				float distanceToEnemy = 1;
 				List<GameObject> EnemiesList = new List<GameObject>();
+				float distanceToEnemy = 1;
 				foreach(GameObject e in enemyFound)
 				{
 					distanceToEnemy = Vector3.Distance (e.transform.position, transform.position);
 					if(distanceToEnemy >= 0.1f && distanceToEnemy <= 2.0f)
 					{
-						//Debug.Log ("Stun me please");
-						Debug.Log ("Enemy HP: "+ e.GetComponent<Enemy>().eHp);
 						EnemiesList.Add(e);
 						e.GetComponent<FollowPlayerAI>().isStunned = true;
 						int enemyHP = e.GetComponent<Enemy>().eHp;
 						if(groundSlamLevel == 1)
 						{
 							e.GetComponent<Enemy>().eHp -= 5;
-							Debug.Log ("Charge " + GetComponent<player>().pCharge);
 							if(enemyHP-15 > 0)
 								StartCoroutine("stunDuration", EnemiesList);
 						}
@@ -728,35 +761,5 @@ public class AbilHandler : MonoBehaviour
 		flame.GetComponent<FlameAnim>().throwFire = false;
 		StopCoroutine("flameThrowerAttack");
 	}
-
-	void OnTriggerEnter(Collider other)
-	{      
-		if(other.gameObject.name == "Enemy" && canThrowFlame == true)
-			// if another gameobject specified Enemy. Hits this object.
-		{
-				canThrowFlame = false;
-				if(flameThrowerLevel == 1)
-				{
-					other.GetComponent<Enemy>().eHp -= 20;
-					Debug.Log(other.GetComponent<Enemy>().eHp);
-				}
-				else if(flameThrowerLevel == 2)
-				{
-					other.GetComponent<Enemy>().eHp -= 30;
-				}
-				else if(flameThrowerLevel == 3)
-				{
-					other.GetComponent<Enemy>().eHp -= 35;
-				}
-				else if(flameThrowerLevel == 4)
-				{
-					other.GetComponent<Enemy>().eHp -= 40;
-				}
-				else if(flameThrowerLevel == 5)
-				{
-					other.GetComponent<Enemy>().eHp -= 50;
-				}
-				
-		}
-	}
+	
 }

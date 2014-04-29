@@ -14,5 +14,6 @@ public class CamScript : MonoBehaviour {
 		center += Player.transform.position; // update center with new position of player.
 		center.y = -3.16f; // center y so camera is stationary.
 		transform.position = Vector3.Lerp(transform.position, center, 0.2f); // make the camera lerp to give a smooth movement feeling.
+		//GetComponent<Camera>().orthographicSize += 0.1f;
 	}
 }
