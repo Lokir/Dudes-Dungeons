@@ -15,4 +15,4 @@ Today it is the 29th of April, it's 19:02, and we finally finished the game and 
 None the less we thank these anonymous contributors, we couldn't have done it without you.
 There is one exception though, background music is not ours to claim, we know not where it comes from and it is only! a stand-in due to project delivery at the 30'th.
 
-Feel free to reuse assets and code, we do however ask that you tell us and credit us to a bare minimum as:"Inspired by Lokir & tozsi."
+Feel free to reuse assets and code, we do however ask that you tell us and credit us to a bare minimum as:"Inspired by Lokir & Toszi."
