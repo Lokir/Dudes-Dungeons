@@ -19,7 +19,8 @@ public class HealingShrine : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Distance = Vector3.Distance(transform.position, player.transform.position);
-		if(Input.GetKeyDown(KeyCode.E) && Distance <= 2.0f && canHeal)
+		if(Input.GetKeyDown(KeyCode.E) && Distance <= 2.0f && canHeal)//The player gets full hp when activating this shrine, and the particles follow
+																	  //him in a short amount of time
 		{
 			canHeal = false;
 			HealingOnTent.GetComponent<ParticleRenderer>().enabled = false;

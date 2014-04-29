@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour {
 			loadEGear = false;
 		}
 	}
-	void enemyRandomizer()
+	void enemyRandomizer()//gives each enemy a random body - meaning it is random whether it becomes a brute, sneaky or magus
 	{
 		int randB, k = 0;
 		randB = Random.Range(0,100);
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour {
 		eCurrBody = gear.GetComponent<GearHandler>().Bodies[k];
 
 		int randStr, randDex, randInt;
-		
+
 		eHp = eCurrBody.gHp; // sHP is stat HP and gHP is Gear HP.
 		eInte = eCurrBody.gInte;
 		eDex = eCurrBody.gDex;
@@ -75,7 +75,8 @@ public class Enemy : MonoBehaviour {
 		eHp += ((int)(eStr*0.2))+1;
 		HPCap = eHp;
 		
-		if(eCurrBody.name != "Default")
+		if(eCurrBody.name != "Default")//makes random stats for the body, such that there is a varity in the bodies, even though they have the 
+									   //same apperence
 		{
 			randStr = Random.Range (-11, 11);
 			randDex = Random.Range (-11, 11);
@@ -85,8 +86,5 @@ public class Enemy : MonoBehaviour {
 			eStr += randStr;
 			eDex+= randDex;
 		}
-		Debug.Log (eCurrBody.name);
-		Debug.Log ("Int "+eInte+" Str "+eStr+" Dex "+eDex);
-		Debug.Log ("Before Int "+ eInte+" Str "+eStr+" Dex "+eDex+" "+ gear.GetComponent<GearHandler>().Bodies.Count + " " + k);
 	}
 }

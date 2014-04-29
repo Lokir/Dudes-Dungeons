@@ -37,6 +37,7 @@ public class player : MonoBehaviour
 	public bool loadGear = true; // if this is true then we load the gear.
 	void Update () 
 	{
+		//Make a raycast to see if there is anything in the 2D plane which has the tag Floor, if there is then the player can do a double jump
 		RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up, 0.3f);
 		Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), -Vector2.up, Color.blue);
 		if(hit != null)
@@ -54,12 +55,14 @@ public class player : MonoBehaviour
 			}
 		}
 
+		//If the players health drops to half hp, a heartbeat sound will begin to warn the player that he/she has lost a lot of health
 		if(pHp < HPCap/2 && !audio.isPlaying)
 		{
 			audio.clip = heartBeat;
 			audio.loop = true;
 			audio.Play ();
 		}
+		//When the health comes over 50% agian the sound will stop
 		if(pHp > HPCap/2 && audio.isPlaying && audio.clip == heartBeat)
 		{
 			audio.loop = false;
@@ -100,7 +103,7 @@ public class player : MonoBehaviour
 		{
 			canJump = false; 
 		}
-		if(Input.GetKeyDown(KeyCode.W) && canJump == true) 
+		if(Input.GetKeyDown(KeyCode.W) && canJump == true) //jump
 		{
 			rigidbody2D.AddForce(new Vector2 (0,180));
 			if(jump != 2)

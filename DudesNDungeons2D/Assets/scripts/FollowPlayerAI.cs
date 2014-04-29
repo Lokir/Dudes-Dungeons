@@ -100,24 +100,20 @@ public class FollowPlayerAI : MonoBehaviour
 		if(eHitChance > playerDodgeProcent)
 		{
 			missedPlayer = false;
-			//Debug.Log ("missedPlayer = " + missedPlayer + " eHitChance = " + eHitChance + " Damage dealt " + GetComponent<Enemy>().eDamage);
 		}
 		else if(eHitChance < playerDodgeProcent)
 		{
 			missedPlayer = true;
 			showMissedPlayer = true;
-			StartCoroutine("showMissPlayerText");
-			//Debug.Log ("missedPlayer = " + missedPlayer + " eHitChance = " + eHitChance);
+			StartCoroutine("showMissPlayerText");//Show that the enemy missed the player
 		}
 
 		if(eCanAttack == true && missedPlayer == false)
 		{
-			//Debug.Log ("Hitting player");
 			eCanAttack = false;
 			eAttackBool = true;
 			if(!fPlayer.GetComponent<player>().invulnerable)
 				fPlayer.GetComponent<player>().pHp -= GetComponent<Enemy>().eDamage;
-			//Debug.Log ("Damage = " + GetComponent<Enemy>().eDamage);
 			StartCoroutine("eAttackCooldown"); 
 		
 
@@ -179,7 +175,7 @@ public class FollowPlayerAI : MonoBehaviour
 
 		}
 	}
-	void walking()
+	void walking()//Enemy walking cycles - sprites
 	{
 		if(GetComponent<Enemy>().eCurrBody.name == "Default" && followingR == true)
 			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().defList[eq];
@@ -201,7 +197,7 @@ public class FollowPlayerAI : MonoBehaviour
 		if(GetComponent<Enemy>().eCurrBody.name == "Magus" && followingR == false)
 			GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageListR[eq];
 	}
-	void fighting()
+	void fighting()//Fighting cycles - sprites
 	{
 		if(eLeftAttackBool == true)
 		{
@@ -234,7 +230,7 @@ public class FollowPlayerAI : MonoBehaviour
 				GetComponent<SpriteRenderer>().sprite = fPlayer.GetComponent<AnimHandler>().mageAtkList[eq];
 		}
 	}
-	public void standardSprite()
+	public void standardSprite()//Takes the first sprite such that the enemy doesn't walk in the same spot as he is standing
 	{
 		eAttackBool = false;
 		if(GetComponent<Enemy>().eCurrBody.name == "Default")
