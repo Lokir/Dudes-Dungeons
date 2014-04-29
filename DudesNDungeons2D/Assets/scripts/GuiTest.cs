@@ -296,6 +296,7 @@ public class GuiTest : MonoBehaviour // This system handles the Interactive User
 			string loot = "Missed";
 			loot = GUI.TextField(lootTextRect, loot, 20);
 		}
+
 	if(inTutorial)
 		{
 		//Tutorial components to tell to press e to actiavte shrines or shop
